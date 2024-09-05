@@ -1,0 +1,150 @@
+/* General Styles */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f7f9fc;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-wrapper {
+    width: 400px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 0.3rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+.invalid-feedback {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+}
+
+.custom-control-label {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #007bff;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Links */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.float-left {
+    float: left;
+}
+
+/* Card Shadow Hover */
+.card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Styles */
+@media (max-width: 576px) {
+    .card-wrapper {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    .btn-primary {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+    }
+}
