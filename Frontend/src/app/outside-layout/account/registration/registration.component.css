@@ -97,12 +97,13 @@ input[type="password"]:focus {
 
 a {
     text-align: center;
-    display: block;
+    display: inline;
     color: #007bff;
     text-decoration: none;
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     transition: color 0.3s ease;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 a:hover {

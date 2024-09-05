@@ -49,11 +49,14 @@
           <button class="btn btn-primary" [disabled]="f.invalid || passwordConfirm.value !== password.value">Create
             Account</button>
         </form>
-  
         <div class="row">
-          <a routerLink="/login">Have An Account Login From Here</a>
-        </div>
-    
+          <div class="mt-4 text-center" style="display: flex; justify-content: center; align-items: center;">
+            <span>Have An Account? </span>
+            <span><a routerLink="../login"> Login </a></span>
+            <span> Here From</span>
+          </div>
+        </div>        
+        
         <br>
         <div class="alert alert-danger" *ngIf="errorMessage"> {{ errorMessage }} </div>
       </div>
