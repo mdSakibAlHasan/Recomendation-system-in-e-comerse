@@ -1,0 +1,137 @@
+<div
+	class="modal modal-alert fade d-block"
+	*ngIf="message?.type == 'alert' || message?.type == 'alert-terminated'"
+	style="opacity: 1 !important; transform: translate(0, 0); background-color: rgba(0, 0, 0, 0.4)">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Notification</h4>
+				<button (click)="message.noFn()" class="close" type="button"><span>×</span></button>
+			</div>
+			<div>
+				<div class="modal-body d-flex align-items-center">
+					<div class="mr-3">
+						<i class="pe-7s-check alert-icon icon-success-alert"></i>
+					</div>
+					<p [textContent]="message.text"></p>
+				</div>
+				<div class="d-flex justify-content-end py-4 px-3">
+					<button (click)="message.siFn()" class="btn btn-lg btn-success mr-3">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div
+	class="modal fade d-block"
+	*ngIf="message?.type == 'confirm'"
+	style="opacity: 1 !important; transform: translate(0, 0); background-color: rgba(0, 0, 0, 0.4)">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Confirm!</h4>
+				<!-- <button (click)="message.noFn()" class="close" type="button"><span>×</span></button> -->
+				<button type="button" class="close-btn border-0 py-1" aria-label="Close" (click)="message.noFn()">
+					<span>
+						<svg
+							stroke="currentColor"
+							fill="currentColor"
+							stroke-width="0"
+							viewBox="0 0 24 24"
+							height="1em"
+							width="1em"
+							xmlns="http://www.w3.org/2000/svg">
+							<path fill="none" d="M0 0h24v24H0z"></path>
+							<path
+								d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+						</svg>
+					</span>
+				</button>
+			</div>
+			<div>
+				<div *ngIf="message?.type == 'confirm'" class="modal-body d-flex align-items-center">
+					<div class="me-2">
+						<i aria-hidden="true" class="fa fa-fw alert-icon icon-warning-alert text-danger" title="warning"></i>
+					</div>
+					<p id="confirmTextParagraph" [textContent]="message.text" class="overflow-auto"></p>
+				</div>
+				<div class="d-flex justify-content-end py-4 px-3">
+					<!-- <button (click)="message.siFn()" class="btn btn-lg btn-success mr-3">Yes</button> -->
+					<!-- <button (click)="message.noFn()" class="btn btn-lg btn-danger">Cancel</button> -->
+					<button type="button" class="primary-btn d-flex align-items-center px-3" (click)="message.siFn()">
+						<p>Yes</p>
+					</button>
+					<button type="button" class="cancel-btn d-flex align-items-center px-3 ms-3" (click)="message.noFn()">
+						<p>No</p>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div
+	class="modal modal-alert fade d-block"
+	*ngIf="message?.type == 'confirmAlert'"
+	style="opacity: 1 !important; transform: translate(0, 0); background-color: rgba(0, 0, 0, 0.4)">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div
+				*ngIf="message?.type == 'confirmAlert'"
+				class="modal-body d-flex align-items-center justify-content-center text-center">
+				<div>
+					<i class="pe-7s-close-circle icon-errot-alert"></i>
+					<h3 [textContent]="message.text"></h3>
+					<button (click)="message.siFn()" class="btn btn-lg btn-success mr-3">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- toster -->
+<div class="toaster-wrapper">
+	<div *ngFor="let toster of tosterCollection">
+		<div class="toaster-box toaster-{{ toster.type }}" [@slideInOutAnimation]>
+			<div class="toaster-left">
+				<i class="fa fa-fw check" aria-hidden="true" title="check"></i>
+				<i class="fa fa-fw remove" aria-hidden="true" title="remove"></i>
+				<i class="fa fa-fw warning" aria-hidden="true" title="warning"></i>
+				<i class="fa fa-fw info" aria-hidden="true" title="info"></i>
+			</div>
+			<div class="toaster-content">
+				<p [textContent]="toster.text" class="pr-1"></p>
+				<i class="toast-remove fa fa-fw" aria-hidden="true" title="remove" (click)="fnRemoveToster(toster.id)"></i>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--Title toster -->
+<div class="title-toaster-wrapper">
+	<div *ngFor="let toster of titleTosterCollection">
+		<div class="toaster-box toaster-{{ toster.type }}" [@slideInOutAnimation]>
+			<div class="toaster-left">
+				<i class="fa fa-fw check" aria-hidden="true" title="check"></i>
+				<i class="fa fa-fw remove" aria-hidden="true" title="remove"></i>
+				<i class="fa fa-fw warning" aria-hidden="true" title="warning"></i>
+				<i class="fa fa-fw info" aria-hidden="true" title="info"></i>
+			</div>
+			<div class="toaster-content">
+				<p [textContent]="toster.text"></p>
+				<i class="toast-remove fa fa-fw" aria-hidden="true" title="remove" (click)="fnRemoveTitleToster(toster.id)"></i>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="loading" *ngIf="loading">
+	<div class="spinner">
+		<div class="bounce1"></div>
+		<div class="bounce2"></div>
+		<div class="bounce3"></div>
+	</div>
+</div>

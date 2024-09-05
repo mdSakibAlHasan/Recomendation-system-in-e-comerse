@@ -1,0 +1,159 @@
+.modal-alert .modal-dialog{
+    box-shadow: unset;
+    border-radius: unset;
+}
+.modal-alert .modal-header{
+    background: #2bbbad;
+    color: #fff;
+    padding: 0.5rem 1rem;
+}
+.modal-alert .close{
+    color: #fff;
+}
+.modal-alert .modal-content{
+    width: 500px;
+    border: none;
+}
+.modal-alert .alert-icon{
+    font-size: 35px;
+    font-weight: bold;
+    color: #00b894;
+}
+.modal-alert .icon-success-alert{
+    color: #00b894;
+}
+.modal-alert .icon-warning-alert{
+    color: #da9297;
+}
+
+.modal-alert .icon-errot-alert{
+    font-size: 35px;
+    font-weight: bold;
+    color: #f27474;
+}
+.modal-alert p{
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+}
+.modal-alert .btn-danger,
+.modal-alert .btn-warning{
+    color: #ffffff;
+}
+
+.loading {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+.loading .spinner {
+    z-index: 99999;
+}
+/* toaster css */
+.toaster-wrapper{
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 2000;
+  }
+  .toaster-wrapper .toaster-box{
+    position: relative;
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.176) 0px 3px 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 350px;
+    transition: transform 220ms cubic-bezier(0.2, 0, 0, 1) 0s, opacity 220ms ease 0s;
+    transform: translate3d(0px, 0px, 0px);
+    margin-bottom: 10px;
+  }
+  .toaster-box .toaster-left{
+    width: 30px;
+    color: #fff;
+    padding: 15px 5px;
+  }
+  .toaster-box .toaster-left i{
+    display: none;
+  }
+  .toaster-box.toaster-success .toaster-left{
+    background:#36b37e;
+  }
+  .toaster-box.toaster-success .toaster-left i.check{
+    display: block;
+  }
+  .toaster-box.toaster-danger .toaster-left{
+    background:#ff5630;
+  }
+  .toaster-box.toaster-danger .toaster-left i.remove{
+    display: block;
+  }
+  .toaster-box.toaster-warning .toaster-left{
+    background:#ffab00;
+  }
+  .toaster-box.toaster-warning .toaster-left i.warning{
+    display: block;
+  }
+  .toaster-box.toaster-info .toaster-left{
+    background:#2684ff;
+  }
+  .toaster-box.toaster-info .toaster-left i.info{
+    display: block;
+  }
+
+  .toaster-wrapper .toaster-box .toaster-content{
+    padding: 15px 40px 15px 15px;
+    flex: 0 0 100%;
+  }
+
+  .toaster-box.toaster-success .toaster-content{
+    background: #e3fcef;
+    color: #006644;
+  }
+  .toaster-box.toaster-danger .toaster-content{
+    background: #ffebe6;
+    color: #ff5630;
+  }
+  .toaster-box.toaster-warning .toaster-content{
+    background: #fffae6;
+    color: #ffab00;
+  }
+  .toaster-box.toaster-info .toaster-content{
+    background: #ffffff;
+    color: #2684ff;
+  }
+  .toaster-box .toast-remove{
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    cursor: pointer;
+  }
+  .title-toaster-wrapper{
+    position: fixed;
+    z-index: 9;
+    width: calc(100% - 305px);
+    right: 15px;
+    left: 290px;
+
+  }
+  .title-toaster-wrapper .toaster-box{
+    position: relative;
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.176) 0px 3px 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 220ms cubic-bezier(0.2, 0, 0, 1) 0s, opacity 220ms ease 0s;
+    transform: translate3d(0px, 0px, 0px);
+    margin-bottom: 10px;
+  }
+
+  .title-toaster-wrapper .toaster-box .toaster-content{
+    padding: 10px 40px 10px 15px;
+    flex: 0 0 100%;
+  }
+  #confirmTextParagraph{
+    max-height: 50vh;
+  }
