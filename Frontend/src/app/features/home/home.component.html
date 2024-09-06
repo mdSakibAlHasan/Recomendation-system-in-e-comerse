@@ -1,0 +1,56 @@
+<div>
+    <h1 class="bottom-left" style="font-size:50px">GALIERIA Shopping</h1>
+  
+    <div *ngIf="products.length > 0; then thenBlock else elseBlock"></div>
+  
+    <ng-template #thenBlock>
+      <!-- Search Input -->
+      <div class="search-product">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" placeholder="Start searching for products by name or prices..." [(ngModel)]="searchText">
+        </span>
+      </div>
+  
+      <!-- Product Cards -->
+      <div class="p-grid p-dir-col mt-5 mb-5">
+        <div class="p-col-12">
+          <div class="p-grid">
+            <div *ngFor="let product of products " class="p-col-12 p-md-4 mt-3"> <!--| filter:searchText | paginate: { itemsPerPage: count, currentPage: p }-->
+              <p-card class="p-mb-2" styleClass="p-shadow-3">
+                <ng-template pTemplate="header">
+                  <img src="{{product.base_view}}" alt="Product Image" style="max-height: 200px;" class="p-d-block p-mx-auto">
+                </ng-template>
+                <ng-template pTemplate="title">
+                  {{ product.name }}
+                </ng-template>
+                <ng-template pTemplate="content">
+                  <p>{{ product.price }} EGP</p>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                  <button pButton type="button" label="Go to Product" icon="pi pi-info" (click)="goToProduct(product.id)" class="p-button-primary"></button>
+                </ng-template>
+              </p-card>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Paginator -->
+        <div class="card flex justify-content-center">
+            <p-paginator 
+                (onPageChange)="onPageChange($event)" 
+                [first]="first" 
+                [rows]="rows" 
+                [totalRecords]="totalRecord" 
+                [rowsPerPageOptions]="[5, 10, 20]" />
+        </div>
+    </ng-template>
+  
+    <ng-template #elseBlock>
+      <div class="p-d-flex p-jc-center">
+        <img src="assets/img/NoProduct.png" alt="No Products Available" style="width: 1200px; max-height: 400px;">
+      </div>
+    </ng-template>
+  </div>
+  
