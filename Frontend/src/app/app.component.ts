@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertComponent } from './shared/alert/alert.component';
+import { NavbarComponent } from './shared/component/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, NgbModule, AlertComponent],
+  imports: [RouterOutlet, CommonModule, NgbModule, AlertComponent, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
