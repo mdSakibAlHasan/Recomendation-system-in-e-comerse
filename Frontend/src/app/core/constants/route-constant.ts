@@ -3,4 +3,5 @@ export const RouteConstant = {
     Registration: 'register',
     ForgotPassword: 'forgotPassword',
     Account: 'account',
+    Home: 'home'
 }
