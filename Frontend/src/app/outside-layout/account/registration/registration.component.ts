@@ -27,20 +27,14 @@ export class RegistrationComponent {
 
   signup(form: { value: any; }) {
     let data: Registration = form.value
-    console.log(data.username + ' ' + data.email + ' ' + data.password);
 
-    this.accountService.signup(data.username, data.email, data.password).subscribe(
-      response => {
-        alert('Welcome, ' + data.username);
+    this.accountService.signup(data.username, data.email, data.password).subscribe({
+      next: res => {
         this.router.navigate(['login']);
       },
-      err => {
+      error: err => {
         this.alertService.tosterDanger('Something Went wrong');
-        let errStr = "";
-        console.log('oppppppppppp', err.error);
-        
-        errStr = (err.error.username) ? err.error.username : err.error.email;  
-        // alert('Error: ' + errStr);
-      })
+      }
+    })
   }
 }
