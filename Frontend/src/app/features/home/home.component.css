@@ -1,20 +1,153 @@
+/* Container for overall page styling */
 .container {
-    position: relative;
-    text-align: center;
-    color: brown;
-  }
-  /* Bottom left text */
-.bottom-left {
-    /* position: absolute; */
-    color: crimson;
-    bottom: 450px;
-    left: 150px;
-    font-size: 40px;
-    font-style: oblique;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-.img-size{
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 1200px; /* Ensures container doesn't stretch too wide */
+}
 
-  height: 200px;
-  width: 100%;  
+/* Grid layout for rows */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adds space between columns */
+  justify-content: space-between; /* Spread cards evenly */
+}
+
+/* Columns take up 4 of 12 grid spaces (bootstrap style) */
+.col-4 {
+  flex: 1 1 calc(33.33% - 20px); /* 33% width per card with margin gap */
+  box-sizing: border-box;
+}
+
+/* Product Card Styles */
+.product-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 100%; /* Ensures all cards have the same height */
+  justify-content: space-between; /* Distributes content evenly */
+}
+
+/* Hover effect on the product card */
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Fixed Image Size with Object Fit */
+.p-img {
+  width: 100%;
+  height: 200px; /* Fixes the image height */
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.p-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image maintains aspect ratio and covers the container */
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.p-img:hover img {
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Product name */
+.product-card h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Truncate long descriptions */
+.product-card p {
+  color: #777;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.product-card .description {
+  max-height: 47px; /* Limits the height of the description */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limits to 3 lines */
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  line-clamp: 3; /* Add the standard line-clamp property */
+}
+
+
+/* Price text */
+.price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #28a745;
+  margin-bottom: 15px;
+}
+
+/* Stock text styles */
+.product-card .stock {
+  color: #28a745;
+  margin-bottom: 15px;
+}
+
+.product-card .stock-out {
+  color: #dc3545;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Button group styling */
+.button-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.p-button-success,
+.p-button-secondary {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.p-button-success:hover {
+  background-color: #218838;
+}
+
+.p-button-secondary {
+  background-color: #6c757d;
+}
+
+.p-button-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Responsive design for mobile screens */
+@media (max-width: 768px) {
+  .col-4 {
+      flex: 1 1 calc(50% - 20px); /* 2 columns on tablets */
+  }
+}
+
+@media (max-width: 576px) {
+  .col-4 {
+      flex: 1 1 100%; /* Full width on mobile */
+  }
 }

@@ -4,15 +4,14 @@ import { Product } from './home.model';
 import { AlertService } from '../../shared/alert/alert.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { PaginatorModule } from 'primeng/paginator';
-import { CardModule } from 'primeng/card';
 import { FormsModule } from '@angular/forms';
 import { PaginatorState } from 'primeng/paginator';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, PaginatorModule, CardModule, FormsModule],
+  imports: [CommonModule, FormsModule, ButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
