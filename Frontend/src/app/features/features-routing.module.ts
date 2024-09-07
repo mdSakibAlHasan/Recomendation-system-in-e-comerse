@@ -5,7 +5,11 @@ import { RouteConstant } from '../core/constants/route-constant';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  {path: RouteConstant.Home, component: HomeComponent}
+  {path: RouteConstant.Home, component: HomeComponent},
+  {
+    path: RouteConstant.Product, 
+    loadChildren: ()=> import('./product/product.module').then(m => m.ProductModule),
+  }
 ];
 
 @NgModule({

@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="product-card">
+        <!-- Product Image -->
+        <img [src]="product.imageUrl" alt="Product Image" class="product-img">
+        
+        <!-- Product Information -->
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.description }}</p>
+            <p class="price">\${{ product.price }}</p>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button pButton 
+                    label="{{ isInCart ? 'View Cart' : 'Add to Cart' }}" 
+                    icon="{{ isInCart ? 'pi pi-shopping-cart' : 'pi pi-plus' }}" 
+                    class="p-button-success"
+                    (click)="toggleCart()"></button>
+
+            <button pButton 
+                    label="Add Review" 
+                    icon="pi pi-pencil" 
+                    class="p-button-secondary"
+                    (click)="toggleReviewForm()"></button>
+        </div>
+
+        <!-- Review Form -->
+        <div *ngIf="showReviewForm" class="review-form">
+            <textarea [(ngModel)]="reviewText" rows="5" placeholder="Write your review here..."></textarea>
+            <button pButton 
+                    label="Submit Review" 
+                    icon="pi pi-check" 
+                    class="p-button-primary" 
+                    (click)="submitReview()"></button>
+        </div>
+    </div>
+</div>
