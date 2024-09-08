@@ -1,4 +1,12 @@
 <div class="container">
+    <!-- Back Button -->
+    <div class="back-button">
+        <button pButton 
+                label="Back" 
+                icon="pi pi-arrow-left" 
+                class="p-button-secondary" 
+                (click)="goBack()"></button>
+    </div>
     @if(product){
         <div class="product-card">
             <!-- Product Image -->

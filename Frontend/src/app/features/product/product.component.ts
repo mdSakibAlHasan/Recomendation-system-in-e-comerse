@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -29,7 +29,8 @@ export class ProductComponent {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -61,6 +62,10 @@ export class ProductComponent {
     } else {
       alert('Please write a review before submitting.');
     }
+  }
+
+  goBack() {
+    this.location.back(); // This will navigate back to the previous page
   }
 
   ngOnDestroy(): void {

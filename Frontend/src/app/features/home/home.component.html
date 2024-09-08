@@ -3,7 +3,7 @@
     <div class="row">
       @for(product of products; track product){
         <div class="col-4">
-          <div class="product-card">
+          <div class="product-card" [routerLink]="['/product', product.id]" style="cursor: pointer;">
             <div class="p-img"><img src="{{product.base_view}}"  alt="Product Image"></div>
             <h2> {{product.name}}</h2>
             <p class="description">{{product.description}} </p>
@@ -15,10 +15,10 @@
               <p class="stock-out">Out of stock</p>
             }
               
-            <div class="button-group">
+            <!-- <div class="button-group">
                 <button pButton type="button" label="Add to cart" icon="pi pi-shopping-cart" class="p-button-success"></button>
                 <button pButton type="button" label="Details" icon="pi pi-receipt" class="p-button-secondary"></button>
-            </div>
+            </div> -->
           </div>
         </div>
       } 
