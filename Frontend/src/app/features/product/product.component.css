@@ -68,3 +68,38 @@
     margin-bottom: 10px;
     resize: vertical;
 }
+
+
+.review-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 80%;
+    margin: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.rating i {
+    font-size: 20px;
+}
+
+.review-body {
+    margin-top: 8px;
+}
+
+.review-text {
+    font-size: 14px;
+    color: #555;
+}

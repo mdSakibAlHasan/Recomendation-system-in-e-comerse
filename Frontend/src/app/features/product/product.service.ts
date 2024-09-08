@@ -13,8 +13,8 @@ export class ProductService extends BaseApiService{
     super();
   }
 
-  getProductById(id: string):Observable<Product>{
-    return this.http.get<Product>(`${this.baseurl}/product/id/${id}`);
+  getProductById(id: string):Observable<Product[]>{
+    return this.http.get<Product[]>(`${this.baseurl}/product/id/${id}`);
   }
 
   getPicturesByProductId(id: string):Observable<any>{

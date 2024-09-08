@@ -3,37 +3,50 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { ProductService } from './product.service';
+import { AlertService } from '../../shared/alert/alert.service';
+import { Product } from '../home/home.model';
+import { RatingModule } from 'primeng/rating';
+import { combineLatest, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [FormsModule, ButtonModule, CommonModule],
+  imports: [FormsModule, ButtonModule, CommonModule, RatingModule],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
 export class ProductComponent {
   productId: string = '';
-  product = {
-    name: 'Sample Product',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 299.99,
-    imageUrl: 'https://via.placeholder.com/400x400'
-  };
   isInCart = false;
   showReviewForm = false;
-  reviewText = '';
+  reviewText: string = '';
+  reviewRating: number = 0;
+  product: Product | undefined;
+  productComment: any[] = [];
+  private subscription$: Subscription | undefined;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
     this.productId = this.route.snapshot.paramMap.get('id')?? '0';
-    console.log('Product ID:', this.productId);
+    let productComment$ = this.productService.getCommentsByProductId(this.productId);
+    let products$ = this.productService.getProductById(this.productId);
+    this.subscription$ = combineLatest([productComment$, products$]).subscribe(([productComment, products]) =>{
+      this.product = products[0];
+      this.productComment = productComment;
+    })
   }
 
   toggleCart() {
     this.isInCart = !this.isInCart;
+    if(this.isInCart){
+      this.alertService.tosterSuccess('Product added in cart successfully');
+    }
   }
 
   toggleReviewForm() {
@@ -49,5 +62,9 @@ export class ProductComponent {
       alert('Please write a review before submitting.');
     }
   }
+
+  ngOnDestroy(): void {
+		if (this.subscription$) this.subscription$.unsubscribe();
+	}
 
 }
