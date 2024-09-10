@@ -39,3 +39,4 @@ class ProductComment(models.Model):
     UID = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("User ID"))
     comment = models.TextField(verbose_name=("Product Comment"))
     review = models.DecimalField(decimal_places=1,max_digits=2, verbose_name=("Product Stars Review"))
+    create_time = models.DateTimeField(auto_now=True)
