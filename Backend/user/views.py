@@ -1,10 +1,11 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+from user.serializer import RegisterSerializer
 
-@api_view()
-def registration(request, id):
-    print(request)
-    return HttpResponse(id)
+class Registrtion(APIView):
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)    
