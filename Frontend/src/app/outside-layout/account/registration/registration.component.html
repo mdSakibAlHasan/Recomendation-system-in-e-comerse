@@ -6,10 +6,9 @@
   
           <!----------------------------- username input ------------------------->
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username">Name</label>
             <input ngModel name="username" #name="ngModel" type="text" class="form-control" id="username"
               aria-describedby="emailHelp" placeholder="Enter your Username" required>
-            <small id="nameHelp" class="form-text text-muted">make sure to have a unique user Name.</small>
             <div class="alert alert-danger" *ngIf="name.invalid && name.touched">Name is required</div>
           </div>
   

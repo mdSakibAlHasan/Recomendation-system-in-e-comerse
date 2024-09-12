@@ -17,9 +17,9 @@ export class AccountService extends BaseApiService{
     return this.http.post(this.baseurl+`/user/register/`, {username, email, password });
   }
 
-  login(username: string, password: string) {
-    return this.http.post<any>(this.baseurl+`/user/login/`, { username, password })
-}
+  login(email: string, password: string) {
+    return this.http.post<any>(this.baseurl+`/user/login/`, { email, password })
+  }
 
   // logout() {
   //     localStorage.removeItem('currentUser');

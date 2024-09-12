@@ -28,26 +28,17 @@ export class LoginComponent {
     let data = form.value
     this.accountService.login(data.username, data.password).subscribe({
       next: response => {
-        if (response.hasOwnProperty('user')) {
-          // console.log('response', response);
-          // alert('Welcome, ' + data.username);
-          // this.router.navigate(['account/register'])
-          let currentUser: User = response.user;
-
-          localStorage.setItem('currentUser', JSON.stringify(currentUser));
-          this.sharedService.currentUserSubject.next(currentUser);
-
-          // console.log(currentUser);
-
-          // alert('Welcome, ' + data.username);
-          this.router.navigate(['account/register'])
+        console.log(response)
+        if (response.hasOwnProperty('token')) {
+          localStorage.setItem('currentUser', JSON.stringify(response.token));
+          this.router.navigate(['product'])
         } else {
-          this.alertService.tosterDanger('Wrong password')
+          this.alertService.tosterDanger(response.message)
         }
       },
       error: err => {
         console.log(err)
-        this.alertService.tosterDanger(err.error.detail)
+        this.alertService.tosterDanger('Something went wrong')
       }
     })
   }
