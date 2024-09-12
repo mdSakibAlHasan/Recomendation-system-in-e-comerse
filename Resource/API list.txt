@@ -4,4 +4,9 @@ http://localhost:8000/user/registration/
     "email": "sakibiitdu@gmail.com",
     "password": "123"
 }
-
+http://localhost:8000/user/login/
+	post: {"email": "sakibiitdu@gmail.com", "password":"123"} get cookies
+	get: get username and type
+http://localhost:8000/brand
+http://localhost:8000/category
+http://localhost:8000/product
