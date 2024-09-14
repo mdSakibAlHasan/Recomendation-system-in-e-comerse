@@ -14,7 +14,7 @@ export class ProductService extends BaseApiService{
   }
 
   getProductById(id: string):Observable<Product[]>{
-    return this.http.get<Product[]>(`${this.baseurl}/product/id/${id}`);
+    return this.http.get<Product[]>(`${this.baseurl}/product/${id}/`);
   }
 
   getPicturesByProductId(id: string):Observable<any>{
@@ -22,6 +22,6 @@ export class ProductService extends BaseApiService{
   }
 
   getCommentsByProductId(id: string):Observable<any>{
-    return this.http.get<any>(`${this.baseurl}/product/${id}/comments`);
+    return this.http.get<any>(`${this.baseurl}/${id}/comments/`);
   }
 }

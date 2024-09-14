@@ -1,8 +1,8 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Category, Brand, Product
-from .serializer import CategorySerilizer, BrandSerilizer, ProductSerializer
+from .models import Category, Brand, Product, ProductComment
+from .serializer import CategorySerilizer, BrandSerilizer, CommentSerializer, ProductSerializer
 from Backend.utils import getUserType
 
 class CategoryApi(ListAPIView):
@@ -12,6 +12,18 @@ class CategoryApi(ListAPIView):
 class BrandApi(ListAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerilizer
+
+class GetProductById(ListAPIView):
+    serializer_class = ProductSerializer
+    def get_queryset(self):
+        id = self.kwargs['id']
+        return Product.objects.filter(id = id)
+
+class GetCommentsByProductId(ListAPIView):
+    serializer_class = CommentSerializer
+    def get_queryset(self):
+        product_id = self.kwargs['product_id']
+        return ProductComment.objects.filter(PID=product_id)
 
 class ProductApi(ListAPIView):
     def get(self, request, *args, **kwargs):
