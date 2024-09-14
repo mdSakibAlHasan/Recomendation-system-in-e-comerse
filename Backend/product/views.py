@@ -15,7 +15,6 @@ class BrandApi(ListAPIView):
 
 class ProductApi(ListAPIView):
     def get(self, request, *args, **kwargs):
-        print(request.headers)
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
