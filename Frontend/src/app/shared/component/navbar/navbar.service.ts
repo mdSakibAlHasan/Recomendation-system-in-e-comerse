@@ -19,4 +19,8 @@ export class NavbarService extends BaseApiService{
   getCartItem():Observable<any>{
     return this.http.get<any>(`${this.baseurl}/cart`);
   }
+
+  getUserDetails():Observable<any>{
+    return this.http.get<any>(`${this.baseurl}/user/details`);
+  }
 }

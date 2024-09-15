@@ -27,7 +27,13 @@
       [badge]="cartItemsCount.toString()" 
       badgeClass="p-badge-info">
     </p-button>
-    <p-button label="Primary" [text]="true" label="Login" icon="pi pi-sign-in" routerLink="account/login"></p-button>
-    <p-button label="Primary" [text]="true" label="Signup" icon="pi pi-user-plus" routerLink="account/register"></p-button>
+    <div *ngIf="!isLogin">
+      <p-button label="Login" [text]="true" icon="pi pi-sign-in" routerLink="account/login"></p-button>
+      <p-button label="Signup" [text]="true" icon="pi pi-user-plus" routerLink="account/register"></p-button>
+    </div>
+    <div *ngIf="isLogin">
+      <p-button label="{{userDetails.username}}" [text]="true" label="{{userDetails.username}}" icon="pi pi-user"></p-button>
+      <p-button label="Logout" [text]="true" icon="pi pi-sign-out" (click)="logout()"></p-button>
+    </div>
   </div>
 </p-toolbar>

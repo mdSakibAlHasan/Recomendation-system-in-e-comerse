@@ -5,8 +5,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
-import {  RouterModule } from '@angular/router';
+import {  Router, RouterModule } from '@angular/router';
 import { NavbarService } from './navbar.service';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -27,23 +28,42 @@ export class NavbarComponent implements OnInit{
     { label: 'Home Appliances', value: 'home-appliances' },
   ];
   cartItemsCount: number = 0;
+  userDetails: any;
+  isLogin: boolean = false;
 
   constructor(
-    private navbarService: NavbarService
+    private navbarService: NavbarService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.navbarService.getUserDetails().subscribe({
+      next: res=>{
+        this.userDetails = res;
+        this.isLogin = true;
+      },
+      error: err=>{
+        console.log('User is not login')
+      }
+    })
     this.navbarService.getCartNumber().subscribe({
       next: res =>{
         this.cartItemsCount = res.cart_count;
       },
-      error: err =>{
-        console.log("User are not login")
+      error: err=>{
+
       }
     })
   }
 
   search(){
 
+  }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+    this.isLogin = false;
+    this.userDetails = {}; 
+    this.router.navigate(['home'])
   }
 }

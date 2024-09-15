@@ -2,8 +2,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from user.models import User
-from user.serializer import RegisterSerializer
-from Backend.utils import generate_jwt_token, decode_jwt_token
+from user.serializer import RegisterSerializer, UserDetailsSerializer
+from Backend.utils import generate_jwt_token, decode_jwt_token, getUserId
 
 class Registrtion(APIView):
     def post(self, request):
@@ -12,6 +12,17 @@ class Registrtion(APIView):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)    
 
+
+class GetUserDetails(APIView):
+    def get(self, request):
+        user_id = getUserId(request)
+        if user_id == None:
+            return Response({}, status=status.HTTP_403_FORBIDDEN)
+        else:
+            user = User.objects.filter(id=user_id)
+            serializer = UserDetailsSerializer(user, many=True)
+            return Response(serializer.data)
+        
 
 class LoginView(APIView):
     def post(self, request):

@@ -5,3 +5,8 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = []
+
+class UserDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ['password']
