@@ -66,6 +66,7 @@ export class CartComponent {
 
   // Navigate to summary page
   goToSummary() {
+    this.cartService.selectedItems = this.selectedItems;
     this.router.navigate(['/summary'], { state: { selectedItems: this.selectedItems, totalPrice: this.totalPrice } });
   }
 }

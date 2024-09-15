@@ -7,13 +7,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CartService extends BaseApiService{
-
+  selectedItems: any[] = [];
   constructor(private http: HttpClient) {
     super();
   }
 
   getCartItem():Observable<any>{
     return this.http.get<any>(`${this.baseurl}/cart`);
+  }
+
+  getSelectedItems(){
+    return this.selectedItems;
   }
 
 }
