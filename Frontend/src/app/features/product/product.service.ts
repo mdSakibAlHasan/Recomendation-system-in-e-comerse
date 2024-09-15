@@ -28,4 +28,8 @@ export class ProductService extends BaseApiService{
   createComment(data: any, product_id: number):Observable<any>{
     return this.http.post<any>(`${this.baseurl}/${product_id}/comments/`,data)
   }
+
+  addToCart(data:any):Observable<any>{
+    return this.http.post<any>(`${this.baseurl}/cart/`,data);
+  }
 }

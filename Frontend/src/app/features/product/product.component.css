@@ -95,7 +95,7 @@
     font-size: 12px;  /* Smaller font size for time */
     color: #999;      /* Lighter color for time */
     margin-left: 5px; /* Add some space between username and time */
-    margin-right: 70%;
+    margin-right: 50%;
 }
 
 .rating i {

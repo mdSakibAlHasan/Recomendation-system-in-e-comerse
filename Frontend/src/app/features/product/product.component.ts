@@ -44,10 +44,19 @@ export class ProductComponent {
   }
 
   toggleCart() {
-    this.isInCart = !this.isInCart;
-    if(this.isInCart){
-      this.alertService.tosterSuccess('Product added in cart successfully');
+    const data ={
+      "PID": this.productId
     }
+    this.productService.addToCart(data).subscribe({
+      next: res=>{
+        this.isInCart = !this.isInCart;
+        this.alertService.tosterSuccess('Product added in cart successfully');
+      },
+      error: err=>{
+        this.alertService.tosterDanger('Something went wrong');
+      }
+    })
+    
   }
 
   toggleReviewForm() {
