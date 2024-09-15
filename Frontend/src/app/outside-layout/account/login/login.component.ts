@@ -28,10 +28,9 @@ export class LoginComponent {
     let data = form.value
     this.accountService.login(data.username, data.password).subscribe({
       next: response => {
-        console.log(response)
         if (response.hasOwnProperty('token')) {
-          localStorage.setItem('currentUser', JSON.stringify(response.token));
-          this.router.navigate(['product'])
+          localStorage.setItem('currentUser', response.token);
+          this.router.navigate(['cart'])
         } else {
           this.alertService.tosterDanger(response.message)
         }

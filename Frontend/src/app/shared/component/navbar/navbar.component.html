@@ -18,7 +18,15 @@
       <i class="pi pi-spin pi-spinner"></i>
       <input type="text" pInputText [(ngModel)]="value2" >        
   </span>  -->
-  
+    <p-button 
+      label="Primary" 
+      [text]="true"
+      label="Cart" 
+      icon="pi pi-shopping-cart" 
+      routerLink="cart"
+      [badge]="cartItemsCount.toString()" 
+      badgeClass="p-badge-info">
+    </p-button>
     <p-button label="Primary" [text]="true" label="Login" icon="pi pi-sign-in" routerLink="account/login"></p-button>
     <p-button label="Primary" [text]="true" label="Signup" icon="pi pi-user-plus" routerLink="account/register"></p-button>
   </div>

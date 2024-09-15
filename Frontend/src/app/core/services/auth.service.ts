@@ -12,7 +12,6 @@ export class AuthService {
   }
 
   getToken() {
-    // Check if the platform is the browser
     if (isPlatformBrowser(this.platformId)) {
       let token = localStorage.getItem('currentUser');
       return token;
