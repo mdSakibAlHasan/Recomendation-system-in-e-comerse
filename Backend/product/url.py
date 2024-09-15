@@ -7,5 +7,5 @@ urlpatterns = [
     path('brand',BrandApi.as_view()),
     path('product/',ProductApi.as_view(), name='product-api'),
     path('product/<int:id>/',GetProductById.as_view()),
-     path('<int:product_id>/comments/',GetCommentsByProductId.as_view()),
+    path('<int:product_id>/comments/',GetCommentsByProductId.as_view()),
 ]

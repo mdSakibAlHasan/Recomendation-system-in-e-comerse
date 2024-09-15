@@ -20,7 +20,6 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model=ProductComment
         exclude = []
-        depth = 1
-    def create(self, validated_data):
-        print (validated_data)
-        return ProductComment.objects.create(**validated_data)
+    # def create(self, validated_data):
+    #     print (self,validated_data)
+    #     return ProductComment.objects.create(**validated_data)

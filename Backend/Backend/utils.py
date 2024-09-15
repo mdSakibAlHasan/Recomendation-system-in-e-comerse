@@ -24,21 +24,17 @@ def decode_jwt_token(token):
     except jwt.InvalidTokenError:
         return None  # Token is invalid
 
-def getUserType(auth_header):
-    if not auth_header:
-        return 'W'
+def getUserId(request):
+    auth_header = request.headers.get('Authorization')
+    if auth_header and auth_header.startswith('Bearer '):
+        token = auth_header.split(' ')[1]
+        try:
+            user_id  = decode_jwt_token(token)
+            return user_id
 
-    if auth_header.startswith('Bearer '):
-        token = auth_header.split(' ')[1]  
-    else:
-        return 'W'
+        except jwt.ExpiredSignatureError:
+            return None
+        except jwt.InvalidTokenError:
+            return None
 
-    user_id = decode_jwt_token(token)
-    if user_id is None:
-        return 'W'
-    try:
-        user = User.objects.get(id=user_id)
-        return user.userType
-           
-    except User.DoesNotExist:
-        return 'W'
+    return None
