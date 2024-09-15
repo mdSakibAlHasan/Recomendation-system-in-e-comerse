@@ -8,6 +8,7 @@ import { AlertService } from '../../shared/alert/alert.service';
 import { Product } from '../home/home.model';
 import { RatingModule } from 'primeng/rating';
 import { combineLatest, Subscription } from 'rxjs';
+import { AuthGuard } from '../../core/guards/auth.guard';
 
 @Component({
   selector: 'app-product',
@@ -30,7 +31,8 @@ export class ProductComponent {
     private route: ActivatedRoute,
     private productService: ProductService,
     private alertService: AlertService,
-    private location: Location
+    private location: Location,
+    private authGuard: AuthGuard
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +46,8 @@ export class ProductComponent {
   }
 
   toggleCart() {
+    if(!this.authGuard.isLogedIn())
+        return;
     const data ={
       "PID": this.productId
     }
@@ -60,7 +64,8 @@ export class ProductComponent {
   }
 
   toggleReviewForm() {
-    this.showReviewForm = !this.showReviewForm;
+    if(this.authGuard.isLogedIn())
+      this.showReviewForm = !this.showReviewForm;
   }
 
   submitReview() {
