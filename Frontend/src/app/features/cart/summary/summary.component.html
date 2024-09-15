@@ -1,0 +1,27 @@
+<div class="summary-container">
+    <h2>Order Summary</h2>
+  
+    <div class="summary-list">
+      <div class="summary-item" *ngFor="let item of selectedItems">
+        <div class="item-details">
+          <img [src]="item.PID.base_view" alt="{{ item.PID.name }}" class="item-image" />
+          <div class="item-info">
+            <h4>{{ item.PID.name }}</h4>
+            <p>{{ item.PID.model }}</p>
+            <p>Price: {{ item.PID.price }}</p>
+            <p>Quantity: {{ item.quantity }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="total-summary">
+      <h3>Total Amount: {{ totalPrice }}</h3>
+    </div>
+  
+    <!-- Pay Button -->
+    <div class="pay-section">
+      <button class="pay-btn" (click)="pay()">Pay Now</button>
+    </div>
+  </div>
+  
