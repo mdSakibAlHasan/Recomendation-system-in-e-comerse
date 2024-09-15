@@ -45,13 +45,16 @@ class CartProduct(ListCreateAPIView):
         for update in updates:
             id = update.get('id')
             quantity = update.get('quantity')
+            status = update.get('status')
             cart_item = Cart.objects.filter(id=id).first()
 
             if not cart_item:
                 errors.append({"error": "Cart item not found."})
                 continue
-
-            serializer = CartSerializer(cart_item, data={"quantity": quantity,"status": Cart.ORDERED}, partial=True)
+            if status == 'O':
+                serializer = CartSerializer(cart_item, data={"quantity": quantity,"status": Cart.ORDERED}, partial=True)
+            else:
+                serializer = CartSerializer(cart_item, data={"quantity": quantity,"status": Cart.CANCELED}, partial=True)
 
             if serializer.is_valid():
                 serializer.save()

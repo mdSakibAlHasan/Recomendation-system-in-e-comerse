@@ -62,7 +62,21 @@ export class CartComponent {
   }
 
   deleteItem(index: number) {
-    this.cartItems.splice(index, 1); // Remove the item at the given index
+    const deletedItem = this.cartItems[index];
+    this.cartItems.splice(index, 1); 
+    let items: any[] = [{
+      "id": deletedItem.id,
+      "quantity": deletedItem.quantity,
+      "status": 'C'
+    }];
+    this.cartService.updateCartItems(items).subscribe({
+      next: res=>{
+        this.alertService.tosterSuccess('Item deleted successfully from cart!.')
+      },
+      error: err=>{
+        this.alertService.tosterDanger('Something went wrong')
+      }
+    })
   }
 
   goToSummary() {

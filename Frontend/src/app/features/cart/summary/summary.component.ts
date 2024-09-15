@@ -34,7 +34,8 @@ export class SummaryComponent {
     this.selectedItems?.map(item=>{
       let data = {
         "id": item.id,
-        "quantity": item.quantity
+        "quantity": item.quantity,
+        "status": 'O'
       }
       items.push(data)
     })
