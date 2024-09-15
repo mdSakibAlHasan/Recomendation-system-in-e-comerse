@@ -48,7 +48,8 @@
             @for(comment of productComment; track comment){
                 <div class="review-card">
                     <div class="review-header">
-                        <span class="username">{{ comment.UID.username }}</span>
+                        <span class="username">{{ comment.username }}</span>
+                        <small class="time">{{ comment.create_time | date: 'short' }}</small>
                         <div class="rating">
                             <ng-container *ngFor="let star of [1,2,3,4,5]">
                                 <i class="pi"

@@ -15,7 +15,6 @@ export class AuthService {
     // Check if the platform is the browser
     if (isPlatformBrowser(this.platformId)) {
       let token = localStorage.getItem('currentUser');
-      console.log('here is token', token);
       return token;
     } else {
       console.log('SSR: localStorage is not available');
