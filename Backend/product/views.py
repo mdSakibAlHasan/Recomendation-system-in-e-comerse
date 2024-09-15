@@ -33,6 +33,7 @@ class GetCommentsByProductId(ListCreateAPIView):
             return Response({}, status=status.HTTP_403_FORBIDDEN)
         else:
             request.data['UID'] = user_id
+            request.data['PID'] = self.kwargs['product_id']
             serializer = CommentSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
