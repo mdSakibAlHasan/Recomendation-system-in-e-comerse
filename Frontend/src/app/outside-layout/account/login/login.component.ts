@@ -7,6 +7,7 @@ import { AlertService } from '../../../shared/alert/alert.service';
 import { error } from 'console';
 import { User } from '../account.model';
 import { SharedServiceService } from '../../../shared/user/shared-service.service';
+import { NavbarService } from '../../../shared/component/navbar/navbar.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent {
     private accountService: AccountService,
     private router: Router,
     private alertService: AlertService,
-    private sharedService: SharedServiceService,
+    private navbarService: NavbarService
   ) { }
 
   login(form: { value: any; }) {
@@ -30,6 +31,7 @@ export class LoginComponent {
       next: response => {
         if (response.hasOwnProperty('token')) {
           localStorage.setItem('currentUser', response.token);
+          this.navbarService.updateLoginInfo(true);
           this.router.navigate(['cart'])
         } else {
           this.alertService.tosterDanger(response.message)

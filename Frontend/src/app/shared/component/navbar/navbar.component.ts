@@ -46,6 +46,10 @@ export class NavbarComponent implements OnInit{
         console.log('User is not login')
       }
     })
+    this.navbarService.loginData$.subscribe((loginStatus) => {
+      this.isLogin = loginStatus;
+    });
+
     this.navbarService.getCartNumber().subscribe({
       next: res =>{
         this.cartItemsCount = res.cart_count;

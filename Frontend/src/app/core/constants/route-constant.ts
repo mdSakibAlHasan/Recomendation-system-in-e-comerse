@@ -4,5 +4,6 @@ export const RouteConstant = {
     ForgotPassword: 'forgotPassword',
     Account: 'account',
     Home: 'home',
-    Product: 'product'
+    Product: 'product',
+    Cart: 'cart',
 }

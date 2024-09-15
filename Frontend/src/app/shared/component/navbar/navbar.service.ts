@@ -1,15 +1,24 @@
 import { Injectable } from '@angular/core';
 import { BaseApiService } from '../../../utility/base-api-service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavbarService extends BaseApiService{
-
-  constructor(private http: HttpClient) {
+  private isLoginSubject = new BehaviorSubject<boolean>(false);
+  loginData$ = this.isLoginSubject.asObservable();
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
     super();
+  }
+
+  updateLoginInfo(isLogin: boolean) {
+    this.isLoginSubject.next(isLogin);
   }
 
   getCartNumber():Observable<{'cart_count': number}>{
