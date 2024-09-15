@@ -1,62 +1,85 @@
 .cart-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .cart-item-details {
-    display: flex;
-  }
-  
-  .cart-item-image {
-    width: 100px;
-    height: 100px;
-    margin-right: 15px;
-  }
-  
-  .cart-item-info h4 {
-    margin: 0;
-    font-size: 18px;
-  }
-  
-  .cart-item-actions {
-    display: flex;
-    align-items: center;
-  }
-  
-  .cart-item-actions button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    margin: 0 5px;
-    cursor: pointer;
-  }
-  
-  .cart-summary {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .checkout-btn {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
-  .checkout-btn:hover {
-    background-color: #218838;
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.cart-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-items {
+  width: 65%;
+  padding-right: 20px;
+}
+
+.bill-summary {
+  width: 30%;
+  border: 1px solid #ddd;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-item-details {
+  display: flex;
+}
+
+.cart-item-image {
+  width: 100px;
+  height: 100px;
+  margin-right: 15px;
+}
+
+.cart-item-info h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.cart-item-actions {
+  display: flex;
+  align-items: center;
+}
+
+.cart-item-actions button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.bill-summary ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.bill-summary ul li {
+  padding: 5px 0;
+}
+
+.checkout-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.checkout-btn:hover {
+  background-color: #218838;
+}
+
+.bill-summary h3, .bill-summary h4 {
+  margin: 0 0 10px;
+}
