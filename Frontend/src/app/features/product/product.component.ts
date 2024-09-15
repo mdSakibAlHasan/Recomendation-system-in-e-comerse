@@ -1,7 +1,7 @@
 import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ProductService } from './product.service';
 import { AlertService } from '../../shared/alert/alert.service';
@@ -9,6 +9,7 @@ import { Product } from '../home/home.model';
 import { RatingModule } from 'primeng/rating';
 import { combineLatest, Subscription } from 'rxjs';
 import { AuthGuard } from '../../core/guards/auth.guard';
+import { NavbarService } from '../../shared/component/navbar/navbar.service';
 
 @Component({
   selector: 'app-product',
@@ -32,7 +33,8 @@ export class ProductComponent {
     private productService: ProductService,
     private alertService: AlertService,
     private location: Location,
-    private authGuard: AuthGuard
+    private navbarService: NavbarService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,26 +48,38 @@ export class ProductComponent {
   }
 
   toggleCart() {
-    if(!this.authGuard.isLogedIn())
-        return;
-    const data ={
-      "PID": this.productId
-    }
-    this.productService.addToCart(data).subscribe({
-      next: res=>{
-        this.isInCart = !this.isInCart;
-        this.alertService.tosterSuccess('Product added in cart successfully');
-      },
-      error: err=>{
-        this.alertService.tosterDanger('Something went wrong');
+    this.navbarService.loginData$.subscribe((loginStatus) => {
+      debugger
+      if(!loginStatus){
+        this.router.navigate(['account/login']);
+        return ;
       }
-    })
-    
+
+      const data ={
+        "PID": this.productId
+      }
+      this.productService.addToCart(data).subscribe({
+        next: res=>{
+          this.isInCart = !this.isInCart;
+          this.alertService.tosterSuccess('Product added in cart successfully');
+        },
+        error: err=>{
+          this.alertService.tosterDanger('Something went wrong');
+        }
+      })
+    });
   }
 
   toggleReviewForm() {
-    if(this.authGuard.isLogedIn())
-      this.showReviewForm = !this.showReviewForm;
+    this.navbarService.loginData$.subscribe((loginStatus) => {
+      debugger
+      if(!loginStatus){
+        this.router.navigate(['account/login']);
+        return;
+      }else{
+        this.showReviewForm = !this.showReviewForm;
+      }
+    }); 
   }
 
   submitReview() {

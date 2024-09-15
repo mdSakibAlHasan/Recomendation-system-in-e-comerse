@@ -10,30 +10,45 @@ export class AuthGuard implements OnInit{
     isAuthenticated: boolean = false;
 	constructor(
 		private authService: NavbarService,
+        private navbarService: NavbarService,
 		private router: Router
 	) {}
 
     ngOnInit(): void {
-        this.authService.getUserDetails().subscribe({
-            next: res=>{
-                if(res){
-                    this.isAuthenticated = true;
-                }else{
-                    this.isAuthenticated = false;
-                }
-            },
-            error: err=>{
-                this.isAuthenticated = false;
-            }
-        })
+        this.navbarService.loginData$.subscribe((loginStatus) => {
+            this.isAuthenticated = loginStatus;
+        });
+        // this.authService.getUserDetails().subscribe({
+        //     next: res=>{
+        //         if(res){
+        //             this.isAuthenticated = true;
+        //         }else{
+        //             this.isAuthenticated = false;
+        //         }
+        //     },
+        //     error: err=>{
+        //         this.isAuthenticated = false;
+        //     }
+        // })
     }
 
 	isLogedIn(){
-        if(!this.isAuthenticated){
-            this.router.navigate(['account/login']);
-            return false;
-        }else{
-            return true;
-        }
+        debugger
+        this.navbarService.loginData$.subscribe({
+            next: res=>{
+                if(!res){
+                    this.router.navigate(['account/login']);
+                    return false;
+                }else{
+                    return true;
+                }
+            },
+            error: err=>{
+                this.router.navigate(['account/login']);
+                return false;
+            }
+           
+        });
+        return false;
     }
 }
