@@ -13,21 +13,23 @@ export class AuthGuard{
 	) {}
 
 
-	isLogedIn(){
-        this.navbarService.loginData$.subscribe({
-            next: res=>{
-                if(!res){
+	isLoggedIn(): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            this.navbarService.loginData$.subscribe({
+                next: res => {
+                    if (!res) {
+                        this.router.navigate(['account/login']);
+                        resolve(false);
+                    } else {
+                        resolve(true);
+                    }
+                },
+                error: err => {
                     this.router.navigate(['account/login']);
-                    return false;
-                }else{
-                    return true;
+                    resolve(false);
                 }
-            },
-            error: err=>{
-                this.router.navigate(['account/login']);
-                return false;
-            }
+            });
         });
-        return false;
     }
+    
 }

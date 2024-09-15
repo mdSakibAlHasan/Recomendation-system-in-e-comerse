@@ -34,13 +34,11 @@ export class CartComponent {
     });
   }
 
-  // Increment quantity
   incrementQuantity(item: any) {
     item.quantity += 1;
     this.calculateTotal();
   }
 
-  // Decrement quantity
   decrementQuantity(item: any) {
     if (item.quantity > 1) {
       item.quantity -= 1;
@@ -48,25 +46,28 @@ export class CartComponent {
     }
   }
 
-  // Calculate total price
   calculateTotal() {
-    this.totalPrice = this.cartItems.reduce((sum, item) => {
+    this.totalPrice = this.selectedItems.reduce((sum, item) => {
       return sum + item.quantity * parseFloat(item.PID.price);
     }, 0);
   }
 
-  // Select items for summary
   selectItem(item: any) {
     if (this.selectedItems.includes(item)) {
       this.selectedItems = this.selectedItems.filter(i => i.id !== item.id);
     } else {
       this.selectedItems.push(item);
     }
+    this.calculateTotal()
   }
 
-  // Navigate to summary page
+  deleteItem(index: number) {
+    this.cartItems.splice(index, 1); // Remove the item at the given index
+  }
+
   goToSummary() {
     this.cartService.selectedItems = this.selectedItems;
-    this.router.navigate(['/summary'], { state: { selectedItems: this.selectedItems, totalPrice: this.totalPrice } });
+    this.cartService.totalPrice = this.totalPrice;
+    this.router.navigate(['/summary']);
   }
 }

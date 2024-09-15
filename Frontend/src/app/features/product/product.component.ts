@@ -1,7 +1,7 @@
 import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ProductService } from './product.service';
 import { AlertService } from '../../shared/alert/alert.service';
@@ -32,7 +32,8 @@ export class ProductComponent {
     private productService: ProductService,
     private alertService: AlertService,
     private location: Location,
-    private authGuard: AuthGuard
+    private authGuard: AuthGuard,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,26 +47,38 @@ export class ProductComponent {
   }
 
   toggleCart() {
-    if(!this.authGuard.isLogedIn()){
-      return;
-    } 
-    const data ={
-      "PID": this.productId
+    if(this.isInCart){
+      this.router.navigate(['cart']);
+    }else{
+      this.authGuard.isLoggedIn().then(isLoggedIn => {
+        if (!isLoggedIn) {
+          return
+        } else {
+          const data ={
+            "PID": this.productId
+          }
+          this.productService.addToCart(data).subscribe({
+            next: res=>{
+              this.isInCart = !this.isInCart;
+              this.alertService.tosterSuccess('Product added in cart successfully');
+            },
+            error: err=>{
+              this.alertService.tosterDanger('Something went wrong');
+            }
+          })
+        }
+      });
     }
-    this.productService.addToCart(data).subscribe({
-      next: res=>{
-        this.isInCart = !this.isInCart;
-        this.alertService.tosterSuccess('Product added in cart successfully');
-      },
-      error: err=>{
-        this.alertService.tosterDanger('Something went wrong');
-      }
-    })
   }
 
   toggleReviewForm() {
-    this.authGuard.isLogedIn()
-    this.showReviewForm = !this.showReviewForm;
+    this.authGuard.isLoggedIn().then(isLoggedIn => {
+      if(!isLoggedIn){
+        return;
+      }else{
+        this.showReviewForm = !this.showReviewForm;
+      }
+    })
   }
 
   submitReview() {

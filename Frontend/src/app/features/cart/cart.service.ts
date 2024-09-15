@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class CartService extends BaseApiService{
   selectedItems: any[] = [];
+  totalPrice: number = 0;
   constructor(private http: HttpClient) {
     super();
   }
@@ -16,8 +17,16 @@ export class CartService extends BaseApiService{
     return this.http.get<any>(`${this.baseurl}/cart`);
   }
 
+  updateCartItems(data: any[]):Observable<any>{
+    return this.http.patch<any>(`${this.baseurl}/cart/`,{updates: data})
+  }
+
   getSelectedItems(){
     return this.selectedItems;
+  }
+
+  getTotalPrice(){
+    return this.totalPrice;
   }
 
 }

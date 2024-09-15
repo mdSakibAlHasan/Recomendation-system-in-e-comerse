@@ -11,7 +11,7 @@ class CartProduct(ListCreateAPIView):
         if user_id == None:
             return Response({}, status=status.HTTP_403_FORBIDDEN)
         else:
-            cart_item = Cart.objects.filter(UID=user_id)
+            cart_item = Cart.objects.filter(UID=user_id, status = Cart.PENDING)
             serializer = GetCartSerializer(cart_item, many=True)
             return Response(serializer.data)
     
@@ -28,6 +28,43 @@ class CartProduct(ListCreateAPIView):
                 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+    def patch(self, request, *args, **kwargs):
+        user_id = getUserId(request)
+        if user_id is None:
+            return Response({}, status=status.HTTP_403_FORBIDDEN)
+
+        # Expecting request.data to be a list of dictionaries (product_id and quantity)
+        updates = request.data.get('updates', [])
+
+        if not updates or not isinstance(updates, list):
+            return Response({"detail": "Invalid input format, expected a list of updates."}, status=status.HTTP_400_BAD_REQUEST)
+
+        updated_items = []
+        errors = []
+
+        for update in updates:
+            id = update.get('id')
+            quantity = update.get('quantity')
+            cart_item = Cart.objects.filter(id=id).first()
+
+            if not cart_item:
+                errors.append({"error": "Cart item not found."})
+                continue
+
+            serializer = CartSerializer(cart_item, data={"quantity": quantity,"status": Cart.ORDERED}, partial=True)
+
+            if serializer.is_valid():
+                serializer.save()
+                updated_items.append(serializer.data)
+            else:
+                errors.append({"id": id, "error": serializer.errors})
+
+        # Return the updated items and any errors encountered
+        return Response({
+            "updated_items": updated_items,
+            "errors": errors
+        }, status=status.HTTP_200_OK if updated_items else status.HTTP_400_BAD_REQUEST)
+        
 
 class CartItemCountView(ListAPIView):
     def get(self, request, *args, **kwargs):
@@ -35,5 +72,5 @@ class CartItemCountView(ListAPIView):
         if user_id == None:
             return Response({}, status=status.HTTP_403_FORBIDDEN)
         else:
-            cart_count = Cart.objects.filter(UID=user_id).count()
+            cart_count = Cart.objects.filter(UID=user_id, status = Cart.PENDING).count()
             return Response({'cart_count': cart_count})

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../cart.service';
+import { AlertService } from '../../../shared/alert/alert.service';
 
 @Component({
   selector: 'app-summary',
@@ -16,20 +17,35 @@ export class SummaryComponent {
 
   constructor(
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
     this.selectedItems = this.cartService.getSelectedItems();
-    console.log(this.selectedItems)
-    this.selectedItems?.forEach(item => {
-      this.totalPrice += item.quantity * parseFloat(item.PID.price); // Ensure price is parsed as a number
-    });
+    this.totalPrice = this.selectedItems.reduce((sum, item) => {
+      return sum + item.quantity * parseFloat(item.PID.price);
+    }, 0);
   }
 
   // Mock payment function
   pay() {
-    alert('Payment Successful! Your order has been placed.');
-    this.router.navigate(['/']);  // Redirect to home or order confirmation page
+    let items: any[] = [];
+    this.selectedItems?.map(item=>{
+      let data = {
+        "id": item.id,
+        "quantity": item.quantity
+      }
+      items.push(data)
+    })
+    this.cartService.updateCartItems(items).subscribe({
+      next: res=>{
+        this.alertService.tosterSuccess('Payment Successful! Your order has been placed.')
+        this.router.navigate(['/']); 
+      },
+      error: err=>{
+        this.alertService.tosterDanger('SOmething went wrong')
+      }
+    })
   }
 }
