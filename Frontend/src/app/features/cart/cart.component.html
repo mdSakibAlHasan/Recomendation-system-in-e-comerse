@@ -6,6 +6,7 @@
       <div *ngIf="cartItems.length === 0">Your cart is empty.</div>
       <div class="cart-item" *ngFor="let item of cartItems">
         <div class="cart-item-details">
+          <input type="checkbox" (change)="selectItem(item)" />
           <img [src]="item.PID.base_view" alt="{{ item.PID.name }}" class="cart-item-image" />
           <div class="cart-item-info">
             <h4>{{ item.PID.name }}</h4>
@@ -18,8 +19,6 @@
           <button (click)="decrementQuantity(item)">-</button>
           <span>{{ item.quantity }}</span>
           <button (click)="incrementQuantity(item)">+</button>
-
-          <input type="checkbox" (change)="selectItem(item)" /> Select
         </div>
       </div>
     </div>
