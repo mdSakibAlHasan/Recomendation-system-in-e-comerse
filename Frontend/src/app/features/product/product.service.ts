@@ -24,4 +24,8 @@ export class ProductService extends BaseApiService{
   getCommentsByProductId(id: string):Observable<any>{
     return this.http.get<any>(`${this.baseurl}/${id}/comments/`);
   }
+
+  createComment(data: any, product_id: number):Observable<any>{
+    return this.http.post<any>(`${this.baseurl}/${product_id}/comments/`,data)
+  }
 }

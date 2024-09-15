@@ -55,12 +55,26 @@ export class ProductComponent {
   }
 
   submitReview() {
-    if (this.reviewText.trim()) {
-      alert('Review submitted: ' + this.reviewText);
-      this.reviewText = ''; // Clear the input
-      this.showReviewForm = false; // Hide the form
+    if (this.reviewText.trim() && this.reviewRating > 0) {
+      const data = {
+        "comment": this.reviewText,
+        "review": this.reviewRating,
+      }
+      this.productService.createComment(data, Number(this.productId)).subscribe({
+        next: res=>{
+          this.alertService.tosterSuccess('Review Write complete');
+          this.reviewText = '';
+          this.showReviewForm = false;
+          this.reviewRating = 0;
+          this.ngOnInit();
+        },
+        error: err=>{
+          this.alertService.tosterDanger('Something went wrong');
+        }
+      })
+      
     } else {
-      alert('Please write a review before submitting.');
+      this.alertService.tosterDanger('Please fill up all field')
     }
   }
 

@@ -23,7 +23,7 @@ class GetProductById(ListAPIView):
 class GetCommentsByProductId(ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         product_id = self.kwargs['product_id']
-        comments = ProductComment.objects.filter(PID=product_id)
+        comments = ProductComment.objects.filter(PID=product_id).order_by('-create_time')
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
     
