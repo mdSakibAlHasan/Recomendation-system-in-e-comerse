@@ -42,6 +42,7 @@ export class NavbarComponent implements OnInit{
         this.userDetails = res;
         this.isLogin = true;
         this.navbarService.updateLoginInfo(true);
+        console.log(this.userDetails)
       },
       error: err=>{
         console.log('User is not login')

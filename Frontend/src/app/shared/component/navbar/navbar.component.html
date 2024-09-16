@@ -2,7 +2,6 @@
   <div class="toolbar-left">
     <span class="logo">E-Shop</span>
     <p-button label="Primary" [text]="true" label="Home" icon="pi pi-home" routerLink="home"></p-button>
-    <p-button label="Primary" [text]="true" label="Profile" icon="pi pi-user" routerLink="/profile"></p-button>
     <p-button label="Primary" [text]="true" label="Wishlist" icon="pi pi-heart" routerLink="/wishlist"></p-button>
     <p-dropdown [options]="categories" placeholder="Categories" class="category-dropdown"></p-dropdown>
   </div>
@@ -32,7 +31,7 @@
       <p-button label="Signup" [text]="true" icon="pi pi-user-plus" routerLink="account/register"></p-button>
     </div>
     <div *ngIf="isLogin">
-      <p-button label="{{userDetails.username}}" [text]="true" label="{{userDetails.username}}" icon="pi pi-user"></p-button>
+      <p-button label="{{userDetails[0].username}}" [text]="true" label="{{userDetails[0].username}}" icon="pi pi-user" routerLink="profile"></p-button>
       <p-button label="Logout" [text]="true" icon="pi pi-sign-out" (click)="logout()"></p-button>
     </div>
   </div>
