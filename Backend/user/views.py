@@ -69,3 +69,28 @@ class LoginView(APIView):
         except User.DoesNotExist:
             return Response({'message': 'User not found'}, status=404)
         
+
+class UpdatePassword(APIView):
+    def post(self, request):
+        user_id = getUserId(request)
+        if user_id is None:
+            return Response({}, status=status.HTTP_403_FORBIDDEN)
+        
+        oldPassword = request.data.get('oldPassword')
+        newPassword = request.data.get("newPassword")
+
+        try:
+            user = User.objects.get(id=user_id)
+            if user:
+                if user.password == oldPassword:
+                    serializer = RegisterSerializer(user, data={"password": newPassword}, partial=True)
+                    serializer.is_valid(raise_exception=True)
+                    serializer.save()
+                    return Response({'message': "password updated"}, status=status.HTTP_200_OK) 
+                else:
+                    return Response({'message': 'Old password is incorrect'}, status=404)
+    
+        except User.DoesNotExist:
+            return Response({"message":"No such user exists"})
+    
+        

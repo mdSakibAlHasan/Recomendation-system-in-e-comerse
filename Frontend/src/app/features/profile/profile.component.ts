@@ -63,6 +63,10 @@ export class ProfileComponent {
       this.alertService.tosterDanger('New password and confirm password do not match!');
       return;
     }
+    // {
+    //   "oldPassword": "12",
+    //   "newPassword": "123"
+    // }
 
     this.profileService.changePassword(this.passwordData).subscribe({   //api not ready
       next: data=>{

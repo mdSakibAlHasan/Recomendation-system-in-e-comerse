@@ -77,3 +77,14 @@ class CartItemCountView(ListAPIView):
         else:
             cart_count = Cart.objects.filter(UID=user_id, status = Cart.PENDING).count()
             return Response({'cart_count': cart_count})
+        
+
+class GetOrderHistory(ListAPIView):
+    def get(self, request, *args, **kwargs):
+        user_id = getUserId(request)
+        if user_id == None:
+            return Response({"message":"user not found"}, status=status.HTTP_403_FORBIDDEN)
+        else:
+            cart_item = Cart.objects.filter(UID=user_id, status = Cart.ORDERED)
+            serializer = GetCartSerializer(cart_item, many=True)
+            return Response(serializer.data)

@@ -17,14 +17,14 @@ export class ProfileService extends BaseApiService{
   }
 
   updateUser(userData: any): Observable<any> {
-    return this.http.put<any>(this.baseurl + '2/', userData);  // Use the logged-in user's ID
+    return this.http.put<any>(this.baseurl + '2/', userData);
   }
 
   changePassword(passwordData: any): Observable<any> {
-    return this.http.post<any>(this.baseurl + 'change-password/', passwordData);
+    return this.http.post<any>(this.baseurl + 'user/resetPassword', passwordData);
   }
 
   getOrderHistory(): Observable<any> {
-    return this.http.get<any>(this.baseurl + '2/orders');  // Replace with actual order API
+    return this.http.get<any>(this.baseurl + 'cart/orderHistory'); 
   }
 }
