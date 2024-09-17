@@ -1,75 +1,87 @@
 <div class="container">
-    <!-- Back Button -->
-    <div class="back-button">
-        <button pButton 
-                label="Back" 
-                icon="pi pi-arrow-left" 
-                class="p-button-secondary" 
-                (click)="goBack()"></button>
-    </div>
-    @if(product){
-        <div class="product-card">
-            <!-- Product Image -->
-            <img [src]="product.base_view" alt="Product Image" class="product-img">
-            
-            <!-- Product Information -->
-            <div class="product-info">
-                <h1>{{ product.name }}</h1>
-                <p>{{ product.description }}</p>
-                <p class="price">Regular Price: {{ product.price }}</p>
-            </div>
-    
-            <!-- Buttons -->
-            <div class="buttons">
-                <button pButton 
-                        label="{{ isInCart ? 'View Cart' : 'Add to Cart' }}" 
-                        icon="{{ isInCart ? 'pi pi-shopping-cart' : 'pi pi-plus' }}" 
-                        class="p-button-success"
-                        (click)="toggleCart()"></button>
-    
-                <button pButton 
-                        label="Add Review" 
-                        icon="pi pi-pencil" 
-                        class="p-button-secondary"
-                        (click)="toggleReviewForm()"></button>
-            </div>
-    
-            <!-- Review Form -->
-            <div *ngIf="showReviewForm" class="review-form">
-                <p-rating [(ngModel)]="reviewRating" cancel="false"></p-rating> <!-- Star Rating -->
-                <textarea [(ngModel)]="reviewText" rows="5" placeholder="Write your review here..."></textarea>
-                <button pButton 
-                        label="Submit Review" 
-                        icon="pi pi-check" 
-                        class="p-button-primary" 
-                        (click)="submitReview()"></button>
-            </div>
+  <!-- Back Button -->
+  <div class="back-button">
+    <button
+      pButton
+      label="Back"
+      icon="pi pi-arrow-left"
+      class="p-button-secondary"
+      (click)="goBack()"
+    ></button>
+  </div>
+  @if(product){
+  <div class="product-card">
+    <!-- Product Image -->
+    <img [src]="product.base_view" alt="Product Image" class="product-img" />
 
-            @for(comment of productComment; track comment){
-                <div class="review-card">
-                    <div class="review-header">
-                        <span class="username">{{ comment.username }}</span>
-                        <small class="time">{{ comment.create_time | date: 'short' }}</small>
-                        <div class="rating">
-                            <ng-container *ngFor="let star of [1,2,3,4,5]">
-                                <i class="pi"
-                                   [ngClass]="star <= comment.review ? 'pi-star-fill' : 'pi-star'"
-                                   style="color: #FFD700;"></i>
-                            </ng-container>
-                        </div>
-                    </div>
-                    <div class="review-body">
-                        <p class="review-text">{{ comment.comment }}</p>
-                    </div>
-                </div>
-            }
-            
-            
-            
+    <!-- Product Information -->
+    <div class="product-info">
+      <h1>{{ product.name }}</h1>
+      <p>{{ product.description }}</p>
+      <p class="price">Regular Price: {{ product.price }}</p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="buttons">
+      <button
+        pButton
+        label="{{ isInCart ? 'View Cart' : 'Add to Cart' }}"
+        icon="{{ isInCart ? 'pi pi-shopping-cart' : 'pi pi-plus' }}"
+        class="p-button-success"
+        (click)="toggleCart()"
+      ></button>
+
+      <button
+        pButton
+        label="Add Review"
+        icon="pi pi-pencil"
+        class="p-button-secondary"
+        (click)="toggleReviewForm()"
+      ></button>
+    </div>
+
+    <!-- Review Form -->
+    <div *ngIf="showReviewForm" class="review-form">
+      <p-rating [(ngModel)]="reviewRating" cancel="false"></p-rating>
+      <!-- Star Rating -->
+      <textarea
+        [(ngModel)]="reviewText"
+        rows="5"
+        placeholder="Write your review here..."
+      ></textarea>
+      <button
+        pButton
+        label="Submit Review"
+        icon="pi pi-check"
+        class="p-button-primary"
+        (click)="submitReview()"
+      ></button>
+    </div>
+
+    @for(comment of productComment; track comment){
+    <div class="review-card">
+      <div class="review-header">
+        <span class="username">{{ comment.username }}</span>
+        <small class="time">{{ comment.create_time | date : "short" }}</small>
+        <div class="rating">
+          <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+            <i
+              class="pi"
+              [ngClass]="star <= comment.review ? 'pi-star-fill' : 'pi-star'"
+              style="color: #ffd700"
+            ></i>
+          </ng-container>
         </div>
-    }@else{
-        <div class="not-found">
-            <h2>No product found</h2>
-        </div>
+      </div>
+      <div class="review-body">
+        <p class="review-text">{{ comment.comment }}</p>
+      </div>
+    </div>
     }
+  </div>
+  }@else{
+  <div class="not-found">
+    <h2>No product found</h2>
+  </div>
+  }
 </div>

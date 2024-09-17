@@ -1,31 +1,41 @@
 @if(products.length>0){
-  <div class="container">
-    <div class="row">
-      @for(product of products; track product){
-        <div class="col-4">
-          <div class="product-card" [routerLink]="['/product', product.id]" style="cursor: pointer;">
-            <div class="p-img"><img src="{{product.base_view}}"  alt="Product Image"></div>
-            <h2> {{product.name}}</h2>
-            <p class="description">{{product.description}} </p>
-            <p><strong>Model:</strong> {{product.model}}</p>
-            <p class="price">Price: {{product.price}}</p>
-            @if(product.stock_items>0){
-              <p class="stock">In Stock: {{product.stock_items}} items</p>
-            }@else{
-              <p class="stock-out">Out of stock</p>
-            }
-              
-            <!-- <div class="button-group">
+<div class="container">
+  <div class="row">
+    @for(product of products; track product){
+    <div class="col-4">
+      <div
+        class="product-card"
+        [routerLink]="['/product', product.id]"
+        style="cursor: pointer"
+      >
+        <div class="p-img">
+          <img src="{{ baseImgUrl + product.base_view }}" alt="Product Image" />
+        </div>
+        <h2>{{ product.name }}</h2>
+        <p class="description">{{ product.description }}</p>
+        <p><strong>Model:</strong> {{ product.model }}</p>
+        <p class="price">Price: {{ product.price }}</p>
+        @if(product.stock_items>0){
+        <p class="stock">In Stock: {{ product.stock_items }} items</p>
+        }@else{
+        <p class="stock-out">Out of stock</p>
+        }
+
+        <!-- <div class="button-group">
                 <button pButton type="button" label="Add to cart" icon="pi pi-shopping-cart" class="p-button-success"></button>
                 <button pButton type="button" label="Details" icon="pi pi-receipt" class="p-button-secondary"></button>
             </div> -->
-          </div>
-        </div>
-      } 
+      </div>
     </div>
+    }
   </div>
+</div>
 }@else{
-  <div class="p-d-flex p-jc-center p-ai-center">
-    <img src="assets/img/NoProduct.png" alt="No Products Available" style="width: 100%; max-width: 800px;">
-  </div>
+<div class="p-d-flex p-jc-center p-ai-center">
+  <img
+    src="assets/img/NoProduct.png"
+    alt="No Products Available"
+    style="width: 100%; max-width: 800px"
+  />
+</div>
 }

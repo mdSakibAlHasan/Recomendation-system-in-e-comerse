@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit{
   rows: number = 10;
   searchText: string = ''
   totalRecord: number = 0 ;
+  baseImgUrl = 'http://localhost:8000/'
   constructor(
     private homeService: HomeService,
     private alertService: AlertService,
