@@ -9,18 +9,18 @@
       <!-- Section 1: User Information -->
       <div class="profile-info">
         <h2>Profile Information</h2>
-        <small class="time">Joined on {{ user.create_time | date: 'short' }}</small>
+        <small class="time">Joined on {{user.create_time | date: 'short' }}</small>
         <form (submit)="updateUser()" class="form-section">
           <label for="username">User Name:</label>
-          <input type="text" id="username" [(ngModel)]="user.username" name="username" required>
+          <input type="text" id="username" [(ngModel)]="user.username" name="username" readonly>
   
           <label for="email">Email:</label>
           <input type="email" id="email" [(ngModel)]="user.email" name="email" readonly>
 
-          <label for="address">Addess:</label>
-          <input type="text" id="address" [(ngModel)]="user.address" name="address" >
+          <!-- <label for="address">Addess:</label>
+          <input type="text" id="address" [(ngModel)]="user.address" name="address"  readonly> -->
   
-          <button type="submit">Save Profile</button>
+          <!-- <button [disabled]="true" type="submit">Save Profile</button> -->
         </form>
       </div>
   
@@ -47,9 +47,11 @@
       <h2>Order History</h2>
       <ul>
         <li *ngFor="let order of orderHistory">
-          <div>Order ID: {{ order.id }}</div>
-          <div>Product: {{ order.product_name }}</div>
-          <div>Date: {{ order.date }}</div>
+          <div>Product: {{ order.PID.name }}</div>
+          <div>Model: {{ order.PID.model }}</div>
+          <div>Price: {{ order.PID.price }}</div>
+          <div>Date: {{ order.create_time | date: 'short'  }}</div>
+          <div>Quantity: {{ order.quantity  }}</div>
         </li>
       </ul>
     </div>

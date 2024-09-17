@@ -21,10 +21,10 @@ export class ProfileService extends BaseApiService{
   }
 
   changePassword(passwordData: any): Observable<any> {
-    return this.http.post<any>(this.baseurl + 'user/resetPassword', passwordData);
+    return this.http.post<any>(this.baseurl + '/user/resetPassword', passwordData);
   }
 
   getOrderHistory(): Observable<any> {
-    return this.http.get<any>(this.baseurl + 'cart/orderHistory'); 
+    return this.http.get<any>(this.baseurl + '/cart/orderHistory'); 
   }
 }

@@ -28,7 +28,7 @@ export class ProfileComponent {
 
   ngOnInit(): void {
     this.loadUserData();
-    // this.loadOrderHistory();
+    this.loadOrderHistory();
   }
 
   loadUserData(): void {
@@ -41,7 +41,7 @@ export class ProfileComponent {
     });
   }
 
-  loadOrderHistory(): void {      //api not ready
+  loadOrderHistory(): void {     
     this.profileService.getOrderHistory().subscribe({
       next: data=>{
         this.orderHistory = data;
@@ -51,7 +51,7 @@ export class ProfileComponent {
     });
   }
 
-  updateUser(): void {
+  updateUser(): void {      //api not ready
     this.profileService.updateUser(this.user).subscribe(response => {
       alert('Profile updated successfully!');
     });
@@ -63,14 +63,12 @@ export class ProfileComponent {
       this.alertService.tosterDanger('New password and confirm password do not match!');
       return;
     }
-    // {
-    //   "oldPassword": "12",
-    //   "newPassword": "123"
-    // }
-
-    this.profileService.changePassword(this.passwordData).subscribe({   //api not ready
+    this.profileService.changePassword( {"oldPassword": this.passwordData.current_password,"newPassword": this.passwordData.new_password}).subscribe({ 
       next: data=>{
-        this.user = data[0];
+        if(data.isSuccess)
+          this.alertService.tosterSuccess(data.message)
+        else
+          this.alertService.tosterDanger(data.message)
       },error: err=>{
         this.alertService.tosterDanger('Something went wrong');
       }

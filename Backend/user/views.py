@@ -86,9 +86,9 @@ class UpdatePassword(APIView):
                     serializer = RegisterSerializer(user, data={"password": newPassword}, partial=True)
                     serializer.is_valid(raise_exception=True)
                     serializer.save()
-                    return Response({'message': "password updated"}, status=status.HTTP_200_OK) 
+                    return Response({'message': "password updated", "isSuccess": True}, status=status.HTTP_200_OK) 
                 else:
-                    return Response({'message': 'Old password is incorrect'}, status=404)
+                    return Response({'message': 'Old password is incorrect', "isSuccess": False})
     
         except User.DoesNotExist:
             return Response({"message":"No such user exists"})
