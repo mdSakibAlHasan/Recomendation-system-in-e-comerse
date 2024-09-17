@@ -28,4 +28,8 @@ export class NavbarService extends BaseApiService{
   getUserDetails():Observable<any>{
     return this.http.get<any>(`${this.baseurl}/user/details`);
   }
+
+  getCategory():Observable<any>{
+    return this.http.get<any>(`${this.baseurl}/category`);
+  }
 }

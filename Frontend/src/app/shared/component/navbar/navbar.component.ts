@@ -19,14 +19,7 @@ import { combineLatest } from 'rxjs';
 export class NavbarComponent implements OnInit{
   searchText: string = "";
   assetsPath: string = "assets/img";
-  categories = [
-    { label: 'Girls', value: 'girls' },
-    { label: 'Boys', value: 'boys' },
-    { label: 'Electronics', value: 'electronics' },
-    { label: 'Laptops', value: 'laptops' },
-    { label: 'Fashion', value: 'fashion' },
-    { label: 'Home Appliances', value: 'home-appliances' },
-  ];
+  categories: any[] = [];
   cartItemsCount: number = 0;
   userDetails: any;
   isLogin: boolean = false;
@@ -58,6 +51,14 @@ export class NavbarComponent implements OnInit{
       },
       error: err=>{
 
+      }
+    })
+    this.navbarService.getCategory().subscribe({
+      next: res=>{
+        this.categories = res;
+      },
+      error: err=>{
+        console.log('Categories are not able to fetch')
       }
     })
   }
