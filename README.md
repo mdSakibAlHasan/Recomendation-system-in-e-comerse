@@ -16,8 +16,9 @@
     <li>pip install django-cors-headers</li>
     <li>pip install djangorestframework</li>
     <li>pip install pymysql</li>
-    <li>pip install Pillow</li>
-    <li>pip install cryptography</li>
+    <li>pip install PyJWT</li>
+    <li>pip install django-filter</li>
+    <li>python manage.py makemigrations (before this create a schema in database name 'shop')</li>
     <li>python manage.py migrate <br>
     The last command will create database table automatically. You need to create a schema name 'e-comerse'.</li>
     <li>python manage.py runserver <br>
