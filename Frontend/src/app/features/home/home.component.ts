@@ -29,10 +29,12 @@ export class HomeComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
+    this.homeService.currentProduct.subscribe(updatedProducts => {
+      this.products = updatedProducts;
+    });
     this.homeService.getAllProduct().subscribe({
       next: res=>{
-        this.products = res;
-        this.totalRecord = res.length;
+        this.homeService.updateProduct(res);
       },
       error: err=>{
         this.alertService.tosterDanger('Something went wrong');

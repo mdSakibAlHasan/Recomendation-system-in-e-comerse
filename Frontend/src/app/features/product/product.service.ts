@@ -8,7 +8,6 @@ import { Product } from '../home/home.model';
   providedIn: 'root'
 })
 export class ProductService extends BaseApiService{
-
   constructor(private http: HttpClient) {
     super();
   }
