@@ -1,3 +1,22 @@
+<div class="filter-container">
+  <div class="filter-options">
+    <label for="priceRange">Filter by Price:</label>
+    <input type="number" [(ngModel)]="minPrice" placeholder="Min Price" />
+    <input type="number" [(ngModel)]="maxPrice" placeholder="Max Price" />
+
+    <label for="sortOrder">Sort by Price:</label>
+    <select [(ngModel)]="sortOrder" (change)="applyFilters()">
+      <option value="asc">Price: Low to High</option>
+      <option value="desc">Price: High to Low</option>
+    </select>
+  </div>
+  <button (click)="applyFilters()">Apply Filters</button>
+</div>
+
+<button class="scroll-top-btn" (click)="scrollToTop()">
+  <i class="pi pi-arrow-up" style="color: #000"></i>
+</button>
+
 @if(products.length>0){
 <div class="container">
   <div class="row">
