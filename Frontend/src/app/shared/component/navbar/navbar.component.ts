@@ -8,6 +8,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import {  Router, RouterModule } from '@angular/router';
 import { NavbarService } from './navbar.service';
 import { combineLatest } from 'rxjs';
+import { AlertService } from '../../alert/alert.service';
+import { HomeService } from '../../../features/home/home.service';
 
 @Component({
   selector: 'app-navbar',
@@ -26,7 +28,9 @@ export class NavbarComponent implements OnInit{
 
   constructor(
     private navbarService: NavbarService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService,
+    private homeService: HomeService
   ) {}
 
   ngOnInit(): void {
@@ -59,6 +63,17 @@ export class NavbarComponent implements OnInit{
       },
       error: err=>{
         console.log('Categories are not able to fetch')
+      }
+    })
+  }
+
+  onCategoryChange(event:any){
+    this.navbarService.updateProductInfo(event.value.id).subscribe({
+      next: res=>{
+        this.homeService.updateProduct(res);
+      },
+      error: err=>{
+        this.alertService.tosterDanger('Something went wrong');
       }
     })
   }

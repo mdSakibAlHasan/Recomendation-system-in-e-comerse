@@ -32,4 +32,8 @@ export class NavbarService extends BaseApiService{
   getCategory():Observable<any>{
     return this.http.get<any>(`${this.baseurl}/category`);
   }
+
+  updateProductInfo(id: number):Observable<any[]>{
+    return this.http.get<any[]>(`${this.baseurl}/product/?CategoryID=${id}`)
+  }
 }
