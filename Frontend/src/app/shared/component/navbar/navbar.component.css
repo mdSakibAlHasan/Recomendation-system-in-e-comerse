@@ -27,3 +27,13 @@
     margin-left: 10px;
   }
   
+
+  a {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Inherits the color from the parent element */
+  }
+  
+  a.logo:hover, a.logo:focus, a.logo:visited {
+    color: inherit; /* Ensures no color change on hover, focus, or visited states */
+  }
+  

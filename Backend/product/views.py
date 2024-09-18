@@ -2,9 +2,12 @@ from rest_framework.generics import ListAPIView, ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import Category, Brand, Product, ProductComment
 from .serializer import CategorySerilizer, BrandSerilizer, CommentSerializer, ProductSerializer
 from Backend.utils import getUserId
+from .filters import ProductFilter
 
 class CategoryApi(ListAPIView):
     queryset = Category.objects.all()
@@ -43,10 +46,15 @@ class GetCommentsByProductId(ListCreateAPIView):
 
 
 class ProductApi(ListAPIView):
-    def get(self, request, *args, **kwargs):
-        products = Product.objects.all()
-        serializer = ProductSerializer(products, many=True)
-        return Response(serializer.data)
+    queryset = Product.objects.all()  # Define the queryset
+    serializer_class = ProductSerializer  # Specify the serializer class
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_class = ProductFilter
+    search_fields = ['name', 'description', 'model']
+    ordering_fields = ['price']
+
+    def get_serializer_context(self):
+        return {'request': self.request}
 
     # def post(self, request, *args, **kwargs):
         # if getUserType(request.headers.get('Authorization')) == 'S':

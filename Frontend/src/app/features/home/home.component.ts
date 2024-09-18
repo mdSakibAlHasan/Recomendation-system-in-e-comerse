@@ -21,6 +21,10 @@ export class HomeComponent implements OnInit{
   rows: number = 10;
   searchText: string = ''
   totalRecord: number = 0 ;
+  baseImgUrl = 'http://localhost:8000/'
+  minPrice: number = 0;
+  maxPrice: number = Infinity;
+  sortOrder: string = 'asc';
   constructor(
     private homeService: HomeService,
     private alertService: AlertService,
@@ -28,10 +32,12 @@ export class HomeComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
+    this.homeService.currentProduct.subscribe(updatedProducts => {
+      this.products = updatedProducts;
+    });
     this.homeService.getAllProduct().subscribe({
       next: res=>{
-        this.products = res;
-        this.totalRecord = res.length;
+        this.homeService.updateProduct(res);
       },
       error: err=>{
         this.alertService.tosterDanger('Something went wrong');
@@ -48,5 +54,25 @@ export class HomeComponent implements OnInit{
       this.first = event.first ?? 0;
       this.rows = event.rows ?? 0;
   }
+
+  applyFilters(): void {
+    // Filter by price range
+    this.products = this.products.filter(product => {
+      return product.price >= this.minPrice && product.price <= this.maxPrice;
+    });
+
+    // Sort by price based on selected sortOrder
+    this.products.sort((a, b) => {
+      if (this.sortOrder === 'asc') {
+        return a.price - b.price; // Ascending order
+      } else {
+        return b.price - a.price; // Descending order
+      }
+    });
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }  
 
 }

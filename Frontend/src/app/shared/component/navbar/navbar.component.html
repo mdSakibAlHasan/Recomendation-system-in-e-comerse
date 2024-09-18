@@ -1,38 +1,84 @@
 <p-toolbar>
   <div class="toolbar-left">
-    <span class="logo">E-Shop</span>
-    <p-button label="Primary" [text]="true" label="Home" icon="pi pi-home" routerLink="home"></p-button>
-    <p-button label="Primary" [text]="true" label="Wishlist" icon="pi pi-heart" routerLink="/wishlist"></p-button>
-    <p-dropdown [options]="categories" placeholder="Categories" class="category-dropdown"></p-dropdown>
+    <a href="/home"><span class="logo">E-Shop</span></a>
+    <p-button
+      label="Primary"
+      [text]="true"
+      label="Home"
+      icon="pi pi-home"
+      routerLink="home"
+    ></p-button>
+    <p-button
+      label="Primary"
+      [text]="true"
+      label="Wishlist"
+      icon="pi pi-heart"
+      routerLink="/wishlist"
+    ></p-button>
+    <p-dropdown
+      [options]="categories"
+      placeholder="Categories"
+      optionLabel="name"
+      class="category-dropdown"
+      (onChange)="onCategoryChange($event)"
+    ></p-dropdown>
   </div>
   <div class="toolbar-right">
     <!-- <input type="text" pInputText [(ngModel)]="searchText" placeholder="Search"/>
     <p-button label="Search" icon="pi pi-search"></p-button> -->
     <span class="p-input-icon-left">
       <i class="pi pi-search"></i>
-      <input type="text" pInputText [(ngModel)]="searchText" placeholder="Search">         
-  </span>
-<!--   
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="searchText"
+        placeholder="Search"
+        (keydown.enter)="search()"
+      />
+    </span>
+    <!--   
   <span class="p-input-icon-right">
       <i class="pi pi-spin pi-spinner"></i>
       <input type="text" pInputText [(ngModel)]="value2" >        
   </span>  -->
-    <p-button 
-      label="Primary" 
+    <p-button
+      label="Primary"
       [text]="true"
-      label="Cart" 
-      icon="pi pi-shopping-cart" 
+      label="Cart"
+      icon="pi pi-shopping-cart"
       routerLink="cart"
-      [badge]="cartItemsCount.toString()" 
-      badgeClass="p-badge-info">
+      [badge]="cartItemsCount.toString()"
+      badgeClass="p-badge-info"
+    >
     </p-button>
     <div *ngIf="!isLogin">
-      <p-button label="Login" [text]="true" icon="pi pi-sign-in" routerLink="account/login"></p-button>
-      <p-button label="Signup" [text]="true" icon="pi pi-user-plus" routerLink="account/register"></p-button>
+      <p-button
+        label="Login"
+        [text]="true"
+        icon="pi pi-sign-in"
+        routerLink="account/login"
+      ></p-button>
+      <p-button
+        label="Signup"
+        [text]="true"
+        icon="pi pi-user-plus"
+        routerLink="account/register"
+      ></p-button>
     </div>
     <div *ngIf="isLogin">
-      <p-button label="{{userDetails[0].username}}" [text]="true" label="{{userDetails[0].username}}" icon="pi pi-user" routerLink="profile"></p-button>
-      <p-button label="Logout" [text]="true" icon="pi pi-sign-out" (click)="logout()"></p-button>
+      <p-button
+        label="{{ userDetails[0].username }}"
+        [text]="true"
+        label="{{ userDetails[0].username }}"
+        icon="pi pi-user"
+        routerLink="profile"
+      ></p-button>
+      <p-button
+        label="Logout"
+        [text]="true"
+        icon="pi pi-sign-out"
+        (click)="logout()"
+      ></p-button>
     </div>
   </div>
 </p-toolbar>

@@ -8,6 +8,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import {  Router, RouterModule } from '@angular/router';
 import { NavbarService } from './navbar.service';
 import { combineLatest } from 'rxjs';
+import { AlertService } from '../../alert/alert.service';
+import { HomeService } from '../../../features/home/home.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,21 +21,16 @@ import { combineLatest } from 'rxjs';
 export class NavbarComponent implements OnInit{
   searchText: string = "";
   assetsPath: string = "assets/img";
-  categories = [
-    { label: 'Girls', value: 'girls' },
-    { label: 'Boys', value: 'boys' },
-    { label: 'Electronics', value: 'electronics' },
-    { label: 'Laptops', value: 'laptops' },
-    { label: 'Fashion', value: 'fashion' },
-    { label: 'Home Appliances', value: 'home-appliances' },
-  ];
+  categories: any[] = [];
   cartItemsCount: number = 0;
   userDetails: any;
   isLogin: boolean = false;
 
   constructor(
     private navbarService: NavbarService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService,
+    private homeService: HomeService
   ) {}
 
   ngOnInit(): void {
@@ -60,10 +57,39 @@ export class NavbarComponent implements OnInit{
 
       }
     })
+    this.navbarService.getCategory().subscribe({
+      next: res=>{
+        this.categories = res;
+      },
+      error: err=>{
+        console.log('Categories are not able to fetch')
+      }
+    })
+  }
+
+  onCategoryChange(event:any){
+    this.navbarService.updateProductInfo(event.value.id).subscribe({
+      next: res=>{
+        this.homeService.updateProduct(res);
+      },
+      error: err=>{
+        this.alertService.tosterDanger('Something went wrong');
+      }
+    })
   }
 
   search(){
-
+    if (this.searchText.trim() !== '') {
+      const modifiedSearchText = this.searchText.trim().replace(/\s+/g, '+');
+      this.navbarService.updateProductBySearch(modifiedSearchText).subscribe({
+        next: filteredProducts=>{
+          this.homeService.updateProduct(filteredProducts);
+        },error: err=>{
+          this.alertService.tosterDanger('Something went wrong for search');
+        }
+      })
+      
+    }
   }
 
   logout() {

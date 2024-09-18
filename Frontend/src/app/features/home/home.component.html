@@ -1,31 +1,61 @@
+<div class="filter-container">
+  <div class="filter-options">
+    <label for="priceRange">Filter by Price:</label>
+    <input type="number" [(ngModel)]="minPrice" placeholder="Min Price" />
+    <input type="number" [(ngModel)]="maxPrice" placeholder="Max Price" />
+
+    <label for="sortOrder">Sort by Price:</label>
+    <select [(ngModel)]="sortOrder" (change)="applyFilters()">
+      <option value="asc">Price: Low to High</option>
+      <option value="desc">Price: High to Low</option>
+    </select>
+  </div>
+  <button (click)="applyFilters()">Apply Filters</button>
+</div>
+
+<button class="scroll-top-btn" (click)="scrollToTop()">
+  <i class="pi pi-arrow-up" style="color: #000"></i>
+</button>
+
 @if(products.length>0){
-  <div class="container">
-    <div class="row">
-      @for(product of products; track product){
-        <div class="col-4">
-          <div class="product-card" [routerLink]="['/product', product.id]" style="cursor: pointer;">
-            <div class="p-img"><img src="{{product.base_view}}"  alt="Product Image"></div>
-            <h2> {{product.name}}</h2>
-            <p class="description">{{product.description}} </p>
-            <p><strong>Model:</strong> {{product.model}}</p>
-            <p class="price">Price: {{product.price}}</p>
-            @if(product.stock_items>0){
-              <p class="stock">In Stock: {{product.stock_items}} items</p>
-            }@else{
-              <p class="stock-out">Out of stock</p>
-            }
-              
-            <!-- <div class="button-group">
+<div class="container">
+  <div class="row">
+    @for(product of products; track product){
+    <div class="col-4">
+      <div
+        class="product-card"
+        [routerLink]="['/product', product.id]"
+        style="cursor: pointer"
+      >
+        <div class="p-img">
+          <img src="{{ product.base_view }}" alt="Product Image" /> /*baseImgUrl
+          +*/
+        </div>
+        <h2>{{ product.name }}</h2>
+        <p class="description">{{ product.description }}</p>
+        <p><strong>Model:</strong> {{ product.model }}</p>
+        <p class="price">Price: {{ product.price }}</p>
+        @if(product.stock_items>0){
+        <p class="stock">In Stock: {{ product.stock_items }} items</p>
+        }@else{
+        <p class="stock-out">Out of stock</p>
+        }
+
+        <!-- <div class="button-group">
                 <button pButton type="button" label="Add to cart" icon="pi pi-shopping-cart" class="p-button-success"></button>
                 <button pButton type="button" label="Details" icon="pi pi-receipt" class="p-button-secondary"></button>
             </div> -->
-          </div>
-        </div>
-      } 
+      </div>
     </div>
+    }
   </div>
+</div>
 }@else{
-  <div class="p-d-flex p-jc-center p-ai-center">
-    <img src="assets/img/NoProduct.png" alt="No Products Available" style="width: 100%; max-width: 800px;">
-  </div>
+<div class="p-d-flex p-jc-center p-ai-center">
+  <img
+    src="assets/img/NoProduct.png"
+    alt="No Products Available"
+    style="width: 100%; max-width: 800px"
+  />
+</div>
 }

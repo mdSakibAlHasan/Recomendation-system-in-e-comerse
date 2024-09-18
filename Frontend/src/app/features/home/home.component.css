@@ -151,3 +151,134 @@
       flex: 1 1 100%; /* Full width on mobile */
   }
 }
+
+
+/* Scroll to Top Button */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff; /* Professional blue color */
+  color: white;
+  border: none;
+  border-radius: 50%; /* Circular button */
+  padding: 15px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition */
+  z-index: 1000; /* Keep on top of other elements */
+}
+
+/* Hover effect for Scroll to Top Button */
+.scroll-top-btn:hover {
+  background-color: #7796b6; /* Darker shade of blue on hover */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3); /* More pronounced shadow on hover */
+  transform: translateY(-3px); /* Lift effect */
+}
+
+/* Icon inside the button */
+.scroll-top-btn i {
+  color: white;
+}
+
+/* Button animation when it appears on the page */
+.scroll-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.scroll-top-btn.hide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+
+/* Container for the entire filter section */
+.filter-container {
+  background-color: #f8f9fa; /* Light background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Individual filter options */
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  flex-grow: 1;
+}
+
+/* Labels for the inputs */
+.filter-options label {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #333;
+}
+
+/* Input fields for min and max price */
+.filter-options input[type="number"] {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 120px;
+  font-size: 16px;
+}
+
+/* Select dropdown for sorting */
+.filter-options select {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Apply Filters button */
+.filter-container button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+.filter-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive design: On smaller screens */
+@media (max-width: 768px) {
+  .filter-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filter-options {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filter-container button {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+

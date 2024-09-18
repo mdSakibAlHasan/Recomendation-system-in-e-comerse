@@ -25,6 +25,7 @@ export class ProductComponent {
   reviewRating: number = 0;
   product: Product | undefined;
   productComment: any[] = [];
+  baseImgUrl = 'http://localhost:8000/'
   private subscription$: Subscription | undefined;
 
   constructor(
