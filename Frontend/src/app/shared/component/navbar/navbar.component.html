@@ -33,6 +33,7 @@
         pInputText
         [(ngModel)]="searchText"
         placeholder="Search"
+        (keydown.enter)="search()"
       />
     </span>
     <!--   

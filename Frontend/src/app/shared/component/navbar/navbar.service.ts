@@ -36,4 +36,8 @@ export class NavbarService extends BaseApiService{
   updateProductInfo(id: number):Observable<any[]>{
     return this.http.get<any[]>(`${this.baseurl}/product/?CategoryID=${id}`)
   }
+
+  updateProductBySearch(searchText: string):Observable<any[]>{
+    return this.http.get<any[]>(`${this.baseurl}/product/?search=${searchText}`);
+  }
 }

@@ -79,7 +79,17 @@ export class NavbarComponent implements OnInit{
   }
 
   search(){
-
+    if (this.searchText.trim() !== '') {
+      const modifiedSearchText = this.searchText.trim().replace(/\s+/g, '+');
+      this.navbarService.updateProductBySearch(modifiedSearchText).subscribe({
+        next: filteredProducts=>{
+          this.homeService.updateProduct(filteredProducts);
+        },error: err=>{
+          this.alertService.tosterDanger('Something went wrong for search');
+        }
+      })
+      
+    }
   }
 
   logout() {
