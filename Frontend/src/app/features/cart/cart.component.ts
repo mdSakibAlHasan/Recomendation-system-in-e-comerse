@@ -15,6 +15,7 @@ export class CartComponent {
   cartItems: any[] = [];
   totalPrice: number = 0;
   selectedItems: any[] = [];
+  baseImgUrl = 'http://localhost:8000'
 
   constructor(
     private cartService: CartService, 

@@ -7,14 +7,21 @@
       <div class="cart-item" *ngFor="let item of cartItems; let i = index">
         <div class="cart-item-details">
           <input type="checkbox" (change)="selectItem(item)" />
-          <img [src]="item.PID.base_view" alt="{{ item.PID.name }}" class="cart-item-image" />
+          <img
+            [src]="baseImgUrl + item.PID.base_view"
+            alt="{{ item.PID.name }}"
+            class="cart-item-image"
+          />
           <div class="cart-item-info">
             <h4>{{ item.PID.name }}</h4>
             <p>{{ item.PID.model }}</p>
             <p>{{ item.PID.price | currency }}</p>
           </div>
           <div class="cart-item-delete">
-            <button (click)="deleteItem(i)" class="p-button p-button-danger p-button-text">
+            <button
+              (click)="deleteItem(i)"
+              class="p-button p-button-danger p-button-text"
+            >
               <i class="pi pi-trash"></i>
             </button>
           </div>
@@ -36,11 +43,14 @@
       <div *ngIf="selectedItems.length > 0">
         <ul>
           <li *ngFor="let item of selectedItems">
-            {{ item.PID.name }} (x{{ item.quantity }}) - {{ (item.PID.price * item.quantity)}}
+            {{ item.PID.name }} (x{{ item.quantity }}) -
+            {{ item.PID.price * item.quantity }}
           </li>
         </ul>
         <h4>Total: {{ totalPrice }}</h4>
-        <button class="checkout-btn" (click)="goToSummary()">Proceed to Checkout</button>
+        <button class="checkout-btn" (click)="goToSummary()">
+          Proceed to Checkout
+        </button>
       </div>
     </div>
   </div>
