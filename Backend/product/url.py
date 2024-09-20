@@ -3,7 +3,7 @@ from .views import CategoryApi, BrandApi, GetCommentsByProductId, ProductApi, Ge
 
 urlpatterns = [
     path('category',CategoryApi.as_view()),
-    path('brand',BrandApi.as_view()),
+    path('brand/<int:id>',BrandApi.as_view()),
     path('product/',ProductApi.as_view(), name='product-api'),
     path('product/<int:id>/',GetProductById.as_view()),
     path('<int:product_id>/comments/',GetCommentsByProductId.as_view()),

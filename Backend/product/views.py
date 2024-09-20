@@ -14,8 +14,10 @@ class CategoryApi(ListAPIView):
     serializer_class = CategorySerilizer
 
 class BrandApi(ListAPIView):
-    queryset = Brand.objects.all()
     serializer_class = BrandSerilizer
+    def get_queryset(self):
+        id = self.kwargs['id']
+        return Brand.objects.filter(categoryID = id)
 
 class GetProductById(ListAPIView):
     serializer_class = ProductSerializer
