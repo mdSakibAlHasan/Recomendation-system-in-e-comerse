@@ -5,6 +5,7 @@ import { RouteConstant } from '../core/constants/route-constant';
 import { CartComponent } from './cart/cart.component';
 import { SummaryComponent } from './cart/summary/summary.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AddProductComponent } from './add-product/add-product.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: RouteConstant.Cart, component: CartComponent},
   {path: RouteConstant.Summary, component: SummaryComponent},
   {path: RouteConstant.Profile, component: ProfileComponent},
+  {path:RouteConstant.AddProduct, component: AddProductComponent},
   {
     path: RouteConstant.Product, 
     loadChildren: ()=> import('./product/product.module').then(m => m.ProductModule),
