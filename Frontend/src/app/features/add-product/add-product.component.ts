@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AddProductService } from './add-product.service';
 import { AlertService } from '../../shared/alert/alert.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -18,7 +19,8 @@ export class AddProductComponent {
   constructor(
     private fb: FormBuilder,
     private addProductService: AddProductService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {
     this.productForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(30)]],
@@ -58,7 +60,7 @@ export class AddProductComponent {
     this.addProductService.addProduct(formData).subscribe({
       next: res=>{
         this.alertService.tosterSuccess('product add complete');
-        //redirect to product view
+        this.router.navigate(['product/'+res.id]);
       },
       error: err=>{
         this.alertService.tosterDanger(err.message)
