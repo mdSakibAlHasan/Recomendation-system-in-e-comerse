@@ -19,4 +19,12 @@ export class AddProductService extends BaseApiService{
   updateProduct(formData: FormData): Observable<any> {
     return this.http.put<any>(`${this.baseurl}/productManagement`, formData);
   }
+
+  getCategory():Observable<any>{
+    return this.http.get<any>(`${this.baseurl}/category`);
+  }
+
+  getBrand(categoryID: number):Observable<any>{
+    return this.http.get<any>(`${this.baseurl}/brand/${categoryID}`);
+  }
 }

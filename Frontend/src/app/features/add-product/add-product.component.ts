@@ -1,20 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AddProductService } from './add-product.service';
 import { AlertService } from '../../shared/alert/alert.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-add-product',
   standalone: true,
-  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, DropdownModule],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })
-export class AddProductComponent {
+export class AddProductComponent implements OnInit{
   productForm: FormGroup;
   imagePreview: string | ArrayBuffer | null = null;
+  category: any[] = [];
+  brand: any[] = []
 
   constructor(
     private fb: FormBuilder,
@@ -30,8 +33,17 @@ export class AddProductComponent {
       stock_items: ['', [Validators.required, Validators.min(0)]],
       BID: ['', [Validators.required]],
       CategoryID: ['', [Validators.required]],
-      base_view: [null]
+      base_view: [null, [Validators.required]]
     });
+  }
+  ngOnInit(): void {
+    this.addProductService.getCategory().subscribe({
+      next: res=>{
+        this.category = res;
+      },error: err=>{
+        this.alertService.tosterDanger('Something wenr wrong');
+      }
+    })
   }
 
   onImagePicked(event: Event) {
@@ -44,6 +56,16 @@ export class AddProductComponent {
       this.imagePreview = reader.result;
     };
     reader.readAsDataURL(file);
+  }
+
+  onCategoryChange(event:any){
+    this.addProductService.getBrand(event.value.id).subscribe({
+      next: res=>{
+        this.brand = res;
+      },error: err=>{
+        this.brand = []
+      }
+    })
   }
 
   onSubmit() {

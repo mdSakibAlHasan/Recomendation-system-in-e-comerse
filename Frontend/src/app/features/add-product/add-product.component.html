@@ -42,20 +42,21 @@
       placeholder="Enter stock count"
     />
 
-    <label for="BID">Brand ID</label>
-    <input
-      id="BID"
-      formControlName="BID"
-      type="number"
-      placeholder="Enter brand ID"
+    <label for="CategoryID">Category</label>
+    <p-dropdown
+      formControlName="CategoryID"
+      [options]="category"
+      optionLabel="name"
+      placeholder="Select a Category"
+      (onChange)="onCategoryChange($event)"
     />
 
-    <label for="CategoryID">Category ID</label>
-    <input
-      id="CategoryID"
-      formControlName="CategoryID"
-      type="number"
-      placeholder="Enter category ID"
+    <label for="BID">Brand</label>
+    <p-dropdown
+      formControlName="BID"
+      [options]="brand"
+      optionLabel="name"
+      placeholder="Select a Brand"
     />
 
     <label for="image">Product Image</label>
