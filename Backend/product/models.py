@@ -19,7 +19,7 @@ class Product(models.Model):
     name = models.CharField(max_length=30, verbose_name=("Product Name"))
     description = models.TextField(verbose_name=("Product Description"))
     model = models.CharField(max_length=30, verbose_name=("Product Model"))
-    price = models.DecimalField(decimal_places=2, max_digits=6,verbose_name=("Product Price"))
+    price = models.DecimalField(decimal_places=2, max_digits=12,verbose_name=("Product Price"))
     stock_items = models.IntegerField(verbose_name=("Product Items in Stock"))
     BID = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name=("Brand ID"))
     CategoryID=models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=("Category ID"))
