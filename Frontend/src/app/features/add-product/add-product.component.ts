@@ -31,9 +31,9 @@ export class AddProductComponent implements OnInit{
       model: ['', [Validators.required, Validators.maxLength(30)]],
       price: ['', [Validators.required, Validators.min(0)]],
       stock_items: ['', [Validators.required, Validators.min(0)]],
-      BID: ['', [Validators.required]],
-      CategoryID: ['', [Validators.required]],
-      base_view: [null, [Validators.required]]
+      BID: ['',[Validators.required]],
+      CategoryID: ['',[Validators.required]],
+      base_view: [null,[Validators.required]]
     });
   }
   ngOnInit(): void {
@@ -76,9 +76,9 @@ export class AddProductComponent implements OnInit{
   
     const formData = new FormData();
     Object.keys(this.productForm.controls).forEach(key => {
-      formData.append(key, this.productForm.get(key)?.value);
+      formData.append(key, this.productForm.get(key)?.value.id ? this.productForm.get(key)?.value.id: this.productForm.get(key)?.value);
     });
-  
+
     this.addProductService.addProduct(formData).subscribe({
       next: res=>{
         this.alertService.tosterSuccess('product add complete');
