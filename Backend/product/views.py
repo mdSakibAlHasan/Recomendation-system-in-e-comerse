@@ -73,7 +73,7 @@ class ProductManagement(CreateAPIView):
     def post(self, request, *args, **kwargs):
         user_id = getUserId(request)
         if user_id == None:
-            return Response({}, status=status.HTTP_403_FORBIDDEN)
+            return Response({"message":"You don't have permission to add a product"}, status=status.HTTP_403_FORBIDDEN)
         else:
             if request.method == 'POST':
                 serializer = ProductSerializer(data=request.data)
@@ -82,3 +82,20 @@ class ProductManagement(CreateAPIView):
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+    def put(self, request, *args, **kwargs):
+        user_id = getUserId(request)
+        if user_id == None:
+            return Response({"message":"You don't have permission to edit a product"}, status=status.HTTP_403_FORBIDDEN)
+        else:
+            try:
+                pk = request.data['id']
+                product = Product.objects.get(pk=pk)
+            except Product.DoesNotExist:
+                return Response({"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
+
+            if request.method == 'PUT':
+                serializer = ProductSerializer(product, data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_200_OK)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
