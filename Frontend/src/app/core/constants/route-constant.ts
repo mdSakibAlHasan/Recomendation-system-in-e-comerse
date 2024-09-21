@@ -8,5 +8,6 @@ export const RouteConstant = {
     Cart: 'cart',
     Summary: 'summary',
     Profile: 'profile',
-    AddProduct: 'addProduct'
+    AddProduct: 'addProduct',
+    UpdateProduct: 'updateProduct'
 }
