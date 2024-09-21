@@ -55,7 +55,7 @@ export class AddProductComponent implements OnInit{
           price: product[0].price,
           stock_items: product[0].stock_items,
           BID: product[0].BID,
-          CategoryID: category?.map(cat=>cat.id == product[0].CategoryID),
+          CategoryID: category.find(cat => cat.id === product[0].CategoryID),
           base_view: product[0].base_view 
         });
         this.imagePreview = product[0].base_view;
@@ -69,6 +69,13 @@ export class AddProductComponent implements OnInit{
         }
       })
     }
+  }
+
+  bindDropdown(CategoryId: number, brandId: number){
+    this.onCategoryChange(CategoryId);
+    this.productForm.patchValue({
+      // name: product[0].name,
+    })
   }
 
   onImagePicked(event: Event) {
