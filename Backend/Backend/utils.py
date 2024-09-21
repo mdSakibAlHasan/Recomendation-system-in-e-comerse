@@ -38,3 +38,11 @@ def getUserId(request):
             return None
 
     return None
+
+def getUserType(request):
+        user_id = getUserId(request)
+        if user_id == None:
+            return None
+        else:
+            user = User.objects.filter(id=user_id)[0]
+            return user.userType

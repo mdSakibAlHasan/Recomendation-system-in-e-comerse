@@ -4,9 +4,9 @@ from rest_framework.views import APIView
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
-from .models import Category, Brand, Product, ProductComment
+from .models import Category, Brand, Product, ProductComment, User
 from .serializer import CategorySerilizer, BrandSerilizer, CommentSerializer, ProductSerializer
-from Backend.utils import getUserId
+from Backend.utils import getUserId, getUserType
 from .filters import ProductFilter
 
 class CategoryApi(ListAPIView):
@@ -73,22 +73,21 @@ class ProductApi(ListAPIView):
 
 class ProductManagement(CreateAPIView):
     def post(self, request, *args, **kwargs):
-        user_id = getUserId(request)
-        if user_id == None:
-            return Response({"message":"You don't have permission to add a product"}, status=status.HTTP_403_FORBIDDEN)
-        else:
+        user_type = getUserType(request)
+        if user_type == User.SuperUser:
             if request.method == 'POST':
                 serializer = ProductSerializer(data=request.data)
                 if serializer.is_valid():
                     serializer.save()
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"message":"You don't have permission to add a product"}, status=status.HTTP_403_FORBIDDEN)
+        
         
     def put(self, request, *args, **kwargs):
-        user_id = getUserId(request)
-        if user_id == None:
-            return Response({"message":"You don't have permission to edit a product"}, status=status.HTTP_403_FORBIDDEN)
-        else:
+        user_type = getUserType(request)
+        if user_type == User.SuperUser:
             try:
                 pk = request.data['id']
                 product = Product.objects.get(pk=pk)
@@ -101,3 +100,5 @@ class ProductManagement(CreateAPIView):
                     serializer.save()
                     return Response(serializer.data, status=status.HTTP_200_OK)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"message":"You don't have permission to edit a product"}, status=status.HTTP_403_FORBIDDEN)
