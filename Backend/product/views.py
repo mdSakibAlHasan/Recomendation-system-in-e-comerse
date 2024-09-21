@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, ListCreateAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -12,12 +12,43 @@ from .filters import ProductFilter
 class CategoryApi(ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerilizer
+    
+class CategoryDetailApi(RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerilizer
 
 class BrandApi(ListCreateAPIView):
     serializer_class = BrandSerilizer
     def get_queryset(self):
         id = self.kwargs['id']
         return Brand.objects.filter(categoryID = id)
+
+    def create(self, request, *args, **kwargs):
+        category_id = self.kwargs['id']
+        
+        request.data['categoryID'] = category_id
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)       
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def update(self, request, *args, **kwargs):
+        # Update the brand instance  put
+        queryset = self.get_queryset()
+        brand = queryset.get(pk=kwargs['pk'])
+        serializer = self.get_serializer(brand, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, *args, **kwargs):
+        # Delete the brand instance  delte
+        queryset = self.get_queryset()
+        brand = queryset.get(pk=kwargs['pk'])
+        brand.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class GetProductById(ListAPIView):
     serializer_class = ProductSerializer
