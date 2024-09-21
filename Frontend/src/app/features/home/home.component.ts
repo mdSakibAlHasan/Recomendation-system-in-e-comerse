@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PaginatorState } from 'primeng/paginator';
 import { RouterModule } from '@angular/router';
+import { AddProductService } from '../add-product/add-product.service';
 
 @Component({
   selector: 'app-home',
@@ -25,10 +26,12 @@ export class HomeComponent implements OnInit{
   minPrice: number = 0;
   maxPrice: number = Infinity;
   sortOrder: string = 'asc';
+  superUser: boolean = false;
   constructor(
     private homeService: HomeService,
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
+    private addProductService: AddProductService
   ){}
 
   ngOnInit(): void {
@@ -43,11 +46,15 @@ export class HomeComponent implements OnInit{
         this.alertService.tosterDanger('Something went wrong');
       }
     })
+    this.addProductService.getUserDetails().subscribe(res=>{
+      res[0].userType === 'S' ? this.superUser = true: null;
+    })
   }
 
 
   goToProduct(id: number) {
-    this.router.navigate(['/products', id]);
+    // debugger
+    this.superUser ? this.router.navigate(['/updateProduct', id]) : this.router.navigate(['/products', id]);
   }
 
   onPageChange(event: PaginatorState) {

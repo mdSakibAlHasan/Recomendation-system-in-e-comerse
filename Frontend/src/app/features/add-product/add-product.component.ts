@@ -53,8 +53,9 @@ export class AddProductComponent implements OnInit{
       let category$ = this.addProductService.getCategory();
       combineLatest([product$,category$]).subscribe(([product, category])=>{
         this.category = category;
-        this.addProductService.getBrand(product[0].CategoryID).subscribe(res=>{ 
+        this.addProductService.getBrand(product[0].CategoryID).subscribe(async res=>{ 
           this.brand = res;
+          const file = await this.fetchImageAsFile(product[0].base_view);
           this.productForm.patchValue({
             CategoryID: category.find(cat => cat.id === product[0].CategoryID),
             name: product[0].name,
@@ -63,7 +64,7 @@ export class AddProductComponent implements OnInit{
             price: product[0].price,
             stock_items: product[0].stock_items,
             BID: res.find(b => b.id == product[0].BID),
-            base_view: product[0].base_view 
+            base_view: file
           });
         })
         this.imagePreview = product[0].base_view;
@@ -91,6 +92,31 @@ export class AddProductComponent implements OnInit{
     reader.readAsDataURL(file);
   }
 
+  fetchImageAsFile(url: string): Promise<File> {
+    // Extract the filename from the URL
+    const fileName = url.split('/').pop()!;
+    
+    return fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.blob(); // Convert response to Blob
+      })
+      .then(blob => {
+        // Create a File object from the Blob
+        const file = new File([blob], fileName, {
+          type: blob.type, // Preserve the MIME type
+          lastModified: new Date().getTime() // Set lastModified time
+        });
+        // this.productForm.patchValue({
+        //   base_view: file
+        // )}
+        return file; // Return the File object
+      });
+  }
+  
+
   onCategoryChange(event:any){
     this.addProductService.getBrand(event.value.id).subscribe({
       next: res=>{
@@ -101,12 +127,17 @@ export class AddProductComponent implements OnInit{
     })
   }
 
+  getRelativePath(fullUrl: string) {
+    const url = new URL(fullUrl);
+    return url.pathname.split('/').pop() ?? 'random'+this.id;
+  }
+
   onSubmit() {
     if (this.productForm.invalid) {
       this.alertService.tosterInfo('Please filup required field');
       return;
     }
-  
+    console.log(this.productForm.get('base_view')?.value)
     const formData = new FormData();
     Object.keys(this.productForm.controls).forEach(key => {
       formData.append(key, this.productForm.get(key)?.value.id ? this.productForm.get(key)?.value.id: this.productForm.get(key)?.value);

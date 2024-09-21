@@ -24,7 +24,7 @@
     <div class="col-4">
       <div
         class="product-card"
-        [routerLink]="['/product', product.id]"
+        (click)="goToProduct(product.id)"
         style="cursor: pointer"
       >
         <div class="p-img">

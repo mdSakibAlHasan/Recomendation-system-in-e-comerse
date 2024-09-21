@@ -96,6 +96,7 @@ class ProductManagement(CreateAPIView):
 
             if request.method == 'PUT':
                 serializer = ProductSerializer(product, data=request.data)
+                print(request.data)
                 if serializer.is_valid():
                     serializer.save()
                     return Response(serializer.data, status=status.HTTP_200_OK)
