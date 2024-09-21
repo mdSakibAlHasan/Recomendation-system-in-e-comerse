@@ -1,0 +1,57 @@
+@if(superUser){
+<div class="container">
+  <h1>Manage Categories and Brands</h1>
+  <div class="flex-container">
+    <!-- Add Category Section -->
+    <div class="category-section">
+      <h2>Add Category</h2>
+      <form (ngSubmit)="onAddCategory()" #categoryForm="ngForm">
+        <input
+          type="text"
+          placeholder="Enter category name"
+          required
+          [(ngModel)]="newCategory"
+          name="category"
+        />
+        <button type="submit">Add Category</button>
+      </form>
+
+      <h3>Existing Categories</h3>
+      <ul>
+        <li *ngFor="let cat of category">
+          {{ cat.name }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Add Brand Section -->
+    <div class="brand-section">
+      <h2>Add Brand under {{ selectedCategory }}</h2>
+      <form (ngSubmit)="onAddBrand()" #brandForm="ngForm">
+        <label for="CategoryID">Category</label>
+        <p-dropdown
+          [options]="category"
+          optionLabel="name"
+          placeholder="Select a Category"
+          (onChange)="onCategoryChange($event)"
+        />
+
+        <input
+          type="text"
+          placeholder="Enter brand name"
+          required
+          [(ngModel)]="newBrand"
+          name="brand"
+        />
+
+        <button type="submit">Add Brand</button>
+      </form>
+
+      <h3>Brands in {{ selectedCategory }}</h3>
+      <ul>
+        <li *ngFor="let brand of brands">{{ brand.name }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+}

@@ -3,11 +3,12 @@ import { ProfileService } from './profile.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlertService } from '../../shared/alert/alert.service';
+import { SuperUserComponent } from '../super-user/super-user.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SuperUserComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

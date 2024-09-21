@@ -53,7 +53,6 @@ export class HomeComponent implements OnInit{
 
 
   goToProduct(id: number) {
-    // debugger
     this.superUser ? this.router.navigate(['/updateProduct', id]) : this.router.navigate(['/products', id]);
   }
 
@@ -63,7 +62,6 @@ export class HomeComponent implements OnInit{
   }
 
   applyFilters(): void {
-    // Filter by price range
     this.products = this.products.filter(product => {
       return product.price >= this.minPrice && product.price <= this.maxPrice;
     });

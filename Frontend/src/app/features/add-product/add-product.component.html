@@ -1,6 +1,12 @@
 <div class="form-container">
   <h2>Add New Product</h2>
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+    <label for="image">Product Image</label>
+    <input id="image" type="file" (change)="onImagePicked($event)" />
+    <div *ngIf="imagePreview" class="image-preview">
+      <img [src]="imagePreview" alt="Product Image Preview" />
+    </div>
+
     <label for="name">Product Name</label>
     <input
       id="name"
@@ -58,12 +64,6 @@
       optionLabel="name"
       placeholder="Select a Brand"
     />
-
-    <label for="image">Product Image</label>
-    <input id="image" type="file" (change)="onImagePicked($event)" />
-    <div *ngIf="imagePreview" class="image-preview">
-      <img [src]="imagePreview" alt="Product Image Preview" />
-    </div>
 
     <button type="submit" class="submit-btn" [disabled]="productForm.invalid">
       Add Product

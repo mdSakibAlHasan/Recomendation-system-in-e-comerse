@@ -1,59 +1,91 @@
 <!-- user-profile.component.html -->
 
 <div class="profile-container">
-    <h1>{{user.username}}</h1>
-  
-    <!-- User Info and Password Update in Two Sections -->
-    <div class="profile-sections">
-      
-      <!-- Section 1: User Information -->
-      <div class="profile-info">
-        <h2>Profile Information</h2>
-        <small class="time">Joined on {{user.create_time | date: 'short' }}</small>
-        <form (submit)="updateUser()" class="form-section">
-          <label for="username">User Name:</label>
-          <input type="text" id="username" [(ngModel)]="user.username" name="username" readonly>
-  
-          <label for="email">Email:</label>
-          <input type="email" id="email" [(ngModel)]="user.email" name="email" readonly>
+  <h1>{{ user.username }}</h1>
 
-          <!-- <label for="address">Addess:</label>
+  <!-- User Info and Password Update in Two Sections -->
+  <div class="profile-sections">
+    <!-- Section 1: User Information -->
+    <div class="profile-info">
+      <h2>Profile Information</h2>
+      <small class="time"
+        >Joined on {{ user.create_time | date : "short" }}</small
+      >
+      <form (submit)="updateUser()" class="form-section">
+        <label for="username">User Name:</label>
+        <input
+          type="text"
+          id="username"
+          [(ngModel)]="user.username"
+          name="username"
+          readonly
+        />
+
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="user.email"
+          name="email"
+          readonly
+        />
+
+        <!-- <label for="address">Addess:</label>
           <input type="text" id="address" [(ngModel)]="user.address" name="address"  readonly> -->
-  
-          <!-- <button [disabled]="true" type="submit">Save Profile</button> -->
-        </form>
-      </div>
-  
-      <!-- Section 2: Password Update -->
-      <div class="password-change">
-        <h2>Change Password</h2>
-        <form (submit)="changePassword()" class="form-section">
-          <label for="current-password">Current Password:</label>
-          <input type="password" id="current-password" [(ngModel)]="passwordData.current_password" name="current_password" required>
-  
-          <label for="new-password">New Password:</label>
-          <input type="password" id="new-password" [(ngModel)]="passwordData.new_password" name="new_password" required>
-  
-          <label for="confirm-password">Confirm Password:</label>
-          <input type="password" id="confirm-password" [(ngModel)]="passwordData.confirm_password" name="confirm_password" required>
-  
-          <button type="submit">Change Password</button>
-        </form>
-      </div>
+
+        <!-- <button [disabled]="true" type="submit">Save Profile</button> -->
+      </form>
     </div>
-  
-    <!-- Section 3: Order History -->
-    <div class="order-history">
-      <h2>Order History</h2>
-      <ul>
-        <li *ngFor="let order of orderHistory">
-          <div>Product: {{ order.PID.name }}</div>
-          <div>Model: {{ order.PID.model }}</div>
-          <div>Price: {{ order.PID.price }}</div>
-          <div>Date: {{ order.create_time | date: 'short'  }}</div>
-          <div>Quantity: {{ order.quantity  }}</div>
-        </li>
-      </ul>
+
+    <!-- Section 2: Password Update -->
+    <div class="password-change">
+      <h2>Change Password</h2>
+      <form (submit)="changePassword()" class="form-section">
+        <label for="current-password">Current Password:</label>
+        <input
+          type="password"
+          id="current-password"
+          [(ngModel)]="passwordData.current_password"
+          name="current_password"
+          required
+        />
+
+        <label for="new-password">New Password:</label>
+        <input
+          type="password"
+          id="new-password"
+          [(ngModel)]="passwordData.new_password"
+          name="new_password"
+          required
+        />
+
+        <label for="confirm-password">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirm-password"
+          [(ngModel)]="passwordData.confirm_password"
+          name="confirm_password"
+          required
+        />
+
+        <button type="submit">Change Password</button>
+      </form>
     </div>
   </div>
-  
+
+  <app-super-user></app-super-user>
+
+  <!-- Section 3: Order History -->
+  <div class="order-history">
+    <h2>Order History</h2>
+    <ul>
+      <li *ngFor="let order of orderHistory">
+        <div>Product: {{ order.PID.name }}</div>
+        <div>Model: {{ order.PID.model }}</div>
+        <div>Price: {{ order.PID.price }}</div>
+        <div>Date: {{ order.create_time | date : "short" }}</div>
+        <div>Quantity: {{ order.quantity }}</div>
+      </li>
+    </ul>
+  </div>
+</div>

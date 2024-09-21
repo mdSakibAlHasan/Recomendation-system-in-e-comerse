@@ -93,7 +93,6 @@ export class AddProductComponent implements OnInit{
   }
 
   fetchImageAsFile(url: string): Promise<File> {
-    // Extract the filename from the URL
     const fileName = url.split('/').pop()!;
     
     return fetch(url)
@@ -101,18 +100,14 @@ export class AddProductComponent implements OnInit{
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.blob(); // Convert response to Blob
+        return response.blob();
       })
       .then(blob => {
-        // Create a File object from the Blob
         const file = new File([blob], fileName, {
-          type: blob.type, // Preserve the MIME type
-          lastModified: new Date().getTime() // Set lastModified time
+          type: blob.type, 
+          lastModified: new Date().getTime() 
         });
-        // this.productForm.patchValue({
-        //   base_view: file
-        // )}
-        return file; // Return the File object
+        return file;
       });
   }
   
@@ -127,17 +122,13 @@ export class AddProductComponent implements OnInit{
     })
   }
 
-  getRelativePath(fullUrl: string) {
-    const url = new URL(fullUrl);
-    return url.pathname.split('/').pop() ?? 'random'+this.id;
-  }
 
   onSubmit() {
     if (this.productForm.invalid) {
       this.alertService.tosterInfo('Please filup required field');
       return;
     }
-    console.log(this.productForm.get('base_view')?.value)
+  
     const formData = new FormData();
     Object.keys(this.productForm.controls).forEach(key => {
       formData.append(key, this.productForm.get(key)?.value.id ? this.productForm.get(key)?.value.id: this.productForm.get(key)?.value);

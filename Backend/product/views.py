@@ -9,11 +9,11 @@ from .serializer import CategorySerilizer, BrandSerilizer, CommentSerializer, Pr
 from Backend.utils import getUserId, getUserType
 from .filters import ProductFilter
 
-class CategoryApi(ListAPIView):
+class CategoryApi(ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerilizer
 
-class BrandApi(ListAPIView):
+class BrandApi(ListCreateAPIView):
     serializer_class = BrandSerilizer
     def get_queryset(self):
         id = self.kwargs['id']
