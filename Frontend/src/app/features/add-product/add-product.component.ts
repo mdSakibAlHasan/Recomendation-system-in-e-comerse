@@ -30,6 +30,11 @@ export class AddProductComponent implements OnInit{
     private route: ActivatedRoute,
     private productService: ProductService
   ) {
+    addProductService.getUserDetails().subscribe(res=>{
+      if(res[0].userType !== 'S'){
+        router.navigate(['account/login'])
+      }
+    })
     this.productForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(30)]],
       description: ['', [Validators.required]],
