@@ -48,16 +48,19 @@ export class AddProductComponent implements OnInit{
       let category$ = this.addProductService.getCategory();
       combineLatest([product$,category$]).subscribe(([product, category])=>{
         this.category = category;
-        this.productForm.patchValue({
-          name: product[0].name,
-          description: product[0].description,
-          model: product[0].model,
-          price: product[0].price,
-          stock_items: product[0].stock_items,
-          BID: product[0].BID,
-          CategoryID: category.find(cat => cat.id === product[0].CategoryID),
-          base_view: product[0].base_view 
-        });
+        this.addProductService.getBrand(product[0].CategoryID).subscribe(res=>{ 
+          this.brand = res;
+          this.productForm.patchValue({
+            CategoryID: category.find(cat => cat.id === product[0].CategoryID),
+            name: product[0].name,
+            description: product[0].description,
+            model: product[0].model,
+            price: product[0].price,
+            stock_items: product[0].stock_items,
+            BID: res.find(b => b.id == product[0].BID),
+            base_view: product[0].base_view 
+          });
+        })
         this.imagePreview = product[0].base_view;
       })
     }else{
@@ -69,13 +72,6 @@ export class AddProductComponent implements OnInit{
         }
       })
     }
-  }
-
-  bindDropdown(CategoryId: number, brandId: number){
-    this.onCategoryChange(CategoryId);
-    this.productForm.patchValue({
-      // name: product[0].name,
-    })
   }
 
   onImagePicked(event: Event) {
