@@ -23,7 +23,7 @@ export class SuperUserService extends BaseApiService{
   }
 
   addBrand(id: number,data: any):Observable<any>{    //{"name":"sumsung"}
-    return this.http.post<any>(`${this.baseurl}/brand/${id}`,data);
+    return this.http.post<any>(`${this.baseurl}/addBrand/${id}`,data);
   }
   updateBrand(id: number,data: any):Observable<any>{    //{"name":"sumsung"}
     return this.http.put<any>(`${this.baseurl}/brand/${id}`,data);
