@@ -4,6 +4,7 @@ import { AddProductService } from '../add-product/add-product.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { AlertService } from '../../shared/alert/alert.service';
 
 @Component({
   selector: 'app-super-user',
@@ -21,7 +22,8 @@ export class SuperUserComponent implements OnInit{
   selectedCategory: string = '';
   constructor(
     private superUnitService: SuperUserService,
-    private addProductService: AddProductService
+    private addProductService: AddProductService,
+    private alertService: AlertService
   ){}
 
   ngOnInit(): void {
@@ -38,24 +40,29 @@ export class SuperUserComponent implements OnInit{
       this.category = category;
     })
   }
-
-  onCategoryChange(event: any){
-    this.selectedCategory = event.value.name;
-    this.fetchBrands(event.value.id);
-  }
-
   fetchBrands(categoryId: number) {
     this.addProductService.getBrand(categoryId).subscribe((data: any[]) => {
       this.brands = data;
     });
   }
 
+  onCategoryChange(event: any){
+     this.selectedCategory = event.value.name;
+    this.fetchBrands(event.value.id);
+  }
+    
+
   onAddCategory() {
     if (!this.newCategory) return;
-    // this.categoryService.addCategory({ name: this.newCategory }).subscribe(() => {
-    //   this.fetchCategories();
-    //   this.newCategory = ''; // Clear input field
-    // });
+    this.superUnitService.addCategory({"name":this.newCategory}).subscribe({
+      next: res=>{
+        this.alertService.tosterSuccess('Category added');
+        this.getCategory();
+      }, 
+      error: err=>{
+        this.alertService.tosterDanger('Something went wrong');
+      }
+    })
   }
 
   onAddBrand() {
