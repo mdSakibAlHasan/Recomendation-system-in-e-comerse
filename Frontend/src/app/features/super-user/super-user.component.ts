@@ -20,6 +20,7 @@ export class SuperUserComponent implements OnInit{
   newCategory: string = '';
   newBrand: string = '';
   selectedCategory: string = '';
+  selectedCategoryID: number = 0;
   constructor(
     private superUnitService: SuperUserService,
     private addProductService: AddProductService,
@@ -47,7 +48,8 @@ export class SuperUserComponent implements OnInit{
   }
 
   onCategoryChange(event: any){
-     this.selectedCategory = event.value.name;
+    this.selectedCategory = event.value.name;
+    this.selectedCategoryID = event.value.id;
     this.fetchBrands(event.value.id);
   }
     
@@ -67,7 +69,15 @@ export class SuperUserComponent implements OnInit{
 
   onAddBrand() {
     if (!this.newBrand || this.selectedCategory === null) return;
-
+    this.superUnitService.addBrand(this.selectedCategoryID,{"name":this.newBrand}).subscribe({
+      next: res=>{
+        this.alertService.tosterSuccess('Brand added under '+this.selectedCategory);
+        this.fetchBrands(this.selectedCategoryID);
+      }, 
+      error: err=>{
+        this.alertService.tosterDanger('Something went wrong');
+      }
+    })
     // this.brandService.addBrand({ name: this.newBrand, categoryId: this.selectedCategory }).subscribe(() => {
     //   this.fetchBrands(this.selectedCategory);
     //   this.newBrand = ''; // Clear input field
