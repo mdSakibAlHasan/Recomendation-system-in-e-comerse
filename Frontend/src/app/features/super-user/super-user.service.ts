@@ -28,8 +28,8 @@ export class SuperUserService extends BaseApiService{
   updateBrand(id: number,data: any):Observable<any>{    //{"name":"sumsung"}
     return this.http.put<any>(`${this.baseurl}/brand/${id}`,data);
   }
-  deleteBrand(id: number,data: any):Observable<any>{    //{"name":"sumsung"}
-    return this.http.post<any>(`${this.baseurl}/category/${id}`,data);
+  deleteBrand(id: number):Observable<any>{    //{"name":"sumsung"}
+    return this.http.delete<any>(`${this.baseurl}/brand/${id}`);
   }
   
 }

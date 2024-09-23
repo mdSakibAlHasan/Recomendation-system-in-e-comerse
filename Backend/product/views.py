@@ -48,11 +48,13 @@ class BrandApi(RetrieveUpdateDestroyAPIView):
 
 
     def destroy(self, request, *args, **kwargs):
-        # Delete the brand instance  delte
-        queryset = self.get_queryset()
-        brand = queryset.get(pk=kwargs['pk'])
+        brand_id = self.kwargs['id']  # Adjust if using 'pk' instead of 'id'
+        try:
+            brand = Brand.objects.get(id=brand_id)
+        except Brand.DoesNotExist:
+            return Response({'error': 'Brand not found'}, status=status.HTTP_404_NOT_FOUND)
         brand.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({"success": True},status=status.HTTP_204_NO_CONTENT)
 
 class GetProductById(ListAPIView):
     serializer_class = ProductSerializer
