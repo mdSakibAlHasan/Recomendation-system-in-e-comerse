@@ -17,7 +17,7 @@ class CategoryDetailApi(RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerilizer
 
-class BrandApi(ListCreateAPIView):
+class BrandApi(RetrieveUpdateDestroyAPIView):
     serializer_class = BrandSerilizer
     def get_queryset(self):
         id = self.kwargs['id']
@@ -34,14 +34,18 @@ class BrandApi(ListCreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def update(self, request, *args, **kwargs):
-        # Update the brand instance  put
-        queryset = self.get_queryset()
-        brand = queryset.get(pk=kwargs['pk'])
-        serializer = self.get_serializer(brand, data=request.data)
+        brand_id = self.kwargs['id']  # Adjust if using 'pk' instead of 'id'
+        try:
+            brand = Brand.objects.get(id=brand_id)
+        except Brand.DoesNotExist:
+            return Response({'error': 'Brand not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = BrandSerilizer(brand, data={"name": request.data['name']}, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
     def destroy(self, request, *args, **kwargs):
         # Delete the brand instance  delte
