@@ -1,60 +1,186 @@
+/* Global Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
 .container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-  }
-  
-  h1, h2 {
-    color: #333;
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.6rem;
+  color: #666;
+  margin-top: 30px;
+}
+
+.flex-container {
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.category-section,
+.brand-section {
+  flex: 1 1 45%;
+  background-color: #fdfdfd;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button.icons {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+button.icons i {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+button.icons:hover i {
+  color: #007bff;
+}
+
+/* List Styles */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+li:hover {
+  background-color: #f1f1f1;
+}
+
+/* PrimeNG Dropdown Styling */
+p-dropdown {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.p-dropdown {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.p-dropdown .p-dropdown-label {
+  font-size: 1rem;
+  color: #333;
+}
+
+.p-dropdown:hover .p-dropdown-label {
+  color: #007bff;
+}
+
+.p-dropdown .p-dropdown-items .p-dropdown-item {
+  padding: 10px;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.p-dropdown .p-dropdown-items .p-dropdown-item:hover {
+  background-color: #f4f4f9;
+}
+
+.p-dropdown .p-dropdown-trigger {
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.p-dropdown .p-dropdown-trigger:hover {
+  background-color: #007bff;
+}
+
+.p-dropdown .p-dropdown-trigger .p-dropdown-trigger-icon {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.p-dropdown .p-dropdown-trigger:hover .p-dropdown-trigger-icon {
+  color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .flex-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  .category-section, .brand-section {
-    width: 48%; /* Each section takes up almost half of the container */
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  button {
-    margin-top: 10px;
-  }
-  
-  input {
-    margin-right: 10px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: calc(100% - 20px); /* Adjust width to fit padding */
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {  
-    padding: 5px;
-    border-bottom: 1px solid #eee;
+    flex-direction: column;
   }
 
-  i{
-    padding: 10px;
+  .category-section,
+  .brand-section {
+    flex: 1 1 100%;
   }
-  
-  /* li:hover {
-    background-color: #f0f0f0;
-  } */
+}
 
-  .icons{
-    border: none;
-    margin-left: 15%;
-    background: transparent;;
-  }
-  
