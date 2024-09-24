@@ -5,7 +5,7 @@
     <!-- Add Category Section -->
     <div class="category-section">
       <h2>Add Category</h2>
-      <form (ngSubmit)="onAddCategory()" #categoryForm="ngForm">
+      <form>
         <input
           type="text"
           placeholder="Enter category name"
@@ -13,14 +13,18 @@
           [(ngModel)]="newCategory"
           name="category"
         />
-        <button type="submit">Add Category</button>
+        @if(categoryID==0){
+        <button (click)="onAddCategory()">Add Category</button>
+        }@else{
+        <button (click)="onUpdateCategory()">Update Category</button>
+        }
       </form>
 
       <h3>Existing Categories</h3>
       <ul>
         <li *ngFor="let cat of category">
           {{ cat.name }}
-          <button class="icons" (click)="categoryEdit(cat.id)">
+          <button class="icons" (click)="categoryEdit(cat.id, cat.name)">
             <i class="pi pi-pencil"></i>
           </button>
           <button class="icons" (click)="categoryDelete(cat.id)">

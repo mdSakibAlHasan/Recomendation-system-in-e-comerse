@@ -18,6 +18,7 @@ export class SuperUserComponent implements OnInit{
   category: any[] = []
   brands: any[] = [];
   newCategory: string = '';
+  categoryID: number = 0;
   newBrand: string = '';
   selectedCategory: string = '';
   selectedCategoryID: number = 0;
@@ -47,8 +48,9 @@ export class SuperUserComponent implements OnInit{
     });
   }
 
-  categoryEdit(event:any){
-    console.log(event);
+  categoryEdit(categoryId:number, categoryName: string){
+    this.categoryID = categoryId;
+    this.newCategory = categoryName;
   }
 
   categoryDelete(event:any){
@@ -59,6 +61,20 @@ export class SuperUserComponent implements OnInit{
     this.selectedCategory = event.value.name;
     this.selectedCategoryID = event.value.id;
     this.fetchBrands(event.value.id);
+  }
+
+  onUpdateCategory(){
+    if (!this.newCategory) return;
+    this.superUnitService.updateCategory(this.categoryID,{"name":this.newCategory}).subscribe({
+      next: res=>{
+        this.alertService.tosterSuccess('Category updated');
+        this.getCategory();
+        this.categoryID = 0;
+      }, 
+      error: err=>{
+        this.alertService.tosterDanger('Something went wrong');
+      }
+    })
   }
     
 
