@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { AlertService } from '../../shared/alert/alert.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-super-user',
   standalone: true,
-  imports: [CommonModule, FormsModule, DropdownModule],
+  imports: [CommonModule, FormsModule, DropdownModule, RouterModule],
   templateUrl: './super-user.component.html',
   styleUrl: './super-user.component.css'
 })
