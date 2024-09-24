@@ -55,7 +55,7 @@ export class AddProductComponent implements OnInit{
         this.category = category;
         this.addProductService.getBrand(product[0].CategoryID).subscribe(async res=>{ 
           this.brand = res;
-          const file = await this.fetchImageAsFile(product[0].base_view);
+          const file = !!product[0].base_view ?? await this.fetchImageAsFile(product[0].base_view);
           this.productForm.patchValue({
             CategoryID: category.find(cat => cat.id === product[0].CategoryID),
             name: product[0].name,
