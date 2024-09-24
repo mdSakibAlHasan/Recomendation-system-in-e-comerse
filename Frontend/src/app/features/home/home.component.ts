@@ -23,9 +23,9 @@ export class HomeComponent implements OnInit{
   searchText: string = ''
   totalRecord: number = 0 ;
   baseImgUrl = 'http://localhost:8000/'
-  minPrice: number = 0;
+  minPrice: number = -Infinity;
   maxPrice: number = Infinity;
-  sortOrder: string = 'asc';
+  sortOrder: string = '';
   superUser: boolean = false;
   constructor(
     private homeService: HomeService,
