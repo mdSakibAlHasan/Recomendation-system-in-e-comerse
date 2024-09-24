@@ -47,6 +47,14 @@ export class SuperUserComponent implements OnInit{
     });
   }
 
+  categoryEdit(event:any){
+    console.log(event);
+  }
+
+  categoryDelete(event:any){
+    console.log(event);
+  }
+
   onCategoryChange(event: any){
     this.selectedCategory = event.value.name;
     this.selectedCategoryID = event.value.id;

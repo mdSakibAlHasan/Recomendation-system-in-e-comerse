@@ -20,6 +20,12 @@
       <ul>
         <li *ngFor="let cat of category">
           {{ cat.name }}
+          <button class="icons" (click)="categoryEdit(cat.id)">
+            <i class="pi pi-pencil"></i>
+          </button>
+          <button class="icons" (click)="categoryDelete(cat.id)">
+            <i class="pi pi-trash"></i>
+          </button>
         </li>
       </ul>
     </div>
