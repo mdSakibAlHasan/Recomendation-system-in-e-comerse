@@ -25,7 +25,7 @@ export class AddProductService extends BaseApiService{
   }
 
   getBrand(categoryID: number):Observable<any[]>{
-    return this.http.get<any[]>(`${this.baseurl}/brand/${categoryID}`);
+    return this.http.get<any[]>(`${this.baseurl}/addBrand/${categoryID}`);
   }
 
   getUserDetails():Observable<any>{

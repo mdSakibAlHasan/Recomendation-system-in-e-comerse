@@ -17,6 +17,11 @@ class CategoryDetailApi(RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerilizer
     
 class BrandApiCreate(ListCreateAPIView):
+    serializer_class = BrandSerilizer
+    def get_queryset(self):
+        id = self.kwargs['id']
+        return Brand.objects.filter(categoryID = id)
+    
     def create(self, request, *args, **kwargs):
         category_id = self.kwargs['id']
         

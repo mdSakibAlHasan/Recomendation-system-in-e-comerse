@@ -53,8 +53,22 @@ export class SuperUserComponent implements OnInit{
     this.newCategory = categoryName;
   }
 
-  categoryDelete(event:any){
-    console.log(event);
+  categoryDelete(categoryID:number){
+    this.alertService.confirm(
+			'Are you want to delete this category?',
+			() => {
+				this.superUnitService.deleteCategory(categoryID).subscribe({
+					next: res => {
+						this.alertService.tosterSuccess("Category delete complete");
+            this.getCategory();
+					},
+					error: err => {
+						this.alertService.tosterDanger(err.message);
+					},
+				});
+			},
+			() => {}
+		);
   }
 
   onCategoryChange(event: any){
