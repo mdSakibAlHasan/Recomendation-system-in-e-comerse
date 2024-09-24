@@ -37,7 +37,7 @@
     <!-- Add Brand Section -->
     <div class="brand-section">
       <h2>Add Brand under {{ selectedCategory }}</h2>
-      <form (ngSubmit)="onAddBrand()" #brandForm="ngForm">
+      <form>
         <label for="CategoryID">Category</label>
         <p-dropdown
           [options]="category"
@@ -54,12 +54,24 @@
           name="brand"
         />
 
-        <button type="submit">Add Brand</button>
+        @if(brandID==0){
+        <button (click)="onAddBrand()">Add Brand</button>
+        }@else{
+        <button (click)="onUpdateBrand()">Update Brand</button>
+        }
       </form>
 
       <h3>Brands in {{ selectedCategory }}</h3>
       <ul>
-        <li *ngFor="let brand of brands">{{ brand.name }}</li>
+        <li *ngFor="let brand of brands">
+          {{ brand.name }}
+          <button class="icons" (click)="brandEdit(brand.id, brand.name)">
+            <i class="pi pi-pencil"></i>
+          </button>
+          <button class="icons" (click)="brandDelete(brand.id)">
+            <i class="pi pi-trash"></i>
+          </button>
+        </li>
       </ul>
     </div>
   </div>
