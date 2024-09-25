@@ -48,7 +48,7 @@ class BrandApi(RetrieveUpdateDestroyAPIView):
 
 
     def destroy(self, request, *args, **kwargs):
-        brand_id = self.kwargs['id']  # Adjust if using 'pk' instead of 'id'
+        brand_id = self.kwargs['id']
         try:
             brand = Brand.objects.get(id=brand_id)
         except Brand.DoesNotExist:
@@ -140,3 +140,12 @@ class ProductManagement(CreateAPIView):
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({"message":"You don't have permission to edit a product"}, status=status.HTTP_403_FORBIDDEN)
+        
+    def delete(self, request, *args, **kwargs):
+        product_id = request.data['id']
+        try:
+            product = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            return Response({'error': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
+        product.delete()
+        return Response({"success": True},status=status.HTTP_204_NO_CONTENT)

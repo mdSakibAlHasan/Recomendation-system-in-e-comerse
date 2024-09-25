@@ -31,4 +31,8 @@ export class AddProductService extends BaseApiService{
   getUserDetails():Observable<any>{
     return this.http.get<any>(`${this.baseurl}/user/details`);
   }
+
+  deleteProduct(data: any):Observable<any>{
+    return this.http.delete<any>(`${this.baseurl}/productManagement`,data);
+  }
 }
