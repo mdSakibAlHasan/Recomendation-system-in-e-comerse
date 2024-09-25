@@ -44,21 +44,8 @@
       badgeClass="p-badge-info"
     >
     </p-button>
-    <div *ngIf="!isLogin">
-      <p-button
-        label="Login"
-        [text]="true"
-        icon="pi pi-sign-in"
-        routerLink="account/login"
-      ></p-button>
-      <p-button
-        label="Signup"
-        [text]="true"
-        icon="pi pi-user-plus"
-        routerLink="account/register"
-      ></p-button>
-    </div>
-    <div *ngIf="isLogin">
+    @if(isLogin){
+    <div>
       <p-button
         label="{{ userDetails[0].username }}"
         [text]="true"
@@ -73,5 +60,21 @@
         (click)="logout()"
       ></p-button>
     </div>
+    }@else{
+    <div>
+      <p-button
+        label="Login"
+        [text]="true"
+        icon="pi pi-sign-in"
+        routerLink="account/login"
+      ></p-button>
+      <p-button
+        label="Signup"
+        [text]="true"
+        icon="pi pi-user-plus"
+        routerLink="account/register"
+      ></p-button>
+    </div>
+    }
   </div>
 </p-toolbar>

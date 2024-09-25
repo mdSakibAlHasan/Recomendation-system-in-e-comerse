@@ -51,7 +51,7 @@ export class NavbarComponent implements OnInit{
       this.updateCartNumber();
     })
 
-    this.updateCartNumber();
+    // this.updateCartNumber();
     this.navbarService.getCategory().subscribe({
       next: res=>{
         this.categories = res;
