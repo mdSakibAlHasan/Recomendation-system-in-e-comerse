@@ -134,14 +134,27 @@ export class AddProductComponent implements OnInit{
       formData.append(key, this.productForm.get(key)?.value.id ? this.productForm.get(key)?.value.id: this.productForm.get(key)?.value);
     });
 
-    this.addProductService.addProduct(formData).subscribe({
-      next: res=>{
-        this.alertService.tosterSuccess('product add complete');
-        this.router.navigate(['product/'+res.id]);
-      },
-      error: err=>{
-        this.alertService.tosterDanger(err.message)
-      }
-    });
+    if(this.id != '0'){
+      formData.append('id', this.id);
+      this.addProductService.updateProduct(formData).subscribe({
+        next: res=>{
+          this.alertService.tosterSuccess('product update complete');
+          this.router.navigate(['product/'+this.id]);
+        },
+        error: err=>{
+          this.alertService.tosterDanger(err.message)
+        }
+      });
+    }else{
+      this.addProductService.addProduct(formData).subscribe({
+        next: res=>{
+          this.alertService.tosterSuccess('product add complete');
+          this.router.navigate(['product/'+res.id]);
+        },
+        error: err=>{
+          this.alertService.tosterDanger(err.message)
+        }
+      });
+    }
   }
 }
