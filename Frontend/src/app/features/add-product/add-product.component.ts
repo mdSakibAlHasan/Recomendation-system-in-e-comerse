@@ -122,13 +122,29 @@ export class AddProductComponent implements OnInit{
     })
   }
 
+  deleteProduct(){
+    this.alertService.confirm(
+			'Are you want to delete this product?',
+			() => {
+				this.addProductService.deleteProduct(this.id).subscribe({
+          next: res=>{
+            this.alertService.tosterSuccess('Product delete complete');
+            this.router.navigate(['home']);
+          },
+          error: err=>{
+            this.alertService.tosterDanger('Something went wrong');
+          }
+        })
+			},
+			() => {}
+		);
+  }
 
   onSubmit() {
     if (this.productForm.invalid) {
       this.alertService.tosterInfo('Please filup required field');
       return;
     }
-    debugger
     const formData = new FormData();
     Object.keys(this.productForm.controls).forEach(key => {
       formData.append(key, this.productForm.get(key)?.value.id ? this.productForm.get(key)?.value.id: this.productForm.get(key)?.value);

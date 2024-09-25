@@ -61,6 +61,19 @@
     cursor: pointer;
     transition: background-color 0.3s;
   }
+
+  .delete-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    background-color: #df2e36;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
   
   .submit-btn:hover {
     background-color: #45a049;

@@ -68,5 +68,13 @@
     <button type="submit" class="submit-btn" [disabled]="productForm.invalid">
       {{ id == "0" ? "Add " : "Update " }}Product
     </button>
+    <br />
+    <br />
   </form>
+
+  @if(id != '0'){
+  <button class="delete-btn" (click)="deleteProduct()">
+    <i class="pi pi-trash"></i> Delete Product
+  </button>
+  }
 </div>

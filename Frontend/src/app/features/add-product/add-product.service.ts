@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseApiService } from '../../utility/base-api-service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -32,7 +32,15 @@ export class AddProductService extends BaseApiService{
     return this.http.get<any>(`${this.baseurl}/user/details`);
   }
 
-  deleteProduct(data: any):Observable<any>{
-    return this.http.delete<any>(`${this.baseurl}/productManagement`,data);
+  deleteProduct(data: string):Observable<any>{
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body:{
+        id: data,
+      },
+    };
+    return this.http.delete<any>(`${this.baseurl}/productManagement`,options);
   }
 }
