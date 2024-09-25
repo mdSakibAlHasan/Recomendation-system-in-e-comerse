@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../cart.service';
 import { AlertService } from '../../../shared/alert/alert.service';
+import { NavbarService } from '../../../shared/component/navbar/navbar.service';
 
 @Component({
   selector: 'app-summary',
@@ -18,7 +19,8 @@ export class SummaryComponent {
   constructor(
     private router: Router,
     private cartService: CartService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private navbarService: NavbarService
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +43,8 @@ export class SummaryComponent {
     })
     this.cartService.updateCartItems(items).subscribe({
       next: res=>{
-        this.alertService.tosterSuccess('Payment Successful! Your order has been placed.')
+        this.alertService.tosterSuccess('Payment Successful! Your order has been placed.');
+        this.navbarService.updateCartNumber();
         this.router.navigate(['/']); 
       },
       error: err=>{
