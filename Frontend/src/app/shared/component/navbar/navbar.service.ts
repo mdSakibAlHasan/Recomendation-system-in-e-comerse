@@ -10,11 +10,17 @@ import { AuthService } from '../../../core/services/auth.service';
 export class NavbarService extends BaseApiService{
   private isLoginSubject = new BehaviorSubject<boolean>(false);
   loginData$ = this.isLoginSubject.asObservable();
+  private cartUpdateSubject = new BehaviorSubject<any>(null);
+  cartData$ = this.cartUpdateSubject.asObservable();
   constructor(
     private http: HttpClient,
     private authService: AuthService
   ) {
     super();
+  }
+
+  updateCartNumber(){
+    this.cartUpdateSubject.next(null);
   }
 
   updateLoginInfo(isLogin: boolean) {

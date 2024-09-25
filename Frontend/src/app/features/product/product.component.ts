@@ -9,6 +9,7 @@ import { Product } from '../home/home.model';
 import { RatingModule } from 'primeng/rating';
 import { combineLatest, Subscription } from 'rxjs';
 import { AuthGuard } from '../../core/guards/auth.guard';
+import { NavbarService } from '../../shared/component/navbar/navbar.service';
 
 @Component({
   selector: 'app-product',
@@ -32,6 +33,7 @@ export class ProductComponent {
     private route: ActivatedRoute,
     private productService: ProductService,
     private alertService: AlertService,
+    private navbarService: NavbarService,
     private location: Location,
     private authGuard: AuthGuard,
     private router: Router
@@ -62,6 +64,7 @@ export class ProductComponent {
             next: res=>{
               this.isInCart = !this.isInCart;
               this.alertService.tosterSuccess('Product added in cart successfully');
+              this.navbarService.updateCartNumber();
             },
             error: err=>{
               this.alertService.tosterDanger('Something went wrong');

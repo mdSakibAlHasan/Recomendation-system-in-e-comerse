@@ -47,21 +47,28 @@ export class NavbarComponent implements OnInit{
     this.navbarService.loginData$.subscribe((loginStatus) => {
       this.isLogin = loginStatus;
     });
-
-    this.navbarService.getCartNumber().subscribe({
-      next: res =>{
-        this.cartItemsCount = res.cart_count;
-      },
-      error: err=>{
-
-      }
+    this.navbarService.cartData$.subscribe(()=>{
+      this.updateCartNumber();
     })
+
+    this.updateCartNumber();
     this.navbarService.getCategory().subscribe({
       next: res=>{
         this.categories = res;
       },
       error: err=>{
         console.log('Categories are not able to fetch')
+      }
+    })
+  }
+
+  updateCartNumber(){
+    this.navbarService.getCartNumber().subscribe({
+      next: res =>{
+        this.cartItemsCount = res.cart_count;
+      },
+      error: err=>{
+        // this.alertService.tosterDanger('Something went wrong in cart');
       }
     })
   }

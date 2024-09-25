@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit{
 
 
   goToProduct(id: number) {
-    this.superUser ? this.router.navigate(['/updateProduct', id]) : this.router.navigate(['/products', id]);
+    this.superUser ? this.router.navigate(['/updateProduct', id]) : this.router.navigate(['/product', id]);
   }
 
   onPageChange(event: PaginatorState) {

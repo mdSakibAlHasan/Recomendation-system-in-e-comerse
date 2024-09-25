@@ -3,6 +3,7 @@ import { CartService } from './cart.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../../shared/alert/alert.service';
 import { CommonModule } from '@angular/common';
+import { NavbarService } from '../../shared/component/navbar/navbar.service';
 
 @Component({
   selector: 'app-cart',
@@ -20,7 +21,8 @@ export class CartComponent {
   constructor(
     private cartService: CartService, 
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private navbarService: NavbarService
   ) {}
 
   ngOnInit(): void {
@@ -72,7 +74,8 @@ export class CartComponent {
     }];
     this.cartService.updateCartItems(items).subscribe({
       next: res=>{
-        this.alertService.tosterSuccess('Item deleted successfully from cart!.')
+        this.alertService.tosterSuccess('Item deleted successfully from cart!.');
+        this.navbarService.updateCartNumber();
       },
       error: err=>{
         this.alertService.tosterDanger('Something went wrong')
