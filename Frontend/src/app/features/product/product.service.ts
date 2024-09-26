@@ -31,4 +31,8 @@ export class ProductService extends BaseApiService{
   addToCart(data:any):Observable<any>{
     return this.http.post<any>(`${this.baseurl}/cart/`,data);
   }
+
+  viewCartStatus(productId: string):Observable<boolean>{
+    return this.http.get<boolean>(`${this.baseurl}/cart/viewCart/${productId}`);
+  }
 }

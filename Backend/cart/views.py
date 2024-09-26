@@ -88,3 +88,17 @@ class GetOrderHistory(ListAPIView):
             cart_item = Cart.objects.filter(UID=user_id, status = Cart.ORDERED)
             serializer = GetCartSerializer(cart_item, many=True)
             return Response(serializer.data)
+        
+        
+class IsInCart(ListAPIView):
+    def get(self, request, *args, **kwargs):
+        user_id = getUserId(request)
+        product_id = self.kwargs['product_id']
+        if user_id == None:
+            return Response({"message":"user not found"}, status=status.HTTP_403_FORBIDDEN)
+        else:
+            cart_item = Cart.objects.filter(UID=user_id, PID = product_id, status = Cart.PENDING).count()
+            if cart_item == 0:
+                return Response(False)
+            else:
+                return Response(True)

@@ -43,9 +43,11 @@ export class ProductComponent {
     this.productId = this.route.snapshot.paramMap.get('id')?? '0';
     let productComment$ = this.productService.getCommentsByProductId(this.productId);
     let products$ = this.productService.getProductById(this.productId);
-    this.subscription$ = combineLatest([productComment$, products$]).subscribe(([productComment, products]) =>{
+    let viewProductStatus$ = this.productService.viewCartStatus(this.productId);
+    this.subscription$ = combineLatest([productComment$, products$, viewProductStatus$]).subscribe(([productComment, products, viewProductStatus]) =>{
       this.product = products[0];
       this.productComment = productComment;
+      this.isInCart = viewProductStatus;
     })
   }
 
