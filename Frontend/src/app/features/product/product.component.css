@@ -110,3 +110,14 @@
     font-size: 14px;
     color: #555;
 }
+
+.product-info .stock {
+    color: #28a745;
+    margin-bottom: 15px;
+  }
+  
+  .product-info .stock-out {
+    color: #dc3545;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }

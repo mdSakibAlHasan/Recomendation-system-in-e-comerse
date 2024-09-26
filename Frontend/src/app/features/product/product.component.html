@@ -21,6 +21,11 @@
       <p><strong>Brand: </strong>{{ product.BID.name }}</p>
       <p><strong>Model: </strong>{{ product.model }}</p>
       <p class="price">Regular Price: {{ product.price }}</p>
+      @if(product.stock_items>0){
+      <p class="stock">In Stock: {{ product.stock_items }} items</p>
+      }@else{
+      <p class="stock-out">Out of stock</p>
+      }
     </div>
 
     <!-- Buttons -->
