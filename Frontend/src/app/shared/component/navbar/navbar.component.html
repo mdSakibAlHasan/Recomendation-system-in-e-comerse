@@ -39,7 +39,7 @@
       [text]="true"
       label="Cart"
       icon="pi pi-shopping-cart"
-      routerLink="cart"
+      (click)="clickOnCart()"
       [badge]="cartItemsCount.toString()"
       badgeClass="p-badge-info"
     >

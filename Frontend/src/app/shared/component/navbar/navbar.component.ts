@@ -104,4 +104,14 @@ export class NavbarComponent implements OnInit{
     this.userDetails = {}; 
     this.router.navigate(['home'])
   }
+
+  clickOnCart(){
+    if(this.isLogin){
+      this.router.navigate(['cart'])
+    }else{
+      this.alertService.tosterInfo('Please login to view cart');
+      this.router.navigate(['account/login']);
+    }
+    
+  }
 }
