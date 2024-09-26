@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from django.db.models import Avg
 from .models import Category, Brand, Product, ProductComment, User
 from .serializer import CategorySerilizer, BrandSerilizer, CommentSerializer, ProductSerializer
 from Backend.utils import getUserId, getUserType
@@ -91,6 +92,10 @@ class ProductApi(ListAPIView):
     filterset_class = ProductFilter
     search_fields = ['name', 'description', 'model']
     ordering_fields = ['price']
+    
+    def get_queryset(self):
+        queryset = Product.objects.annotate(average_review=Avg('productcomment__review'))
+        return queryset
 
     def get_serializer_context(self):
         return {'request': self.request}
