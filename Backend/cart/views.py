@@ -2,8 +2,11 @@ from rest_framework.generics import ListAPIView, ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Cart
+# from ..product.models import Product
+# from ..product.serializer import ProductSerializer
 from .serializer import CartSerializer, GetCartSerializer
 from Backend.utils import getUserId
+from product.views import updateProductStock
 
 class CartProduct(ListCreateAPIView):
     def get(self, request, *args, **kwargs):
@@ -61,7 +64,9 @@ class CartProduct(ListCreateAPIView):
                 updated_items.append(serializer.data)
             else:
                 errors.append({"id": id, "error": serializer.errors})
-
+               
+            updateProductStock(cart_item.PID.id,quantity); 
+            
         # Return the updated items and any errors encountered
         return Response({
             "updated_items": updated_items,

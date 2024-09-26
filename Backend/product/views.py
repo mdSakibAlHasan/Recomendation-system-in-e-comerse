@@ -149,3 +149,15 @@ class ProductManagement(CreateAPIView):
             return Response({'error': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
         product.delete()
         return Response({"success": True},status=status.HTTP_204_NO_CONTENT)
+    
+
+def updateProductStock(productID, quantity):
+    try:
+        product = Product.objects.get(id=productID)
+        serializer = ProductSerializer(product, data={"stock_items": product.stock_items - quantity}, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+        else:
+            print(serializer.errors)  
+    except Product.DoesNotExist:
+        print(f"Product with id {productID} does not exist.") 
