@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { PaginatorState } from 'primeng/paginator';
 import { RouterModule } from '@angular/router';
 import { AddProductService } from '../add-product/add-product.service';
+import { ProductModel } from '../../shared/model/product.model';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,7 @@ import { AddProductService } from '../add-product/add-product.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
-  products: Product[] = [];
+  products: ProductModel[] = [];
   first: number = 0;
   rows: number = 10;
   searchText: string = ''

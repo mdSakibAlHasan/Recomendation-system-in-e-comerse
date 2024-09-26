@@ -53,7 +53,7 @@ export class AddProductComponent implements OnInit{
       let category$ = this.addProductService.getCategory();
       combineLatest([product$,category$]).subscribe(([product, category])=>{
         this.category = category;
-        this.addProductService.getBrand(product[0].CategoryID).subscribe(async res=>{ 
+        this.addProductService.getBrand(product[0].CategoryID.id).subscribe(async res=>{ 
           this.brand = res;
           const file = !!product[0].base_view ? await this.fetchImageAsFile(product[0].base_view): null;
           this.productForm.patchValue({

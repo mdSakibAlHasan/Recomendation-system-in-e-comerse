@@ -33,6 +33,7 @@
         </div>
         <h2>{{ product.name }}</h2>
         <p class="description">{{ product.description }}</p>
+        <p><strong>Brand:</strong> {{ product.BID.name }}</p>
         <p><strong>Model:</strong> {{ product.model }}</p>
         <p class="price">Price: {{ product.price }}</p>
         @if(product.stock_items>0){

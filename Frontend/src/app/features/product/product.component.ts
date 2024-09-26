@@ -5,11 +5,11 @@ import { ActivatedRoute, Router} from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ProductService } from './product.service';
 import { AlertService } from '../../shared/alert/alert.service';
-import { Product } from '../home/home.model';
 import { RatingModule } from 'primeng/rating';
 import { combineLatest, Subscription } from 'rxjs';
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { NavbarService } from '../../shared/component/navbar/navbar.service';
+import { ProductModel } from '../../shared/model/product.model';
 
 @Component({
   selector: 'app-product',
@@ -24,7 +24,7 @@ export class ProductComponent {
   showReviewForm = false;
   reviewText: string = '';
   reviewRating: number = 0;
-  product: Product | undefined;
+  product: ProductModel | undefined;
   productComment: any[] = [];
   baseImgUrl = 'http://localhost:8000/'
   private subscription$: Subscription | undefined;

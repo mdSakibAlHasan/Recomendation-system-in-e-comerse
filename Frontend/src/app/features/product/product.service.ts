@@ -3,6 +3,7 @@ import { BaseApiService } from '../../utility/base-api-service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../home/home.model';
+import { ProductModel } from '../../shared/model/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class ProductService extends BaseApiService{
     super();
   }
 
-  getProductById(id: string):Observable<Product[]>{
-    return this.http.get<Product[]>(`${this.baseurl}/product/${id}/`);
+  getProductById(id: string):Observable<ProductModel[]>{
+    return this.http.get<ProductModel[]>(`${this.baseurl}/product/${id}/`);
   }
 
   getPicturesByProductId(id: string):Observable<any>{
