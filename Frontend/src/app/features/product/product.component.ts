@@ -54,6 +54,8 @@ export class ProductComponent {
   toggleCart() {
     if(this.isInCart){
       this.router.navigate(['cart']);
+    }else if(this.product && this.product?.stock_items==0){
+      this.alertService.tosterDanger("Product is not in stock ")
     }else{
       this.authGuard.isLoggedIn().then(isLoggedIn => {
         if (!isLoggedIn) {
