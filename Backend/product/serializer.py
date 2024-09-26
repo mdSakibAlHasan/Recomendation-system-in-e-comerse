@@ -15,6 +15,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         exclude = [] 
+        depth = 1
 
 class CommentSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='UID.username', read_only=True)
