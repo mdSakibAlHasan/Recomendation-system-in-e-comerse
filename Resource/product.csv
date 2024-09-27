@@ -1,0 +1,37 @@
+id,name,description,model,price,stock_items,base_view,BID_id,CategoryID_id
+1,"iPhone 14","The latest Apple smartphone with A15 chip and enhanced features",A2643,110000.00,5,i14.jpg,1,1
+2,"iPhone 13","A smartphone with A14 chip, great camera, and new features",A2403,80000.00,3,i14_adKutA1.jpg,1,1
+3,"Samsung Galaxy S22","Flagship Samsung phone with top features",S901B,130000.00,8,s22.jpg,2,1
+4,"Samsung Galaxy A53","Affordable Samsung phone with good performance",SM-A536B,120000.00,20,a53.jpg,2,1
+5,"Xiaomi Mi 12","Xiaomi flagship with Snapdragon 8 Gen 1",2201123G,60000.00,150,x2_hwIZlUI.jpg,3,1
+6,"Xiaomi Redmi Note 11","Mid-range Xiaomi phone with Snapdragon 680",2201117TY,65000.00,7,note_11_2qYoQPu.png,3,1
+7,"OnePlus 10 Pro","Flagship OnePlus phone with Snapdragon 8 Gen 1",NE2213,90000.00,7,plus_10.jpg,4,1
+8,"OnePlus Nord 2","Mid-range OnePlus phone with MediaTek Dimensity 1200",DN2101,55000.00,12,note_2.jpg,4,1
+9,"Lenovo IdeaPad 5","Slim and powerful laptop with Intel i7",82FE00TGUS,899.99,40,Lenovo_IdeaPad_5.jpg,5,2
+10,"Lenovo Legion 5","Gaming laptop with AMD Ryzen 7 and GTX 1660Ti",82JW00B5US,1199.99,20,Lenovo_Legion_5.jpg,5,2
+11,"Dell XPS 13","Ultrabook with Intel i7 and great design",9305,1099.99,30,Dell_XPS_13.jpg,6,2
+12,"Dell Inspiron 15","Affordable laptop with Intel i5",5502,699.99,60,NULL,6,2
+13,"HP Spectre x360","Convertible laptop with Intel i7 and 4K display",14-ea0037nr,1299.99,25,NULL,7,2
+14,"HP Pavilion 15","Mid-range laptop with Intel i5 and Full HD display",15-eg0073cl,799.99,50,NULL,7,2
+15,"Asus ROG Zephyrus G14","Gaming laptop with AMD Ryzen 9 and RTX 3060",GA402RJ,1499.99,15,NULL,8,2
+16,"Asus VivoBook 15","Budget laptop with Intel i3",F512JA-AS34,449.99,70,NULL,8,2
+17,"Acer Nitro 5","Affordable gaming laptop with Intel i5 and GTX 1650",AN515-55-53E5,899.99,30,NULL,9,2
+18,"Acer Aspire 5","All-rounder laptop with Intel i5",A515-56-50RS,649.99,100,NULL,9,2
+19,"iPhone 14 Pro","Pro model with better camera and more storage",A2644,1099.99,40,NULL,1,1
+20,"iPhone 12","A smartphone with A13 chip and OLED display",A2172,699.99,90,NULL,1,1
+21,"Samsung Galaxy Z Fold3","Foldable smartphone with premium design",SM-F926B,1799.99,20,NULL,2,1
+22,"Samsung Galaxy S21 FE","Affordable version of the flagship S21",SM-G990B,649.99,120,NULL,2,1
+23,"Xiaomi Mi 11","Xiaomi flagship with Snapdragon 888",M2011K2C,699.99,110,NULL,3,1
+24,"Xiaomi Poco X3","Budget phone with excellent specs",M2007J20CI,199.99,250,NULL,3,1
+25,"OnePlus 9","Flagship OnePlus phone with Snapdragon 888",LE2111,729.99,60,NULL,4,1
+26,"OnePlus Nord CE","Affordable OnePlus phone with good performance",EB2101,299.99,150,NULL,4,1
+27,"Lenovo ThinkPad X1 Carbon","Business laptop with Intel i7",20U9005MUS,1499.99,20,NULL,5,2
+28,"Lenovo Yoga 9i","Convertible laptop with Intel i7 and premium design",82BG0060US,1399.99,15,NULL,5,2
+29,"Dell XPS 15","Powerful ultrabook with Intel i9 and GTX 1650 Ti",9500,1799.99,10,NULL,6,2
+30,"Dell G5 15","Gaming laptop with Intel i7 and GTX 1660 Ti",5590,1199.99,25,NULL,6,2
+31,"HP Envy 13","Lightweight laptop with Intel i7 and great battery life",13-ba1010nr,999.99,40,NULL,7,2
+32,"HP Omen 15","Gaming laptop with AMD Ryzen 5 and GTX 1660 Ti",15-en0029nr,1099.99,20,NULL,7,2
+33,"Asus TUF Gaming A15","Durable gaming laptop with AMD Ryzen 7",FA506IH,999.99,30,NULL,8,2
+34,"Asus ZenBook 14","Compact ultrabook with Intel i5",UX425EA,849.99,50,NULL,8,2
+35,"Acer Predator Helios 300","Gaming laptop with Intel i7 and RTX 2060",PH315-53-72XD,1299.99,15,NULL,9,2
+36,"Acer Swift 3","Thin and light laptop with AMD Ryzen 7",SF314-42-R9YN,699.99,80,NULL,9,2
