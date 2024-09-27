@@ -57,13 +57,13 @@ export class AddProductComponent implements OnInit{
           this.brand = res;
           const file = !!product[0].base_view ? await this.fetchImageAsFile(product[0].base_view): null;
           this.productForm.patchValue({
-            CategoryID: category.find(cat => cat.id === product[0].CategoryID),
+            CategoryID: category.find(cat => cat.id === product[0].CategoryID.id),
             name: product[0].name,
             description: product[0].description,
             model: product[0].model,
             price: product[0].price,
             stock_items: product[0].stock_items,
-            BID: res.find(b => b.id == product[0].BID),
+            BID: res.find(b => b.id == product[0].BID.id),
             base_view: file
           });
         })
