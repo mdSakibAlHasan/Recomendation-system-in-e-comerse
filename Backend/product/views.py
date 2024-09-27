@@ -86,8 +86,8 @@ class GetCommentsByProductId(ListCreateAPIView):
 
 
 class ProductApi(ListAPIView):
-    queryset = Product.objects.all()  # Define the queryset
-    serializer_class = ProductSerializer  # Specify the serializer class
+    queryset = Product.objects.all()  
+    serializer_class = ProductSerializer  
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = ProductFilter
     search_fields = ['name', 'description', 'model']
@@ -99,18 +99,6 @@ class ProductApi(ListAPIView):
 
     def get_serializer_context(self):
         return {'request': self.request}
-
-    # def post(self, request, *args, **kwargs):
-        # if getUserType(request.headers.get('Authorization')) == 'S':
-        #     serializer = ProductSerializer(data=request.data)
-            
-        #     if serializer.is_valid():
-        #         serializer.save()
-        #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-            
-        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        # else:
-        #     return Response({"message": "You don't have this permission"})
 
 
 class ProductManagement(CreateAPIView):

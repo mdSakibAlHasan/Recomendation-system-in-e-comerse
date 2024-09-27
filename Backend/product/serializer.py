@@ -20,9 +20,7 @@ class ProductSerializer(serializers.ModelSerializer):
         depth = 1
         
     def get_average_review(self, obj):
-        # Calculate the average review from the ProductComment model for the given product
         avg_review = ProductComment.objects.filter(PID=obj).aggregate(Avg('review'))['review__avg']
-        # Return the average review or 0 if there are no reviews
         return avg_review if avg_review is not None else 0
 
 class CommentSerializer(serializers.ModelSerializer):
