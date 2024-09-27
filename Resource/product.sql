@@ -1,21 +1,57 @@
+-- Insert Categories
+INSERT INTO product_category (name, image) VALUES 
+('Mobile', ''),
+('Laptop', '');
 
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (1,'Paddie','Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.','lorem vitae',654.40,1,32,'15678-78-1.jpg',1);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (2,'Kiri','Fusce consequat. Nulla nisl. Nunc nisl.\n\nDuis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.','volutpat',654.40,2,18,'dell_2BePqqQ.jpeg',1);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (3,'Brigit','Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.','fusce posuere',176.20,1,98,'item_XL_115702825_b52c966a6e8c5.jpg',2);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (4,'Dukey','Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.\n\nNam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.','vestibulum',555.60,1,81,NULL,1);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (5,'Mufinella','Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.\n\nIn congue. Etiam justo. Etiam pretium iaculis justo.','suscipit a',781.80,2,50,NULL,2);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (6,'Kristine','Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.\n\nQuisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.\n\nVestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.','sem',106.60,2,19,NULL,1);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (7,'Welby','Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.\n\nNullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.','ligula',852.90,1,5,NULL,1);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (8,'Lock','Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.','tristique',396.20,1,7,NULL,1);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (9,'Edwina','Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.\n\nNullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.','duis consequat',418.20,1,74,NULL,2);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (10,'Reinald','Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.','curae',703.50,1,44,NULL,1);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (11,'Harbert','Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.','elementum nullam',766.80,2,74,NULL,1);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (12,'Hadrian','Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.','justo',404.60,1,56,NULL,2);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (13,'Hedvig','Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.\n\nQuisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.\n\nVestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.','sapien',344.80,1,55,NULL,2);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (14,'Patric','Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.','quis orci',447.70,1,91,NULL,1);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (15,'Grier','Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.\n\nCras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.','habitasse',875.80,2,27,NULL,1);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (16,'Merrick','Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.','quam',609.30,1,30,NULL,2);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (17,'Guy','Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.\n\nInteger ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.\n\nNam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.','bibendum',436.40,1,70,NULL,1);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (18,'Kristoforo','Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.','quam suspendisse',185.80,2,44,'http://dummyimage.com/173x100.png/5fa2dd/ffffff',2);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (19,'Madelina','Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\n\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.','porttitor lorem',218.60,1,94,NULL,1);
-INSERT INTO `product_product` (`id`,`name`,`description`,`model`,`price`,`BID_id`,`stock_items`,`base_view`,`CategoryID_id`) VALUES (20,'Udell','In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.\n\nAliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.\n\nSed ante. Vivamus tortor. Duis mattis egestas metus.','mi integer',952.50,2,18,NULL,2);
+INSERT INTO product_brand (name, categoryID_id) VALUES 
+('Apple', 1),  -- 1 is Mobile
+('Samsung', 1), 
+('Xiaomi', 1), 
+('OnePlus', 1), 
+('Lenovo', 2),  -- 2 is Laptop
+('Dell', 2), 
+('HP', 2), 
+('Asus', 2), 
+('Acer', 2);
+
+-- Insert Products
+INSERT INTO product_product (name, description, model, price, stock_items, BID_id, CategoryID_id, base_view) VALUES
+('iPhone 14', 'The latest Apple smartphone with A15 chip and enhanced features', 'A2643', 999.99, 50, 1, 1, NULL),
+('iPhone 13', 'A smartphone with A14 chip, great camera, and new features', 'A2403', 799.99, 100, 1, 1, NULL),
+('Samsung Galaxy S22', 'Flagship Samsung phone with top features', 'S901B', 899.99, 80, 2, 1, NULL),
+('Samsung Galaxy A53', 'Affordable Samsung phone with good performance', 'SM-A536B', 349.99, 200, 2, 1, NULL),
+('Xiaomi Mi 12', 'Xiaomi flagship with Snapdragon 8 Gen 1', '2201123G', 749.99, 150, 3, 1, NULL),
+('Xiaomi Redmi Note 11', 'Mid-range Xiaomi phone with Snapdragon 680', '2201117TY', 249.99, 300, 3, 1, NULL),
+('OnePlus 10 Pro', 'Flagship OnePlus phone with Snapdragon 8 Gen 1', 'NE2213', 899.99, 70, 4, 1, NULL),
+('OnePlus Nord 2', 'Mid-range OnePlus phone with MediaTek Dimensity 1200', 'DN2101', 399.99, 120, 4, 1, NULL),
+('Lenovo IdeaPad 5', 'Slim and powerful laptop with Intel i7', '82FE00TGUS', 899.99, 40, 5, 2, NULL),
+('Lenovo Legion 5', 'Gaming laptop with AMD Ryzen 7 and GTX 1660Ti', '82JW00B5US', 1199.99, 20, 5, 2, NULL),
+('Dell XPS 13', 'Ultrabook with Intel i7 and great design', '9305', 1099.99, 30, 6, 2, NULL),
+('Dell Inspiron 15', 'Affordable laptop with Intel i5', '5502', 699.99, 60, 6, 2, NULL),
+('HP Spectre x360', 'Convertible laptop with Intel i7 and 4K display', '14-ea0037nr', 1299.99, 25, 7, 2, NULL),
+('HP Pavilion 15', 'Mid-range laptop with Intel i5 and Full HD display', '15-eg0073cl', 799.99, 50, 7, 2, NULL),
+('Asus ROG Zephyrus G14', 'Gaming laptop with AMD Ryzen 9 and RTX 3060', 'GA402RJ', 1499.99, 15, 8, 2, NULL),
+('Asus VivoBook 15', 'Budget laptop with Intel i3', 'F512JA-AS34', 449.99, 70, 8, 2, NULL),
+('Acer Nitro 5', 'Affordable gaming laptop with Intel i5 and GTX 1650', 'AN515-55-53E5', 899.99, 30, 9, 2, NULL),
+('Acer Aspire 5', 'All-rounder laptop with Intel i5', 'A515-56-50RS', 649.99, 100, 9, 2, NULL);
+
+-- Inserting more products for larger data volume
+INSERT INTO product_product (name, description, model, price, stock_items, BID_id, CategoryID_id, base_view) VALUES
+('iPhone 14 Pro', 'Pro model with better camera and more storage', 'A2644', 1099.99, 40, 1, 1, NULL),
+('iPhone 12', 'A smartphone with A13 chip and OLED display', 'A2172', 699.99, 90, 1, 1, NULL),
+('Samsung Galaxy Z Fold3', 'Foldable smartphone with premium design', 'SM-F926B', 1799.99, 20, 2, 1, NULL),
+('Samsung Galaxy S21 FE', 'Affordable version of the flagship S21', 'SM-G990B', 649.99, 120, 2, 1, NULL),
+('Xiaomi Mi 11', 'Xiaomi flagship with Snapdragon 888', 'M2011K2C', 699.99, 110, 3, 1, NULL),
+('Xiaomi Poco X3', 'Budget phone with excellent specs', 'M2007J20CI', 199.99, 250, 3, 1, NULL),
+('OnePlus 9', 'Flagship OnePlus phone with Snapdragon 888', 'LE2111', 729.99, 60, 4, 1, NULL),
+('OnePlus Nord CE', 'Affordable OnePlus phone with good performance', 'EB2101', 299.99, 150, 4, 1, NULL),
+('Lenovo ThinkPad X1 Carbon', 'Business laptop with Intel i7', '20U9005MUS', 1499.99, 20, 5, 2, NULL),
+('Lenovo Yoga 9i', 'Convertible laptop with Intel i7 and premium design', '82BG0060US', 1399.99, 15, 5, 2, NULL),
+('Dell XPS 15', 'Powerful ultrabook with Intel i9 and GTX 1650 Ti', '9500', 1799.99, 10, 6, 2, NULL),
+('Dell G5 15', 'Gaming laptop with Intel i7 and GTX 1660 Ti', '5590', 1199.99, 25, 6, 2, NULL),
+('HP Envy 13', 'Lightweight laptop with Intel i7 and great battery life', '13-ba1010nr', 999.99, 40, 7, 2, NULL),
+('HP Omen 15', 'Gaming laptop with AMD Ryzen 5 and GTX 1660 Ti', '15-en0029nr', 1099.99, 20, 7, 2, NULL),
+('Asus TUF Gaming A15', 'Durable gaming laptop with AMD Ryzen 7', 'FA506IH', 999.99, 30, 8, 2, NULL),
+('Asus ZenBook 14', 'Compact ultrabook with Intel i5', 'UX425EA', 849.99, 50, 8, 2, NULL),
+('Acer Predator Helios 300', 'Gaming laptop with Intel i7 and RTX 2060', 'PH315-53-72XD', 1299.99, 15, 9, 2, NULL),
+('Acer Swift 3', 'Thin and light laptop with AMD Ryzen 7', 'SF314-42-R9YN', 699.99, 80, 9, 2, NULL);

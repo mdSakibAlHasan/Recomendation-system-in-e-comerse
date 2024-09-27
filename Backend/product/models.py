@@ -4,7 +4,7 @@ from user.models import User
 #mina start 
 class Category(models.Model):
     name=models.CharField(max_length=30,verbose_name=("Name of Category"))
-    image= models.ImageField(upload_to='category/',verbose_name=("Image"), blank=True)
+    image= models.ImageField(upload_to='category/',verbose_name=("Image"), blank=True, null=True)
     catParent=models.ForeignKey('self',limit_choices_to={'catParent__isnull':True}, on_delete=models.CASCADE,blank=True,null=True,verbose_name=("Category Parent"))
     def __str__(self):
         return self.name
