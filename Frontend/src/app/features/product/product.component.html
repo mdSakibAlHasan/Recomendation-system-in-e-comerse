@@ -20,6 +20,14 @@
       <p>{{ product.description }}</p>
       <p><strong>Brand: </strong>{{ product.BID.name }}</p>
       <p><strong>Model: </strong>{{ product.model }}</p>
+      @if(product.average_review == 0){
+      <p>No rating</p>
+      }@else{
+      <p>
+        <strong>{{ product.average_review }} </strong>
+        <i class="pi pi-star-fill" style="color: #ffd700"></i>
+      </p>
+      }
       <p class="price">Regular Price: {{ product.price }}</p>
       @if(product.stock_items>0){
       <p class="stock">In Stock: {{ product.stock_items }} items</p>
