@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth import get_user_model
-User = get_user_model()
+from user.models import User 
 
 #mina start 
 class Category(models.Model):
@@ -42,7 +41,7 @@ class ProductPicture(models.Model):
 
 class ProductComment(models.Model):
     PID = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name=("Product ID"))
-    UID = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name=("User ID"))
+    UID = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("User ID"))
     comment = models.TextField(verbose_name=("Product Comment"))
     review = models.DecimalField(decimal_places=1,max_digits=2, verbose_name=("Product Stars Review"))
     create_time = models.DateTimeField(auto_now=True)

@@ -72,11 +72,13 @@ class GetCommentsByProductId(ListCreateAPIView):
     
     def post(self, request, *args, **kwargs):
         user_id = getUserId(request)
+        print(user_id)
         if user_id == None:
             return Response({"message":"You don't have permission to add product"}, status=status.HTTP_403_FORBIDDEN)
         else:
             request.data['UID'] = user_id
             request.data['PID'] = self.kwargs['product_id']
+            print('\n ',request.data)
             serializer = CommentSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()

@@ -4,8 +4,8 @@ from product.models import Product
 
 
 
-class VisitActivity(models.Model):
-    PID = models.ForeignKey('product.Product', on_delete=models.CASCADE , verbose_name='product ID')
+class ViewActivity(models.Model):
+    PID = models.ForeignKey(Product, on_delete=models.CASCADE , verbose_name='product ID')
     UID = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user ID')
     times_vist = models.IntegerField(default=1)
     last_time = models.DateTimeField(auto_now=True)
@@ -14,3 +14,15 @@ class VisitActivity(models.Model):
 class SearchActivity(models.Model):
     UID = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user ID', blank=True , null=True)
     keyword = models.TextField(verbose_name=("Search keyword"))
+
+
+class LikedProduct(models.Model):
+    PID = models.ForeignKey(Product, on_delete=models.CASCADE , verbose_name='product ID')
+    UID = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user ID')
+    liked = models.IntegerField(default=1)
+
+
+class DislikedProduct(models.Model):
+    PID = models.ForeignKey(Product, on_delete=models.CASCADE , verbose_name='product ID')
+    UID = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user ID')
+    disliked = models.IntegerField(default=0)
