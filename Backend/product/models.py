@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from user.models import User 
 
 #mina start 
@@ -45,3 +46,10 @@ class ProductComment(models.Model):
     comment = models.TextField(verbose_name=("Product Comment"))
     review = models.DecimalField(decimal_places=1,max_digits=2, verbose_name=("Product Stars Review"))
     create_time = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):            #update avarage review
+        super().save(*args, **kwargs)
+        product = self.PID
+        average_rating = ProductComment.objects.filter(PID=product).aggregate(Avg('review'))['review__avg']
+        product.average_rating = average_rating or 0.0
+        product.save()
