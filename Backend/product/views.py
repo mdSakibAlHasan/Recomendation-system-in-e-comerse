@@ -8,6 +8,7 @@ from .models import Category, Brand, Product, ProductComment, User
 from .serializer import CategorySerilizer, BrandSerilizer, CommentSerializer, ProductSerializer
 from Backend.utils import getUserId, getUserType
 from .filters import ProductFilter
+from .utils import write_user_visit_product
 
 class CategoryApi(ListCreateAPIView):
     queryset = Category.objects.all()
@@ -61,6 +62,7 @@ class GetProductById(ListAPIView):
     serializer_class = ProductSerializer
     def get_queryset(self):
         id = self.kwargs['id']
+        write_user_visit_product(self)
         return Product.objects.filter(id = id)
 
 class GetCommentsByProductId(ListCreateAPIView):
