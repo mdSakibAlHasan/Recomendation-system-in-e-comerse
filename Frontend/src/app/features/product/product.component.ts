@@ -30,6 +30,7 @@ export class ProductComponent {
   private subscription$: Subscription | undefined;
   liked = false;  
   disliked = false; 
+  showAllComments = false;
 
   constructor(
     private route: ActivatedRoute,

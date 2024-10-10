@@ -95,26 +95,33 @@
       ></button>
     </div>
 
-    @for(comment of productComment; track comment){
-    <div class="review-card">
-      <div class="review-header">
-        <span class="username">{{ comment.username }}</span>
-        <small class="time">{{ comment.create_time | date : "short" }}</small>
-        <div class="rating">
-          <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-            <i
-              class="pi"
-              [ngClass]="star <= comment.review ? 'pi-star-fill' : 'pi-star'"
-              style="color: #ffd700"
-            ></i>
-          </ng-container>
+    <div class="reviews-section">
+      
+      <div
+        class="review-list"
+        [ngStyle]="{'max-height': '300px'}"
+        [ngClass]="{'scrollable': true}"
+      >
+        <div *ngFor="let comment of productComment" class="review-card">
+          <div class="review-header">
+            <span class="username">{{ comment.username }}</span>
+            <small class="time">{{ comment.create_time | date : "short" }}</small>
+            <div class="rating">
+              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                <i
+                  class="pi"
+                  [ngClass]="star <= comment.review ? 'pi-star-fill' : 'pi-star'"
+                  style="color: #ffd700"
+                ></i>
+              </ng-container>
+            </div>
+          </div>
+          <div class="review-body">
+            <p class="review-text">{{ comment.comment }}</p>
+          </div>
         </div>
-      </div>
-      <div class="review-body">
-        <p class="review-text">{{ comment.comment }}</p>
-      </div>
     </div>
-    }
+    </div>
   </div>
   }@else{
   <div class="not-found">

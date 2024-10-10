@@ -160,4 +160,84 @@
   .p-button {
     box-shadow: none; 
   }
+
+  .reviews-section {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    width: 80%;
+    margin: 16px;
+  }
+  
+  .reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .toggle-btn {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .review-list {
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+  
+  .scrollable {
+    max-height: 200px; /* Collapsed height */
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+  
+  .review-card {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0;
+  }
+  
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .username {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .time {
+    font-size: 12px;
+    color: #888;
+  }
+  
+  .rating {
+    display: flex;
+  }
+  
+  .review-body {
+    margin-top: 5px;
+  }
+  
+  .review-text {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Scrollbar styling */
+  .review-list.scrollable::-webkit-scrollbar {
+    width: 100%;
+  }
+  
+  .review-list.scrollable::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+  }
+  
   
