@@ -8,7 +8,6 @@ from django.core.exceptions import ObjectDoesNotExist
 def write_user_visit_product(self):
     id = self.kwargs['id'] 
     user_id = getUserId(self.request) 
-    print(user_id," is hererer -----------------------------", self.request)
     try:
         product = Product.objects.get(id=id)
         if user_id:
