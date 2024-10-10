@@ -40,7 +40,7 @@
       <!-- Like Button -->
       <button
         pButton
-        label="{{ liked ? 'Liked' : 'Like' }} ({{ likeCount }})"
+        label="{{ liked ? 'Liked' : 'Like' }} ({{ product.like }})"
         icon="pi pi-thumbs-up"
         [class.p-button-info]="liked" 
         [class.p-button-secondary]="!liked"
@@ -50,7 +50,7 @@
       <!-- Dislike Button -->
       <button
         pButton
-        label="{{ disliked ? 'Disliked' : 'Dislike' }} ({{ dislikeCount }})"
+        label="{{ disliked ? 'Disliked' : 'Dislike' }} ({{ product.disLike }})"
         icon="pi pi-thumbs-down"
         [class.p-button-danger]="disliked"  
         [class.p-button-secondary]="!disliked"

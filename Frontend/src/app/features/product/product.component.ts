@@ -28,6 +28,8 @@ export class ProductComponent {
   productComment: any[] = [];
   baseImgUrl = 'http://localhost:8000/'
   private subscription$: Subscription | undefined;
+  liked = false;  
+  disliked = false; 
 
   constructor(
     private route: ActivatedRoute,
@@ -124,33 +126,29 @@ export class ProductComponent {
 		if (this.subscription$) this.subscription$.unsubscribe();
 	}
 
-  likeCount = 0;  // Track number of likes
-  dislikeCount = 0;  // Track number of dislikes
-  liked = false;  // Track if user liked the product
-  disliked = false;  // Track if user disliked the product
 
   toggleLike() {
     if (!this.liked) {
-      this.likeCount++;
+      this.product ? this.product.like++: null;
       if (this.disliked) {
         this.disliked = false;
-        this.dislikeCount--;  // Adjust if previously disliked
+        this.product? this.product.disLike--: null;
       }
     } else {
-      this.likeCount--;
+      this.product ? this.product.like--: null;
     }
     this.liked = !this.liked;
   }
 
   toggleDislike() {
     if (!this.disliked) {
-      this.dislikeCount++;
+      this.product? this.product.disLike++: null;
       if (this.liked) {
         this.liked = false;
-        this.likeCount--;  // Adjust if previously liked
+        this.product ? this.product.like--: null;
       }
     } else {
-      this.dislikeCount--;
+      this.product? this.product.disLike--: null;
     }
     this.disliked = !this.disliked;
   }
