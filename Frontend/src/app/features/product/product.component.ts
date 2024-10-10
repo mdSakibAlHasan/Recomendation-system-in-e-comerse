@@ -124,4 +124,35 @@ export class ProductComponent {
 		if (this.subscription$) this.subscription$.unsubscribe();
 	}
 
+  likeCount = 0;  // Track number of likes
+  dislikeCount = 0;  // Track number of dislikes
+  liked = false;  // Track if user liked the product
+  disliked = false;  // Track if user disliked the product
+
+  toggleLike() {
+    if (!this.liked) {
+      this.likeCount++;
+      if (this.disliked) {
+        this.disliked = false;
+        this.dislikeCount--;  // Adjust if previously disliked
+      }
+    } else {
+      this.likeCount--;
+    }
+    this.liked = !this.liked;
+  }
+
+  toggleDislike() {
+    if (!this.disliked) {
+      this.dislikeCount++;
+      if (this.liked) {
+        this.liked = false;
+        this.likeCount--;  // Adjust if previously liked
+      }
+    } else {
+      this.dislikeCount--;
+    }
+    this.disliked = !this.disliked;
+  }
+
 }

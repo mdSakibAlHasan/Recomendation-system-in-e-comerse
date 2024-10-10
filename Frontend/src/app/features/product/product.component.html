@@ -36,6 +36,28 @@
       }
     </div>
 
+    <div class="like-dislike-buttons">
+      <!-- Like Button -->
+      <button
+        pButton
+        label="{{ liked ? 'Liked' : 'Like' }} ({{ likeCount }})"
+        icon="pi pi-thumbs-up"
+        [class.p-button-info]="liked" 
+        [class.p-button-secondary]="!liked"
+        (click)="toggleLike()"
+      ></button>
+
+      <!-- Dislike Button -->
+      <button
+        pButton
+        label="{{ disliked ? 'Disliked' : 'Dislike' }} ({{ dislikeCount }})"
+        icon="pi pi-thumbs-down"
+        [class.p-button-danger]="disliked"  
+        [class.p-button-secondary]="!disliked"
+        (click)="toggleDislike()"
+      ></button>
+    </div>
+
     <!-- Buttons -->
     <div class="buttons">
       <button

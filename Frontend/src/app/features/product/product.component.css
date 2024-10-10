@@ -121,3 +121,43 @@
     font-weight: bold;
     margin-bottom: 15px;
   }
+
+
+  .like-dislike-buttons {
+    display: flex;
+    gap: 10px; 
+    margin-top: 15px; 
+  }
+  
+  .like-dislike-buttons button {
+    border: none; 
+    outline: none; 
+    padding: 10px 15px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+  }
+  
+  .like-dislike-buttons button:hover {
+    opacity: 0.8; 
+  }
+  
+  .p-button-info {
+    background-color: #007bff; 
+    color: white; 
+  }
+  
+  .p-button-danger {
+    background-color: #dc3545; 
+    color: white; 
+  }
+  
+  .p-button-secondary {
+    background-color: transparent; 
+    color: #666; 
+  }
+
+  .p-button {
+    box-shadow: none; 
+  }
+  
