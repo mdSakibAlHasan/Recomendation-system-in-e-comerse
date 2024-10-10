@@ -1,5 +1,6 @@
 from django.db import models
-from user.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 #mina start 
 class Category(models.Model):
@@ -23,7 +24,12 @@ class Product(models.Model):
     stock_items = models.IntegerField(verbose_name=("Product Items in Stock"))
     BID = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name=("Brand ID"))
     CategoryID=models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=("Category ID"))
-    base_view = models.ImageField(verbose_name=("Product  Image"), blank=True , null=True)#mina Edit
+    base_view = models.ImageField(verbose_name=("Product  Image"), blank=True , null=True)
+    average_rating = models.DecimalField(default=0.0,decimal_places=1, max_digits=2,verbose_name=("Average Rating"))
+    like = models.IntegerField(default=0,verbose_name=("Like by User"))
+    disLike = models.IntegerField(default=0,verbose_name=("Dislike by User"))
+    item_view = models.IntegerField(default=0,verbose_name=("Product Items total views"))
+    item_puchases = models.IntegerField(default=0,verbose_name=("Product Items total puchese"))
     def __str__(self):
         return str(self.name)
 
@@ -36,7 +42,7 @@ class ProductPicture(models.Model):
 
 class ProductComment(models.Model):
     PID = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name=("Product ID"))
-    UID = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("User ID"))
+    UID = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name=("User ID"))
     comment = models.TextField(verbose_name=("Product Comment"))
     review = models.DecimalField(decimal_places=1,max_digits=2, verbose_name=("Product Stars Review"))
     create_time = models.DateTimeField(auto_now=True)
