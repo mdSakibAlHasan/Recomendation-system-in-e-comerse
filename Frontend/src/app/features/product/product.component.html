@@ -20,11 +20,11 @@
       <p>{{ product.description }}</p>
       <p><strong>Brand: </strong>{{ product.BID.name }}</p>
       <p><strong>Model: </strong>{{ product.model }}</p>
-      @if(product.average_review == 0){
+      @if(product.average_rating == 0){
       <p>No rating</p>
       }@else{
       <p>
-        <strong>{{ product.average_review }} </strong>
+        <strong>{{ product.average_rating}} </strong>
         <i class="pi pi-star-fill" style="color: #ffd700"></i>
       </p>
       }

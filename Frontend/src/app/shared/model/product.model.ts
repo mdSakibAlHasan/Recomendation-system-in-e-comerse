@@ -17,5 +17,5 @@ export interface ProductModel{
         image: string;
         catParent: number
     },
-    average_review: number;
+    average_rating: number;
 }

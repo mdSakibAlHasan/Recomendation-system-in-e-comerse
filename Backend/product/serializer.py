@@ -13,15 +13,10 @@ class BrandSerilizer(serializers.ModelSerializer):
         exclude = []
 
 class ProductSerializer(serializers.ModelSerializer):
-    average_review = serializers.SerializerMethodField()
     class Meta:
         model = Product
         exclude = [] 
         depth = 1
-        
-    def get_average_review(self, obj):
-        avg_review = ProductComment.objects.filter(PID=obj).aggregate(Avg('review'))['review__avg']
-        return avg_review if avg_review is not None else 0
 
 class CommentSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='UID.username', read_only=True)

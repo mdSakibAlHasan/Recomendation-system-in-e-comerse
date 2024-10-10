@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from './home.service';
-import { Product } from './home.model';
 import { AlertService } from '../../shared/alert/alert.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
