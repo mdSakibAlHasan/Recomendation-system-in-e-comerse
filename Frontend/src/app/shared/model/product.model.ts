@@ -10,12 +10,15 @@ export interface ProductModel{
         id: number;
         name: string;
         categoryID: number;
-    },
+    };
     CategoryID: {
         id: number
         name: string;
         image: string;
         catParent: number
-    },
+    };
     average_rating: number;
+    disLike: number;
+    item_puchases: number;
+    like: number;
 }
