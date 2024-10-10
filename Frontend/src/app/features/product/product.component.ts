@@ -49,11 +49,15 @@ export class ProductComponent {
       this.product = products[0];
       this.productComment = productComment;
     });
-    this.productService.viewCartStatus(this.productId).subscribe({
-      next: res=>{
-        this.isInCart = res;
-      }
-    })
+    let cartStatus$ = this.productService.viewCartStatus(this.productId);
+    let likeStatus$ = this.productService.viewLikeStatus(this.productId);
+    this.subscription$ = combineLatest([cartStatus$, likeStatus$]).subscribe(([cartStatus, likeStatus]) =>{
+      this.isInCart = cartStatus;
+      if(likeStatus.length !=0 && likeStatus[0].preference == 1)
+        this.liked = true;
+      else if(likeStatus.length !=0 && likeStatus[0].preference == 2)
+        this.disliked = true;
+    });
   }
 
   toggleCart() {
