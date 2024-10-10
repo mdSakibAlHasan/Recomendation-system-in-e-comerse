@@ -19,10 +19,4 @@ class SearchActivity(models.Model):
 class LikedProduct(models.Model):
     PID = models.ForeignKey(Product, on_delete=models.CASCADE , verbose_name='product ID')
     UID = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user ID')
-    liked = models.IntegerField(default=1)
-
-
-class DislikedProduct(models.Model):
-    PID = models.ForeignKey(Product, on_delete=models.CASCADE , verbose_name='product ID')
-    UID = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user ID')
-    disliked = models.IntegerField(default=0)
+    preference = models.IntegerField(default=1)
