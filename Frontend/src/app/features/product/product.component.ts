@@ -53,6 +53,7 @@ export class ProductComponent {
     let likeStatus$ = this.productService.viewLikeStatus(this.productId);
     this.subscription$ = combineLatest([cartStatus$, likeStatus$]).subscribe(([cartStatus, likeStatus]) =>{
       this.isInCart = cartStatus;
+      console.log(likeStatus)
       if(likeStatus.length !=0 && likeStatus[0].preference == 1)
         this.liked = true;
       else if(likeStatus.length !=0 && likeStatus[0].preference == 2)
@@ -122,6 +123,58 @@ export class ProductComponent {
     }
   }
 
+  toggleLike() {
+    this.authGuard.isLoggedIn().then(isLoggedIn => {
+      if(!isLoggedIn){
+        this.alertService.tosterInfo('You need to login to like this product');
+        return;
+      }else{
+        if (!this.liked) {
+          this.productService.UpdateLikeStatus(this.productId,{"preference": "1"}).subscribe(res=>{
+            this.alertService.tosterInfo('You liked this product');
+            this.product ? this.product.like++: null;
+            if (this.disliked) {
+              this.disliked = false;
+              this.product? this.product.disLike--: null;
+            }
+          })  
+        } else {
+          this.productService.deleteLikeStatus(this.productId).subscribe(res=>{
+            this.alertService.tosterInfo('You removed like from this product');
+            this.product ? this.product.like--: null;
+          })
+        }
+        this.liked = !this.liked;
+      }
+    })
+  }
+
+  toggleDislike() {
+    this.authGuard.isLoggedIn().then(isLoggedIn => {
+      if(!isLoggedIn){
+        this.alertService.tosterInfo('You need to login to dislike this product');
+        return;
+      }else{
+        if (!this.disliked) {
+          this.productService.UpdateLikeStatus(this.productId,{"preference": "2"}).subscribe(res=>{
+            this.alertService.tosterInfo('You dislike this product');
+            this.product? this.product.disLike++: null;
+            if (this.liked) {
+              this.liked = false;
+              this.product ? this.product.like--: null;
+            }
+          })
+        } else {
+          this.productService.deleteLikeStatus(this.productId).subscribe(res=>{
+            this.alertService.tosterInfo('You remove dislike from this product');
+            this.product? this.product.disLike--: null;
+          })
+        }
+        this.disliked = !this.disliked;
+      }
+    })
+  }
+
   goBack() {
     this.location.back(); 
   }
@@ -129,32 +182,5 @@ export class ProductComponent {
   ngOnDestroy(): void {
 		if (this.subscription$) this.subscription$.unsubscribe();
 	}
-
-
-  toggleLike() {
-    if (!this.liked) {
-      this.product ? this.product.like++: null;
-      if (this.disliked) {
-        this.disliked = false;
-        this.product? this.product.disLike--: null;
-      }
-    } else {
-      this.product ? this.product.like--: null;
-    }
-    this.liked = !this.liked;
-  }
-
-  toggleDislike() {
-    if (!this.disliked) {
-      this.product? this.product.disLike++: null;
-      if (this.liked) {
-        this.liked = false;
-        this.product ? this.product.like--: null;
-      }
-    } else {
-      this.product? this.product.disLike--: null;
-    }
-    this.disliked = !this.disliked;
-  }
 
 }
