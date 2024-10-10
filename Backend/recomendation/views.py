@@ -60,4 +60,3 @@ class LikeStatus(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)  # Successfully deleted
         except LikedProduct.DoesNotExist:
             return Response({'detail': 'Liked product not found.'}, status=status.HTTP_404_NOT_FOUND)
-

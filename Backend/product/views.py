@@ -92,10 +92,6 @@ class ProductApi(ListAPIView):
     filterset_class = ProductFilter
     search_fields = ['name', 'description', 'model']
     ordering_fields = ['price']
-    
-    def get_queryset(self):
-        queryset = Product.objects.annotate(average_review=Avg('productcomment__review'))
-        return queryset
 
     def get_serializer_context(self):
         return {'request': self.request}
