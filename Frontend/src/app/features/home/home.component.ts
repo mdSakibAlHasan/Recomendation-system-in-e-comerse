@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { HomeService } from './home.service';
 import { AlertService } from '../../shared/alert/alert.service';
 import { CommonModule } from '@angular/common';
@@ -8,6 +8,7 @@ import { PaginatorState } from 'primeng/paginator';
 import { RouterModule } from '@angular/router';
 import { AddProductService } from '../add-product/add-product.service';
 import { ProductModel } from '../../shared/model/product.model';
+import { Pagination } from '../../core/constants/general';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +28,9 @@ export class HomeComponent implements OnInit{
   maxPrice: number = Infinity;
   sortOrder: string = '';
   superUser: boolean = false;
+  page = 1;
+  totalProductCount: number = Infinity;
+  loading = false;    //for pagination
   constructor(
     private homeService: HomeService,
     private alertService: AlertService,
@@ -36,19 +40,30 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.homeService.currentProduct.subscribe(updatedProducts => {
-      this.products = updatedProducts;
+      this.products = [...this.products, ...updatedProducts];
     });
-    this.homeService.getAllProduct(1).subscribe({
-      next: res=>{
-        this.homeService.updateProduct(res.results);
-      },
-      error: err=>{
-        this.alertService.tosterDanger('Something went wrong');
-      }
-    })
+    this.loadProduct();
     this.addProductService.getUserDetails().subscribe(res=>{
       res[0].userType === 'S' ? this.superUser = true: null;
     })
+  }
+
+  loadProduct(){
+    if((this.page*Pagination.HomePageSize)<=this.totalProductCount){
+      this.loading = true;
+      this.homeService.getAllProduct(this.page).subscribe({
+        next: res=>{
+          this.homeService.updateProduct(res.results);
+          this.page++;
+          this.loading = false;
+          this.totalProductCount = res.count;
+        },
+        error: err=>{
+          this.alertService.tosterDanger('Something went wrong');
+          this.loading = false;
+        }
+      })
+    }
   }
 
 
@@ -75,6 +90,18 @@ export class HomeComponent implements OnInit{
       }
     });
   }
+
+  @HostListener("window:scroll", ["$event"])
+  onScroll(event: any) {
+    const element = document.documentElement; // For window scroll
+  
+    const atBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 200;
+  
+    if (atBottom && !this.loading) {
+      this.loadProduct(); // Load more products when near the bottom
+    }
+  }
+  
 
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
