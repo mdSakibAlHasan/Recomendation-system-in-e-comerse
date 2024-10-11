@@ -94,7 +94,7 @@ class ProductApi(ListAPIView):
     serializer_class = ProductSerializer  
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = ProductFilter
-    # pagination_class = DefaultPagination
+    pagination_class = DefaultPagination
     search_fields = ['name', 'description', 'model']
     ordering_fields = ['price']
 

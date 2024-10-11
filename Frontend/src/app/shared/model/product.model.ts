@@ -1,3 +1,10 @@
+export interface PaginationProductModel{
+    count: number,
+    next: string,
+    previous: string,
+    results: ProductModel[]
+}
+
 export interface ProductModel{
     id: number,
     name: string,

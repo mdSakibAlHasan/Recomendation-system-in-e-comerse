@@ -38,9 +38,9 @@ export class HomeComponent implements OnInit{
     this.homeService.currentProduct.subscribe(updatedProducts => {
       this.products = updatedProducts;
     });
-    this.homeService.getAllProduct().subscribe({
+    this.homeService.getAllProduct(1).subscribe({
       next: res=>{
-        this.homeService.updateProduct(res);
+        this.homeService.updateProduct(res.results);
       },
       error: err=>{
         this.alertService.tosterDanger('Something went wrong');

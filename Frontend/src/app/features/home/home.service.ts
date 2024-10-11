@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseApiService } from '../../utility/base-api-service';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Product } from './home.model';
-import { ProductModel } from '../../shared/model/product.model';
+import { ProductModel, PaginationProductModel } from '../../shared/model/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +19,8 @@ export class HomeService extends BaseApiService{
   }
 
 
-  getAllProduct(): Observable<ProductModel[]>{
-    return this.http.get<ProductModel[]>(`${this.baseurl}/product`);
+  getAllProduct(pageNumber: number): Observable<PaginationProductModel>{
+    return this.http.get<PaginationProductModel>(`${this.baseurl}/product/?page=${pageNumber}`);
   }
 
   getProductById(id: number): Observable<ProductModel>{
