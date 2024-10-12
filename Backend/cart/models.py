@@ -25,3 +25,11 @@ class Cart(models.Model):
     create_time = models.DateTimeField(auto_now=True)
     status = models.CharField(
         max_length=1, choices=CART_STATUS, default=PENDING)
+
+    def save(self, *args, **kwargs):
+        if self.status == self.ORDERED:
+            product = self.PID
+            product.item_puchases += 1  
+            product.save() 
+
+        super(Cart, self).save(*args, **kwargs) 
