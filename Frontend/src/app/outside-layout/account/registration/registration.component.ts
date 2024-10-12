@@ -30,7 +30,7 @@ export class RegistrationComponent {
 
     this.accountService.signup(data.username, data.email, data.password).subscribe({
       next: res => {
-        this.router.navigate(['cart']);
+        this.router.navigate(['account/login']);
       },
       error: err => {
         this.alertService.tosterDanger('Something Went wrong');

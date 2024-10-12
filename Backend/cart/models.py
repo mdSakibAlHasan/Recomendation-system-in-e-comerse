@@ -29,7 +29,7 @@ class Cart(models.Model):
     def save(self, *args, **kwargs):
         if self.status == self.ORDERED:
             product = self.PID
-            product.item_puchases += 1  
+            product.item_puchases += self.quantity  
             product.save() 
 
         super(Cart, self).save(*args, **kwargs) 
