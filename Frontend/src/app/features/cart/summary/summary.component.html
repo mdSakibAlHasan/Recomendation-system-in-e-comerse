@@ -4,7 +4,7 @@
     <div class="summary-list">
       <div class="summary-item" *ngFor="let item of selectedItems">
         <div class="item-details">
-          <img [src]="item.PID.base_view" alt="{{ item.PID.name }}" class="item-image" />
+          <img [src]="baseImgUrl + item.PID.base_view" alt="{{ item.PID.name }}" class="item-image" />
           <div class="item-info">
             <h4>{{ item.PID.name }}</h4>
             <p>{{ item.PID.model }}</p>

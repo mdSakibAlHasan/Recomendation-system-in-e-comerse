@@ -15,6 +15,7 @@ import { NavbarService } from '../../../shared/component/navbar/navbar.service';
 export class SummaryComponent {
   selectedItems: any[] = [];
   totalPrice: number = 0;
+  baseImgUrl = 'http://localhost:8000';
 
   constructor(
     private router: Router,
