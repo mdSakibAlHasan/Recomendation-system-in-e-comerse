@@ -1,6 +1,7 @@
+from django.db.models import Q
 from rest_framework.response import Response
-from rest_framework import status
-from product.models import Product
+from product.models import Product, ProductComment
+from cart.models import Cart
 from collections import defaultdict
 import math
 
@@ -19,33 +20,32 @@ def recommendation_for_visitors():
 
 def recommendation_for_user(user):
     matrix = build_preference_matrix(user)
-    
-    # Sort products by preference degree (custom logic)
     sorted_products = sorted(matrix.items(), key=lambda x: sum(x[1].values()), reverse=True)
-
     return [product for product, _ in sorted_products]
 
 
 def build_preference_matrix(user):
-    # Initialize dictionary to store preference scores
     preference_matrix = defaultdict(lambda: {'like': 0, 'dislike': 0, 'purchase': 0, 'rate': 0, 'view': 0})
-
-    # Get actions related to the user
-    likes = LikedProduct.objects.filter(UID=user)
+    likes = LikedProduct.objects.filter(UID=user, preference=1).values_list('PID', flat=True)
+    cart_add = Cart.objects.filter(UID = user).exclude(status=Cart.ORDERED).values_list('PID', flat=True)
+    liked_product = Product.objects.filter(
+        Q(id__in = likes) | Q(id__in=cart_add)
+    ).distinct()
+    dislikes = LikedProduct.objects.filter(UID=user, preference=2)
     views = ViewActivity.objects.filter(UID=user)
-    # Similarly fetch other activities (purchases, ratings)
+    purchases = Cart.objects.filter(UID=user,status=Cart.ORDERED)
+    rates = ProductComment.objects.filter(UID = user,review__gt=2)
+    total_actions = len(liked_product) + len(views)  + len(dislikes) + len(purchases) + len(rates)
 
-    total_actions = len(likes) + len(views)  # Sum all action types
-
-    for like in likes:
-        preference_matrix[like.PID]['like'] += 1
-
+    for like in liked_product:
+        preference_matrix[like]['like'] += 1
     for view in views:
         preference_matrix[view.PID]['view'] += view.times_vist
+    for purchase in purchases:
+        preference_matrix[purchase.PID]['purchase'] += purchase.quantity
+    for rate in rates:
+        preference_matrix[rate.PID]['rate'] += 1
 
-    # Add similar logic for purchases, rates, etc.
-
-    # Calculate preference degree for each product
     for product, actions in preference_matrix.items():
         for action, count in actions.items():
             preference_matrix[product][action] = compute_preference_degree(count, total_actions)
@@ -66,7 +66,6 @@ def update_preference_matrix(user, product, action_type):
     else:
         matrix[product][action_type] = 1
 
-    # Recalculate the preference degree
     total_actions = sum(matrix[product].values())
     for action, count in matrix[product].items():
         matrix[product][action] = compute_preference_degree(count, total_actions)
