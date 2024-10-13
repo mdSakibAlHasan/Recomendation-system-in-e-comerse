@@ -20,7 +20,7 @@ export class HomeService extends BaseApiService{
 
 
   getAllProduct(pageNumber: number): Observable<PaginationProductModel>{
-    return this.http.get<PaginationProductModel>(`${this.baseurl}/product/?page=${pageNumber}`);
+    return this.http.get<PaginationProductModel>(`${this.baseurl}/like/recommendations?page=${pageNumber}`);
   }
 
   getProductById(id: number): Observable<ProductModel>{

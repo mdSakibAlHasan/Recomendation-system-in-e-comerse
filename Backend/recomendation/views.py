@@ -74,6 +74,6 @@ class getRecommendation(ListAPIView):
         user_id = getUserId(self.request)
         
         if user_id is None:
-            return recommendation_for_visitors()  
+            return recommendation_for_visitors()
         else:
             return recommendation_for_user()

@@ -3,14 +3,14 @@ from rest_framework import status
 from product.models import Product
 
 def recommendation_for_visitors():
-    recommended_products = Product.objects.order_by(
-        '-item_puchases',   # Purchases descending
-        '-like',            # Likes descending
-        '-average_rating',  # Ratings descending
-        '-item_view',       # Views descending
-        'disLike'           # Dislikes ascending
+    recommendation_products = Product.objects.order_by(
+        '-item_puchases',   
+        '-like',            
+        '-average_rating', 
+        '-item_view',      
+        'disLike'           
     )
-    return recommended_products
+    return recommendation_products
 
 def recommendation_for_user():
     return Response({"message": "User not found"}, status=status.HTTP_403_FORBIDDEN)
