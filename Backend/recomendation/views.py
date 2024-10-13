@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.generics import ListAPIView
 from rest_framework import status
 from Backend.utils import getUserId
 from .models import LikedProduct
 from .serializer import LikedSerilizer
+from product.pagination import DefaultPagination
+from product.serializer import ProductSerializer
+from .utils import recommendation_for_user, recommendation_for_visitors
    
 
 class LikeStatus(APIView):
@@ -60,3 +64,16 @@ class LikeStatus(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)  # Successfully deleted
         except LikedProduct.DoesNotExist:
             return Response({'detail': 'Liked product not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class getRecommendation(ListAPIView):
+    serializer_class = ProductSerializer
+    pagination_class = DefaultPagination
+
+    def get_queryset(self):
+        user_id = getUserId(self.request)
+        
+        if user_id is None:
+            return recommendation_for_visitors()  
+        else:
+            return recommendation_for_user()
