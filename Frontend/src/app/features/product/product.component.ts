@@ -10,11 +10,12 @@ import { combineLatest, Subscription } from 'rxjs';
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { NavbarService } from '../../shared/component/navbar/navbar.service';
 import { ProductModel } from '../../shared/model/product.model';
+import { RecommendationComponent } from '../recommendation/recommendation.component';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [FormsModule, ButtonModule, CommonModule, RatingModule],
+  imports: [FormsModule, ButtonModule, CommonModule, RatingModule, RecommendationComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })

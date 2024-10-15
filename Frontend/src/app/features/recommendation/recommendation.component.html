@@ -1,1 +1,52 @@
-<p>recommendation works!</p>
+<h1 style="margin-left: 20%;">Recommendation for You</h1>
+  
+  <button class="scroll-top-btn" (click)="scrollToTop()">
+    <i class="pi pi-arrow-up" style="color: #000"></i>
+  </button>
+  
+  @if(products.length>0){
+  <div class="container" (scroll)="onScroll($event)">
+    <div class="row">
+      @for(product of products; track product){
+      <div class="col-4">
+        <div
+          class="product-card"
+          (click)="goToProduct(product.id)"
+          style="cursor: pointer"
+        >
+          <div class="p-img">
+            <img src="{{ product.base_view }}" alt="Product Image" />
+          </div>
+          <h2>{{ product.name }}</h2>
+          <p class="description">{{ product.description }}</p>
+          <p><strong>Brand:</strong> {{ product.BID.name }}</p>
+          <p><strong>Model:</strong> {{ product.model }}</p>
+          @if(product.average_rating == 0){
+          <p>No rating</p>
+          }@else{
+          <p>
+            <strong>{{ product.average_rating }} </strong>
+            <i class="pi pi-star-fill" style="color: #ffd700"></i>
+          </p>
+          }
+          <p class="price">Price: {{ product.price }}</p>
+          @if(product.stock_items>0){
+          <p class="stock">In Stock: {{ product.stock_items }} items</p>
+          }@else{
+          <p class="stock-out">Out of stock</p>
+          }
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  }@else{
+  <div class="p-d-flex p-jc-center p-ai-center">
+    <img
+      src="assets/img/NoProduct.png"
+      alt="No Products Available"
+      style="width: 100%; max-width: 800px"
+    />
+  </div>
+  }
+  
