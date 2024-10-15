@@ -1,4 +1,4 @@
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule, Location, ViewportScroller } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router} from '@angular/router';
@@ -40,11 +40,22 @@ export class ProductComponent {
     private navbarService: NavbarService,
     private location: Location,
     private authGuard: AuthGuard,
-    private router: Router
+    private router: Router,
+    private viewportScroller: ViewportScroller
   ) {}
 
   ngOnInit(): void {
     this.productId = this.route.snapshot.paramMap.get('id')?? '0';
+    this.loadProduct();
+    this.viewportScroller.scrollToPosition([0, 0]);
+    this.route.params.subscribe(params => {
+      this.productId = params['id'];
+      this.loadProduct(); 
+      this.viewportScroller.scrollToPosition([0, 0]);
+    });
+  }
+
+  loadProduct(){
     let productComment$ = this.productService.getCommentsByProductId(this.productId);
     let products$ = this.productService.getProductById(this.productId);
     this.subscription$ = combineLatest([productComment$, products$]).subscribe(([productComment, products]) =>{
@@ -55,7 +66,6 @@ export class ProductComponent {
     let likeStatus$ = this.productService.viewLikeStatus(this.productId);
     this.subscription$ = combineLatest([cartStatus$, likeStatus$]).subscribe(([cartStatus, likeStatus]) =>{
       this.isInCart = cartStatus;
-      console.log(likeStatus)
       if(likeStatus.length !=0 && likeStatus[0].preference == 1)
         this.liked = true;
       else if(likeStatus.length !=0 && likeStatus[0].preference == 2)
