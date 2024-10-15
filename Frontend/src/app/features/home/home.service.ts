@@ -8,15 +8,15 @@ import { ProductModel, PaginationProductModel } from '../../shared/model/product
   providedIn: 'root'
 })
 export class HomeService extends BaseApiService{
-  private productSubject = new BehaviorSubject<any[]>([]);
-  currentProduct = this.productSubject.asObservable();
+  // private productSubject = new BehaviorSubject<any[]>([]);
+  // currentProduct = this.productSubject.asObservable();
   constructor(private http:HttpClient) {
     super();
   }
 
-  updateProduct(product: any[]) {
-    this.productSubject.next(product);
-  }
+  // updateProduct(product: any[]) {
+  //   this.productSubject.next(product);
+  // }
 
   getAllProduct(pageNumber: number): Observable<PaginationProductModel>{
     return this.http.get<PaginationProductModel>(`${this.baseurl}/like/recommendations?page=${pageNumber}`);

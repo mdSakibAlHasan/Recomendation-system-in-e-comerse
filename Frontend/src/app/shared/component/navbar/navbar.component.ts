@@ -75,7 +75,7 @@ export class NavbarComponent implements OnInit{
   onCategoryChange(event:any){
     this.navbarService.updateProductInfo(event.value.id).subscribe({
       next: res=>{
-        this.homeService.updateProduct(res);
+        // this.homeService.updateProduct(res);
       },
       error: err=>{
         this.alertService.tosterDanger('Something went wrong');
@@ -88,7 +88,7 @@ export class NavbarComponent implements OnInit{
       const modifiedSearchText = this.searchText.trim().replace(/\s+/g, '+');
       this.navbarService.updateProductBySearch(modifiedSearchText).subscribe({
         next: filteredProducts=>{
-          this.homeService.updateProduct(filteredProducts.results);
+          // this.homeService.updateProduct(filteredProducts.results);
         },error: err=>{
           this.alertService.tosterDanger('Something went wrong for search');
         }

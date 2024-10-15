@@ -39,9 +39,9 @@ export class HomeComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.homeService.currentProduct.subscribe(updatedProducts => {
-      this.products = [...this.products, ...updatedProducts];
-    });
+    // this.homeService.currentProduct.subscribe(updatedProducts => {
+    //   this.products = [...this.products, ...updatedProducts];
+    // });
     this.loadProduct();
     this.addProductService.getUserDetails().subscribe(res=>{
       res[0].userType === 'S' ? this.superUser = true: null;
@@ -53,7 +53,8 @@ export class HomeComponent implements OnInit{
       this.loading = true;
       this.homeService.getAllProduct(this.page).subscribe({
         next: res=>{
-          this.homeService.updateProduct(res.results);
+          // this.homeService.updateProduct(res.results);
+          this.products = [...this.products, ...res.results];
           this.page++;
           this.loading = false;
           this.totalProductCount = res.count;
