@@ -31,6 +31,8 @@ export class HomeComponent implements OnInit{
   page = 1;
   totalProductCount: number = Infinity;
   loading = false;    //for pagination
+  categoryID: number = 0;
+  // isCategory: boolean = 
   constructor(
     private homeService: HomeService,
     private alertService: AlertService,
@@ -39,13 +41,54 @@ export class HomeComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    // this.homeService.currentProduct.subscribe(updatedProducts => {
-    //   this.products = [...this.products, ...updatedProducts];
-    // });
+    this.homeService.currentProduct.subscribe(updatedProducts => {
+      this.categoryID = updatedProducts.categoryID;
+      this.searchText = updatedProducts.searchText;
+      this.products = [];
+      this.page = 1;
+      console.log(updatedProducts)
+      if(updatedProducts.searchText && updatedProducts.searchText.length != 0){
+        this.loadSearchResult();
+      }else if(updatedProducts.categoryID && updatedProducts.categoryID != 0){
+        this.loadCategory();
+      }
+    });
     this.loadProduct();
     this.addProductService.getUserDetails().subscribe(res=>{
       res[0].userType === 'S' ? this.superUser = true: null;
     })
+  }
+
+  loadCategory(){
+    if((this.page*Pagination.HomePageSize)<=this.totalProductCount){
+      this.loading = true;
+      this.homeService.updateProductInfo(this.categoryID, this.page).subscribe({
+        next: res=>{
+          this.products = [...this.products, ...res.results];
+          this.page++;
+          this.totalProductCount = res.count;
+          this.loading = false;
+        }, error: err=>{
+          this.loading = false;
+        } 
+      })
+    }
+  }
+
+  loadSearchResult(){
+    if((this.page*Pagination.HomePageSize)<=this.totalProductCount){
+      this.loading = true;
+      this.homeService.updateProductBySearch(this.searchText, this.page).subscribe({
+        next: res=>{
+          this.products = [...this.products, ...res.results];
+          this.page++;
+          this.totalProductCount = res.count;
+          this.loading = false;
+        }, error: err=>{
+          this.loading = false;
+        } 
+      })
+    }
   }
 
   loadProduct(){
@@ -99,7 +142,13 @@ export class HomeComponent implements OnInit{
     const atBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 200;
   
     if (atBottom && !this.loading) {
-      this.loadProduct(); // Load more products when near the bottom
+      if(this.searchText && this.searchText.length != 0){
+        this.loadSearchResult();
+      }else if(this.categoryID && this.categoryID != 0){
+        this.loadCategory();
+      }else{
+        this.loadProduct(); // Load more products when near the bottom
+      }
     }
   }
   

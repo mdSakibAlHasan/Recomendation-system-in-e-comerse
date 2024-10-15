@@ -73,27 +73,13 @@ export class NavbarComponent implements OnInit{
   }
 
   onCategoryChange(event:any){
-    this.navbarService.updateProductInfo(event.value.id).subscribe({
-      next: res=>{
-        // this.homeService.updateProduct(res);
-      },
-      error: err=>{
-        this.alertService.tosterDanger('Something went wrong');
-      }
-    })
+    this.homeService.updateProduct('',event.value.id);
   }
 
   search(){
     if (this.searchText.trim() !== '') {
-      const modifiedSearchText = this.searchText.trim().replace(/\s+/g, '+');
-      this.navbarService.updateProductBySearch(modifiedSearchText).subscribe({
-        next: filteredProducts=>{
-          // this.homeService.updateProduct(filteredProducts.results);
-        },error: err=>{
-          this.alertService.tosterDanger('Something went wrong for search');
-        }
-      })
-      
+      const modifiedSearchText = this.searchText.trim().replace(/\s+/g, '+'); 
+      this.homeService.updateProduct(modifiedSearchText,0);
     }
   }
 

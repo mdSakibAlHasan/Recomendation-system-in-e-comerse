@@ -36,7 +36,6 @@ export class RecommendationComponent {
       this.homeService.getAllProduct(this.page).subscribe({
         next: res=>{
           this.products = [...this.products, ...res.results];
-          // this.homeService.updateProduct(res.results);
           this.page++;
           this.loading = false;
           this.totalProductCount = res.count;
