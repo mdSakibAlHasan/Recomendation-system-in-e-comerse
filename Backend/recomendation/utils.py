@@ -19,9 +19,12 @@ def recommendation_for_visitors():
 
 
 def recommendation_for_user(user):
+    all_products = Product.objects.all()
     matrix = build_preference_matrix(user)
-    sorted_products = sorted(matrix.items(), key=lambda x: sum(x[1].values()), reverse=True)
-    return [product for product, _ in sorted_products]
+    actioned_products = matrix.keys()
+    products_with_no_actions = all_products.exclude(id__in=[product.id for product in actioned_products])
+    sorted_products = sorted([(product, actions) for product, actions in matrix.items() if actions['dislike'] == 0], key=lambda x: sum(x[1].values()), reverse=True)
+    return [product for product, _ in sorted_products] + list(products_with_no_actions)
 
 
 def build_preference_matrix(user):
