@@ -29,4 +29,5 @@
 <ul>
   <li>Name: MySQL</li>
   <li>Version: 8.1 or upper version</li>
+  <p>NB: in resource section there sql data that can run and it stores data</p>
 </ul>
