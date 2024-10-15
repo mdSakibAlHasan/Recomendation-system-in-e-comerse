@@ -17,7 +17,7 @@ class Brand(models.Model):
         return str(self.name)
 #mina end
 class Product(models.Model):
-    name = models.CharField(max_length=30, verbose_name=("Product Name"))
+    name = models.CharField(max_length=500, verbose_name=("Product Name"))
     description = models.TextField(verbose_name=("Product Description"))
     model = models.CharField(max_length=30, verbose_name=("Product Model"))
     price = models.DecimalField(decimal_places=2, max_digits=12,verbose_name=("Product Price"))
