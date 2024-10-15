@@ -3,6 +3,7 @@ import { BaseApiService } from '../../../utility/base-api-service';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
+import { PaginationProductModel } from '../../model/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class NavbarService extends BaseApiService{
     return this.http.get<any[]>(`${this.baseurl}/product/?CategoryID=${id}`)
   }
 
-  updateProductBySearch(searchText: string):Observable<any[]>{
-    return this.http.get<any[]>(`${this.baseurl}/product/?search=${searchText}`);
+  updateProductBySearch(searchText: string):Observable<PaginationProductModel>{
+    return this.http.get<PaginationProductModel>(`${this.baseurl}/product/?search=${searchText}`);
   }
 }

@@ -7,7 +7,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
 import {  Router, RouterModule } from '@angular/router';
 import { NavbarService } from './navbar.service';
-import { combineLatest } from 'rxjs';
 import { AlertService } from '../../alert/alert.service';
 import { HomeService } from '../../../features/home/home.service';
 
@@ -89,7 +88,7 @@ export class NavbarComponent implements OnInit{
       const modifiedSearchText = this.searchText.trim().replace(/\s+/g, '+');
       this.navbarService.updateProductBySearch(modifiedSearchText).subscribe({
         next: filteredProducts=>{
-          this.homeService.updateProduct(filteredProducts);
+          this.homeService.updateProduct(filteredProducts.results);
         },error: err=>{
           this.alertService.tosterDanger('Something went wrong for search');
         }
