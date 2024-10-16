@@ -46,12 +46,7 @@ export class HomeComponent implements OnInit{
       this.searchText = updatedProducts.searchText;
       this.products = [];
       this.page = 1;
-      console.log(updatedProducts)
-      if(updatedProducts.searchText && updatedProducts.searchText.length != 0){
-        this.loadSearchResult();
-      }else if(updatedProducts.categoryID && updatedProducts.categoryID != 0){
-        this.loadCategory();
-      }
+      this.updateProduct();
     });
     this.loadProduct();
     this.addProductService.getUserDetails().subscribe(res=>{
@@ -59,10 +54,27 @@ export class HomeComponent implements OnInit{
     })
   }
 
+  updateProduct(){
+    if((this.page==1 || (this.page*Pagination.HomePageSize)<=this.totalProductCount)){
+      this.loading = true;
+      this.homeService.updateProductInfo(this.categoryID, this.searchText,this.maxPrice,this.minPrice, this.page,this.sortOrder).subscribe({
+        next: res=>{
+          this.products = [...this.products, ...res.results];
+          this.page++;
+          this.totalProductCount = res.count;
+          this.loading = false;
+        }, error: err=>{
+          this.loading = false;
+          // this.alertService.tosterDanger('Something went wrong to filter product');
+        } 
+      })
+    }
+  }
+
   loadCategory(){
     if((this.page*Pagination.HomePageSize)<=this.totalProductCount){
       this.loading = true;
-      this.homeService.updateProductInfo(this.categoryID, this.page).subscribe({
+      this.homeService.updateProductInfo2(this.categoryID, this.page).subscribe({
         next: res=>{
           this.products = [...this.products, ...res.results];
           this.page++;
@@ -142,13 +154,7 @@ export class HomeComponent implements OnInit{
     const atBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 200;
   
     if (atBottom && !this.loading) {
-      if(this.searchText && this.searchText.length != 0){
-        this.loadSearchResult();
-      }else if(this.categoryID && this.categoryID != 0){
-        this.loadCategory();
-      }else{
-        this.loadProduct(); // Load more products when near the bottom
-      }
+      this.updateProduct();
     }
   }
   

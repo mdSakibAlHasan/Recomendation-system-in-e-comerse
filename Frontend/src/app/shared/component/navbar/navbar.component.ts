@@ -18,12 +18,13 @@ import { HomeService } from '../../../features/home/home.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit{
-  searchText: string = "";
+  searchText: string = '';
   assetsPath: string = "assets/img";
   categories: any[] = [];
   cartItemsCount: number = 0;
   userDetails: any;
   isLogin: boolean = false;
+  category: number = 0;
 
   constructor(
     private navbarService: NavbarService,
@@ -64,7 +65,7 @@ export class NavbarComponent implements OnInit{
   updateCartNumber(){
     this.navbarService.getCartNumber().subscribe({
       next: res =>{
-        this.cartItemsCount = res.cart_count;
+        this.cartItemsCount = res?.cart_count;
       },
       error: err=>{
         // this.alertService.tosterDanger('Something went wrong in cart');
@@ -73,13 +74,15 @@ export class NavbarComponent implements OnInit{
   }
 
   onCategoryChange(event:any){
-    this.homeService.updateProduct('',event.value.id);
+    this.homeService.updateProduct(this.searchText,event.value.id);
+    this.category = event.value.id;
   }
 
   search(){
     if (this.searchText.trim() !== '') {
       const modifiedSearchText = this.searchText.trim().replace(/\s+/g, '+'); 
-      this.homeService.updateProduct(modifiedSearchText,0);
+      this.homeService.updateProduct(modifiedSearchText,this.category);
+      this.searchText = modifiedSearchText;
     }
   }
 
