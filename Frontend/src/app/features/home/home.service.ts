@@ -35,7 +35,7 @@ export class HomeService extends BaseApiService{
   }
 
   updateProductInfo(categoryID: number,searchText: string, price_lt: number, price_gt: number,  page: number, ordering: string):Observable<PaginationProductModel>{
-    return this.http.get<PaginationProductModel>(`${this.baseurl}/product/?CategoryID=${categoryID==0?'':categoryID}&ordering=${ordering}&page=${page}&price__gt=${price_gt==-Infinity?'':price_lt}&price__lt=${price_lt==Infinity?'':price_lt}&search=${searchText}`);
+    return this.http.get<PaginationProductModel>(`${this.baseurl}/product/?CategoryID=${categoryID==0?'':categoryID}&ordering=${ordering}&page=${page}&price__gt=${price_gt==-Infinity?'':price_gt}&price__lt=${price_lt==Infinity?'':price_lt}&search=${searchText}`);
   }
 
 }

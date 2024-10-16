@@ -42,8 +42,8 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.homeService.currentProduct.subscribe(updatedProducts => {
-      this.categoryID = updatedProducts.categoryID;
-      this.searchText = updatedProducts.searchText;
+      this.categoryID = updatedProducts.categoryID??0;
+      this.searchText = updatedProducts.searchText??'';
       this.products = [];
       this.page = 1;
       this.updateProduct();
@@ -133,18 +133,9 @@ export class HomeComponent implements OnInit{
   }
 
   applyFilters(): void {
-    this.products = this.products.filter(product => {
-      return product.price >= this.minPrice && product.price <= this.maxPrice;
-    });
-
-    // Sort by price based on selected sortOrder
-    this.products.sort((a, b) => {
-      if (this.sortOrder === 'asc') {
-        return a.price - b.price; // Ascending order
-      } else {
-        return b.price - a.price; // Descending order
-      }
-    });
+    this.products = [];
+    this.page = 1;
+    this.updateProduct();
   }
 
   @HostListener("window:scroll", ["$event"])
