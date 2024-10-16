@@ -3,7 +3,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
 from rest_framework import status
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.generics import ListAPIView
 from Backend.utils import getUserId
+from product.filters import ProductFilter
 from .models import LikedProduct
 from .serializer import LikedSerilizer
 from product.pagination import DefaultPagination
@@ -69,6 +73,10 @@ class LikeStatus(APIView):
 class getRecommendation(ListAPIView):
     serializer_class = ProductSerializer
     pagination_class = DefaultPagination
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_class = ProductFilter
+    search_fields = ['name', 'description', 'model']
+    ordering_fields = ['price', 'average_rating', 'like', 'item_purchases']
 
     def get_queryset(self):
         user_id = getUserId(self.request)
@@ -77,3 +85,6 @@ class getRecommendation(ListAPIView):
             return recommendation_for_visitors()
         else:
             return recommendation_for_user(user_id)
+
+    def get_serializer_context(self):
+        return {'request': self.request}

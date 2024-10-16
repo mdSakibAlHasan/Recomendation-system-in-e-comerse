@@ -45,9 +45,9 @@ export class HomeComponent implements OnInit{
       this.searchText = updatedProducts.searchText??'';
       this.products = [];
       this.page = 1;
-      // this.updateProduct();
+      this.updateProduct();
     });
-    this.loadProduct();
+    // this.loadProduct();
     this.addProductService.getUserDetails().subscribe(res=>{
       res[0].userType === 'S' ? this.superUser = true: null;
     })
@@ -70,24 +70,24 @@ export class HomeComponent implements OnInit{
     }
   }
 
-  loadProduct(){
-    if((this.page*Pagination.HomePageSize)<=this.totalProductCount){
-      this.loading = true;
-      this.homeService.getAllProduct(this.page).subscribe({
-        next: res=>{
-          // this.homeService.updateProduct(res.results);
-          this.products = [...this.products, ...res.results];
-          this.page++;
-          this.loading = false;
-          this.totalProductCount = res.count;
-        },
-        error: err=>{
-          this.alertService.tosterDanger('Something went wrong');
-          this.loading = false;
-        }
-      })
-    }
-  }
+  // loadProduct(){
+  //   if((this.page*Pagination.HomePageSize)<=this.totalProductCount){
+  //     this.loading = true;
+  //     this.homeService.getAllProduct(this.page).subscribe({
+  //       next: res=>{
+  //         // this.homeService.updateProduct(res.results);
+  //         this.products = [...this.products, ...res.results];
+  //         this.page++;
+  //         this.loading = false;
+  //         this.totalProductCount = res.count;
+  //       },
+  //       error: err=>{
+  //         this.alertService.tosterDanger('Something went wrong');
+  //         this.loading = false;
+  //       }
+  //     })
+  //   }
+  // }
 
 
   goToProduct(id: number) {
