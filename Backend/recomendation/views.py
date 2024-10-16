@@ -8,7 +8,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListAPIView
 from Backend.utils import getUserId
 from product.filters import ProductFilter
-from .models import LikedProduct
+from .models import LikedProduct, SearchActivity
 from .serializer import LikedSerilizer
 from product.pagination import DefaultPagination
 from product.serializer import ProductSerializer
@@ -80,11 +80,24 @@ class getRecommendation(ListAPIView):
 
     def get_queryset(self):
         user_id = getUserId(self.request)
+        search_query = self.request.query_params.get('search', None)  # Get the search keyword from the URL
+
+        # If there's a search keyword, log it to SearchActivity model
+        if search_query:
+            self.log_search_activity(user_id, search_query)
+
         
         if user_id is None:
             return recommendation_for_visitors()
         else:
             return recommendation_for_user(user_id)
+
+    def log_search_activity(self, user_id, search_query):
+        # Save search activity in the database
+        SearchActivity.objects.create(
+            UID_id=user_id,  # This will be None if the user is not logged in
+            keyword=search_query,
+        )
 
     def get_serializer_context(self):
         return {'request': self.request}
