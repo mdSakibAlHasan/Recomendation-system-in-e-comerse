@@ -22,17 +22,9 @@ def recommendation_for_user(user):
     all_products = Product.objects.all()
     matrix = build_preference_matrix(user)
     actioned_products = matrix.keys()
-    
-    # Get products that the user hasn't interacted with
     products_with_no_actions = all_products.exclude(id__in=[product.id for product in actioned_products])
-
-    # Get products the user has interacted with and sort them
     sorted_products_ids = [product.id for product, actions in matrix.items() if actions['dislike'] == 0]
-    
-    # Combine products with no actions and sorted ones into a queryset
     sorted_products_queryset = Product.objects.filter(id__in=sorted_products_ids)
-    
-    # Combine and return both querysets
     return sorted_products_queryset | products_with_no_actions
 
 
