@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit{
   totalProductCount: number = Infinity;
   loading = false;    //for pagination
   categoryID: number = 0;
-  // isCategory: boolean = 
   constructor(
     private homeService: HomeService,
     private alertService: AlertService,
@@ -46,7 +45,7 @@ export class HomeComponent implements OnInit{
       this.searchText = updatedProducts.searchText??'';
       this.products = [];
       this.page = 1;
-      this.updateProduct();
+      // this.updateProduct();
     });
     this.loadProduct();
     this.addProductService.getUserDetails().subscribe(res=>{
@@ -66,38 +65,6 @@ export class HomeComponent implements OnInit{
         }, error: err=>{
           this.loading = false;
           // this.alertService.tosterDanger('Something went wrong to filter product');
-        } 
-      })
-    }
-  }
-
-  loadCategory(){
-    if((this.page*Pagination.HomePageSize)<=this.totalProductCount){
-      this.loading = true;
-      this.homeService.updateProductInfo2(this.categoryID, this.page).subscribe({
-        next: res=>{
-          this.products = [...this.products, ...res.results];
-          this.page++;
-          this.totalProductCount = res.count;
-          this.loading = false;
-        }, error: err=>{
-          this.loading = false;
-        } 
-      })
-    }
-  }
-
-  loadSearchResult(){
-    if((this.page*Pagination.HomePageSize)<=this.totalProductCount){
-      this.loading = true;
-      this.homeService.updateProductBySearch(this.searchText, this.page).subscribe({
-        next: res=>{
-          this.products = [...this.products, ...res.results];
-          this.page++;
-          this.totalProductCount = res.count;
-          this.loading = false;
-        }, error: err=>{
-          this.loading = false;
         } 
       })
     }
