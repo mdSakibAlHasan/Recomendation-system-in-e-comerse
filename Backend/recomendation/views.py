@@ -80,22 +80,18 @@ class getRecommendation(ListAPIView):
 
     def get_queryset(self):
         user_id = getUserId(self.request)
-        search_query = self.request.query_params.get('search', None)  # Get the search keyword from the URL
-
-        # If there's a search keyword, log it to SearchActivity model
+        search_query = self.request.query_params.get('search', None)
         if search_query:
             self.log_search_activity(user_id, search_query)
 
-        
         if user_id is None:
             return recommendation_for_visitors()
         else:
             return recommendation_for_user(user_id)
 
-    def log_search_activity(self, user_id, search_query):
-        # Save search activity in the database
+    def log_search_activity(self, user_id, search_query):        # Save search activity in the database
         SearchActivity.objects.create(
-            UID_id=user_id,  # This will be None if the user is not logged in
+            UID_id=user_id,
             keyword=search_query,
         )
 
