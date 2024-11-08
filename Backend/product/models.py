@@ -30,6 +30,7 @@ class Product(models.Model):
     disLike = models.IntegerField(default=0,verbose_name=("Dislike by User"))
     item_view = models.IntegerField(default=0,verbose_name=("Product Items total views"))
     item_puchases = models.IntegerField(default=0,verbose_name=("Product Items total puchese"))
+    cluster = models.IntegerField(default=-1, verbose_name=("Cluster ID"))
     def __str__(self):
         return str(self.name)
 
