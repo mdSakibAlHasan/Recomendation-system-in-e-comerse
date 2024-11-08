@@ -18,6 +18,10 @@ export class HomeService extends BaseApiService{
     this.productSubject.next({ searchText, categoryID });
   }
 
+  getRecommendationForYou(productID: string, pageNumber: number): Observable<PaginationProductModel>{
+    return this.http.get<PaginationProductModel>(`${this.baseurl}/like/getSimilarRecomendation/${productID}?page=${pageNumber}`);
+  }
+
   getAllProduct(pageNumber: number): Observable<PaginationProductModel>{
     return this.http.get<PaginationProductModel>(`${this.baseurl}/like/recommendations?page=${pageNumber}`);
   }
