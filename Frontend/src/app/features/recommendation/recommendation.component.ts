@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { ProductModel } from '../../shared/model/product.model';
 import { HomeService } from '../home/home.service';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { PaginatorState } from 'primeng/paginator';
   styleUrl: './recommendation.component.css'
 })
 export class RecommendationComponent {
+  @Input() productID: string = "0";
   products: ProductModel[] = [];
   first: number = 0;
   rows: number = 10;
@@ -33,7 +34,7 @@ export class RecommendationComponent {
   loadProduct(){
     if((this.page*Pagination.HomePageSize)<=this.totalProductCount){
       this.loading = true;
-      this.homeService.getAllProduct(this.page).subscribe({
+      this.homeService.getRecommendationForYou(this.productID,this.page).subscribe({
         next: res=>{
           this.products = [...this.products, ...res.results];
           this.page++;

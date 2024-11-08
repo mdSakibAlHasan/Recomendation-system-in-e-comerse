@@ -12,7 +12,7 @@ from .models import LikedProduct, SearchActivity
 from .serializer import LikedSerilizer
 from product.pagination import DefaultPagination
 from product.serializer import ProductSerializer
-from .utils import recommendation_for_user, recommendation_for_visitors, save_clusters_to_db
+from .utils import recommendation_for_user, recommendation_for_visitors, save_clusters_to_db, get_similar_products
    
 
 class LikeStatus(APIView):
@@ -100,20 +100,20 @@ class getRecommendation(ListAPIView):
 
 
 class clusterRecommendation(ListAPIView):
-    # serializer_class = ProductSerializer
-    # pagination_class = DefaultPagination
+    serializer_class = ProductSerializer
+    pagination_class = DefaultPagination
     # filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     # filterset_class = ProductFilter
     # search_fields = ['name', 'description', 'model']
     # ordering_fields = ['price', 'average_rating', 'like', 'item_purchases']
 
     def get_queryset(self):
-        save_clusters_to_db()
+        # save_clusters_to_db()
         # user_id = getUserId(self.request)
-        # search_query = self.request.query_params.get('search', None)
+        product_id = product_id = self.kwargs['product_id']
+        return get_similar_products(product_id)
         # if search_query:
         #     self.log_search_activity(user_id, search_query)
-
         # if user_id is None:
         #     return recommendation_for_visitors()
         # else:

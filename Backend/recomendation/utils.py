@@ -19,28 +19,14 @@ def recommendation_for_visitors():
 
 
 def recommendation_for_user(user):
-    # Step 1: Get all products and build the preference matrix for the user
     all_products = Product.objects.all()
     matrix = build_preference_matrix(user)
     actioned_products = matrix.keys()
-    
-    # Step 2: Filter products based on user actions
-    # Products that have not been disliked and have no actions
     products_with_no_actions = all_products.exclude(id__in=[product.id for product in actioned_products])
     sorted_products_ids = [product.id for product, actions in matrix.items() if actions['dislike'] == 0]
     sorted_products_queryset = Product.objects.filter(id__in=sorted_products_ids)
+    return sorted_products_queryset | products_with_no_actions
 
-    # Step 3: Get cluster-based recommendations using KNN
-    cluster_recommendations = []
-    for product in sorted_products_queryset:
-        similar_products = get_similar_products(product.id)  # Fetch without limiting the count
-        cluster_recommendations.extend(similar_products)
-
-    # Step 4: Combine and distinct
-    combined_recommendations = (sorted_products_queryset | products_with_no_actions | Product.objects.filter(id__in=[p.id for p in cluster_recommendations]))
-    unique_recommendations = combined_recommendations.distinct()
-
-    return unique_recommendations
 
 def get_similar_products(product_id):
     # Get products in the same cluster without limiting the number of recommendations
