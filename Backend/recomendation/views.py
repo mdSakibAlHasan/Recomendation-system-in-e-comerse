@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -104,8 +105,10 @@ class clusterRecommendation(ListAPIView):
     pagination_class = DefaultPagination
 
     def get_queryset(self):
-        product_id = product_id = self.kwargs['product_id']
-        return get_similar_products(product_id)
+        product_id = self.kwargs['product_id']
+        queryset = list(get_similar_products(product_id))  # Convert to list for shuffling
+        random.shuffle(queryset)  # Shuffle the queryset
+        return queryset
     
     def post(self, request, product_id):
         data = request.data
