@@ -1,4 +1,5 @@
 import random
+from random import shuffle
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,11 +10,12 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListAPIView
 from Backend.utils import getUserId
 from product.filters import ProductFilter
+from product.models import Product
 from .models import LikedProduct, SearchActivity
 from .serializer import LikedSerilizer
 from product.pagination import DefaultPagination
 from product.serializer import ProductSerializer
-from .utils import recommendation_for_user, recommendation_for_visitors, save_clusters_to_db, get_similar_products
+from .utils import recommendation_for_user, recommendation_for_visitors, save_clusters_to_db, get_similar_products,get_similar_products_for_multiple_ids
    
 
 class LikeStatus(APIView):
@@ -78,6 +80,27 @@ class getRecommendation(ListAPIView):
     filterset_class = ProductFilter
     search_fields = ['name', 'description', 'model']
     ordering_fields = ['price', 'average_rating', 'like', 'item_purchases']
+
+    # def get_queryset(self):
+    #     user_id = getUserId(self.request)
+    #     search_query = self.request.query_params.get('search', None)
+        
+    #     if search_query:
+    #         self.log_search_activity(user_id, search_query)
+
+    #     # Get user-specific recommendations if the user is logged in
+    #     if user_id is not None:
+    #         user_recommendations = recommendation_for_user(user_id)
+    #         similar_products = get_similar_products_for_multiple_ids(user_recommendations)
+
+    #         # Combine and shuffle recommendations for variety
+    #         final_recommendations = list(user_recommendations | similar_products)
+    #         shuffle(final_recommendations)
+    #     else:
+    #         # If not logged in, recommend popular products for visitors
+    #         final_recommendations = list(recommendation_for_visitors())
+
+    #     return Product.objects.filter(id__in=[product.id for product in final_recommendations]).order_by('-average_rating', '-item_puchases')
 
     def get_queryset(self):
         user_id = getUserId(self.request)

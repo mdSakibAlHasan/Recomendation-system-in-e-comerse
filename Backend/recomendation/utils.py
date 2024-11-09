@@ -7,34 +7,66 @@ import math
 
 from recomendation.models import LikedProduct, ViewActivity
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import random
+import pandas as pd
+
+def build_content_similarity():
+    # Step 1: Prepare TF-IDF matrix for content-based filtering
+    all_products = Product.objects.all()
+    product_data = pd.DataFrame(list(all_products.values('id', 'description')))
+    
+    tfidf = TfidfVectorizer(stop_words='english')
+    tfidf_matrix = tfidf.fit_transform(product_data['description'])
+    
+    # Compute cosine similarity matrix for all products
+    cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
+    
+    # Map product IDs to indices
+    product_indices = pd.Series(product_data.index, index=product_data['id']).to_dict()
+    return cosine_sim, product_indices, all_products
+
+cosine_sim, product_indices, all_products = build_content_similarity()
+
+def get_content_based_recommendations(product_id, num_recommendations=5):
+    # Find index of the product in the cosine similarity matrix
+    idx = product_indices[product_id]
+    sim_scores = list(enumerate(cosine_sim[idx]))
+    
+    # Sort products by similarity score, excluding the product itself
+    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)[1:num_recommendations+1]
+    
+    # Get the product objects of similar products
+    similar_products_ids = [all_products[i[0]].id for i in sim_scores]
+    return Product.objects.filter(id__in=similar_products_ids)
+
 def recommendation_for_visitors():
     recommendation_products = Product.objects.order_by(
         '-item_puchases',   
         '-like',            
         '-average_rating', 
         '-item_view',      
-        'disLike'           
+        'disLike'
     )
+    # Return queryset directly
     return recommendation_products
-
 
 def recommendation_for_user(user):
     all_products = Product.objects.all()
     matrix = build_preference_matrix(user)
     actioned_products = matrix.keys()
+    
+    # Get products the user hasn't interacted with
     products_with_no_actions = all_products.exclude(id__in=[product.id for product in actioned_products])
+    
+    # Get products based on positive user interactions
     sorted_products_ids = [product.id for product, actions in matrix.items() if actions['dislike'] == 0]
     sorted_products_queryset = Product.objects.filter(id__in=sorted_products_ids)
-    return sorted_products_queryset | products_with_no_actions
-
-
-def get_similar_products(product_id):
-    # Get products in the same cluster without limiting the number of recommendations
-    product = Product.objects.get(id=product_id)
-    cluster_id = product.cluster
-    similar_products = Product.objects.filter(cluster=cluster_id).exclude(id=product_id)
-    return similar_products
-
+    
+    # Combine and return as a single queryset
+    combined_queryset = Product.objects.filter(id__in=[p.id for p in (list(sorted_products_queryset) + list(products_with_no_actions))])
+    return combined_queryset
 
 
 
@@ -90,7 +122,6 @@ def update_preference_matrix(user, product, action_type):
 
 #Apply KNN algorithm
 
-import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from .models import Product
@@ -124,3 +155,20 @@ def save_clusters_to_db():
         product = Product.objects.get(id=row['id'])
         product.cluster = row['cluster']
         product.save()
+
+def get_similar_products(product_id):
+    # Get products in the same cluster without limiting the number of recommendations
+    product = Product.objects.get(id=product_id)
+    cluster_id = product.cluster
+    similar_products = Product.objects.filter(cluster=cluster_id).exclude(id=product_id)
+    return similar_products
+
+def get_similar_products_for_multiple_ids(user_recommendations):
+    similar_products = Product.objects.none()
+    
+    for product in user_recommendations:
+        cluster_id = product.cluster  # Assuming products are clustered
+        # Use filter instead of get to retrieve multiple similar products
+        similar_products |= Product.objects.filter(cluster=cluster_id).exclude(id=product.id)
+
+    return similar_products.distinct()
