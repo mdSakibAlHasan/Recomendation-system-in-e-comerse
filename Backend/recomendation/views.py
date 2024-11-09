@@ -111,7 +111,15 @@ class getRecommendation(ListAPIView):
         if user_id is None:
             return recommendation_for_visitors()
         else:
-            return recommendation_for_user(user_id)
+            user_recommendations = recommendation_for_user(user_id)
+            if user_recommendations.count()==0:
+                return recommendation_for_visitors()
+            else:
+                similar_products = get_similar_products_for_multiple_ids(user_recommendations)
+                final_recommendations = list(user_recommendations) + list(similar_products)
+                # Filter products based on the IDs in the combined list
+                return Product.objects.filter(id__in=[product.id for product in final_recommendations])
+            # return recommendation_for_user(user_id)
 
     def log_search_activity(self, user_id, search_query):        # Save search activity in the database
         SearchActivity.objects.create(
