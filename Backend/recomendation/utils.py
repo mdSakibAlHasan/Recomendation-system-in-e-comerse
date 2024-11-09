@@ -91,34 +91,41 @@ def update_preference_matrix(user, product, action_type):
 #Apply KNN algorithm
 
 import pandas as pd
+from .models import Product
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
-from .models import Product
+from sklearn.preprocessing import MinMaxScaler
+from scipy.sparse import hstack
 
 def get_product_text_data():
-    products = Product.objects.all().values('id', 'name', 'description')
+    products = Product.objects.all().values('id', 'description', 'price', 'average_rating', 'like', 'disLike', 'item_view', 'item_puchases')
     product_df = pd.DataFrame(products)
     product_df['description'] = product_df['description'].fillna('')
-
     return product_df
 
 def vectorize_text_data(product_df):
-    tfidf = TfidfVectorizer(stop_words='english', max_features=500)     #Tuin here
+    # TF-IDF vectorization for text
+    tfidf = TfidfVectorizer(stop_words='english', max_features=500)
     text_matrix = tfidf.fit_transform(product_df['description'])
-
-    return text_matrix, product_df
-
-
-def cluster_products(text_matrix, num_clusters=20):
-    kmeans = KMeans(n_clusters=num_clusters, random_state=0)
-    product_clusters = kmeans.fit_predict(text_matrix)
     
+    # Normalize numeric features and combine with text_matrix
+    scaler = MinMaxScaler()
+    numerical_features = product_df[['price', 'average_rating', 'like', 'disLike', 'item_view', 'item_puchases']]
+    scaled_numerical_features = scaler.fit_transform(numerical_features.fillna(0))
+    
+    # Combine text and numerical feature matrices
+    combined_matrix = hstack([text_matrix, scaled_numerical_features])
+    return combined_matrix, product_df
+
+def cluster_products(combined_matrix, num_clusters=20):
+    kmeans = KMeans(n_clusters=num_clusters, random_state=0)
+    product_clusters = kmeans.fit_predict(combined_matrix)
     return product_clusters
 
 def save_clusters_to_db():
     product_df = get_product_text_data()
-    text_matrix, product_df = vectorize_text_data(product_df)
-    product_df['cluster'] = cluster_products(text_matrix)
+    combined_matrix, product_df = vectorize_text_data(product_df)
+    product_df['cluster'] = cluster_products(combined_matrix)
     
     for _, row in product_df.iterrows():
         product = Product.objects.get(id=row['id'])
