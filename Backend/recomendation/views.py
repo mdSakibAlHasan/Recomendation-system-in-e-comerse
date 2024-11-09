@@ -102,19 +102,11 @@ class getRecommendation(ListAPIView):
 class clusterRecommendation(ListAPIView):
     serializer_class = ProductSerializer
     pagination_class = DefaultPagination
-    # filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    # filterset_class = ProductFilter
-    # search_fields = ['name', 'description', 'model']
-    # ordering_fields = ['price', 'average_rating', 'like', 'item_purchases']
 
     def get_queryset(self):
-        # save_clusters_to_db()
-        # user_id = getUserId(self.request)
         product_id = product_id = self.kwargs['product_id']
         return get_similar_products(product_id)
-        # if search_query:
-        #     self.log_search_activity(user_id, search_query)
-        # if user_id is None:
-        #     return recommendation_for_visitors()
-        # else:
-        #     return recommendation_for_user(user_id)
+    
+    def post(self, request, product_id):
+        data = request.data
+        return Response('Successfull ', status=status.HTTP_200_OK)
