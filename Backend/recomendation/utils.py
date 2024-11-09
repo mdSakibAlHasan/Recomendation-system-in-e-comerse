@@ -109,16 +109,11 @@ def vectorize_text_data(product_df):
     return text_matrix, product_df
 
 
-def cluster_products(text_matrix, num_clusters=10):
+def cluster_products(text_matrix, num_clusters=20):
     kmeans = KMeans(n_clusters=num_clusters, random_state=0)
     product_clusters = kmeans.fit_predict(text_matrix)
     
     return product_clusters
-
-def assign_clusters_to_products(product_df, product_clusters):
-    product_df['cluster'] = product_clusters
-    # Save clusters in database or use in recommendations
-    return product_df
 
 def save_clusters_to_db():
     product_df = get_product_text_data()
@@ -129,21 +124,3 @@ def save_clusters_to_db():
         product = Product.objects.get(id=row['id'])
         product.cluster = row['cluster']
         product.save()
-
-def get_text_cluster_recommendations(user, product_df, num_recommendations=5):
-    # Get product IDs the user has interacted with
-    user_interacted_products = LikedProduct.objects.filter(UID=user).values_list('PID', flat=True)
-    
-    # Find the clusters for these products
-    clusters_of_interest = product_df[product_df['id'].isin(user_interacted_products)]['cluster'].unique()
-    
-    # Get other products in the same clusters
-    recommended_products = product_df[product_df['cluster'].isin(clusters_of_interest)]
-    
-    # Exclude already interacted products
-    recommended_products = recommended_products[~recommended_products['id'].isin(user_interacted_products)]
-    
-    # Limit the number of recommendations
-    recommended_product_ids = recommended_products['id'].head(num_recommendations)
-    return Product.objects.filter(id__in=recommended_product_ids)
-

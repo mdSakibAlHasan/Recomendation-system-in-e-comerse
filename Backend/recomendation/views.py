@@ -111,5 +111,5 @@ class clusterRecommendation(ListAPIView):
         return queryset
     
     def post(self, request, product_id):
-        data = request.data
-        return Response('Successfull ', status=status.HTTP_200_OK)
+        save_clusters_to_db()
+        return Response('Successfull KNN algorith apply', status=status.HTTP_200_OK)
