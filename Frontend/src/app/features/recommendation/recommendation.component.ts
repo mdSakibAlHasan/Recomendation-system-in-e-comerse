@@ -1,9 +1,10 @@
 import { Component, HostListener, Input } from '@angular/core';
 import { ProductModel } from '../../shared/model/product.model';
 import { HomeService } from '../home/home.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Pagination } from '../../core/constants/general';
 import { PaginatorState } from 'primeng/paginator';
+import { routes } from '../../app.routes';
 
 @Component({
   selector: 'app-recommendation',
@@ -50,7 +51,9 @@ export class RecommendationComponent {
 
 
   goToProduct(id: number) {
-    this.router.navigate(['/product', id]);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/product', id]);
+    });
   }
 
   onPageChange(event: PaginatorState) {
