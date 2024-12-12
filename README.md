@@ -13,11 +13,7 @@
   <li>Version: 5.1</li>
   <li>For run this project you need to install some pakage using this command</li>
   <ul>
-    <li>pip install django-cors-headers</li>
-    <li>pip install djangorestframework</li>
-    <li>pip install pymysql</li>
-    <li>pip install PyJWT</li>
-    <li>pip install django-filter</li>
+    <li>pip install -r requirements.txt</li>
     <li>python manage.py makemigrations (before this create a schema in database name 'shop')</li>
     <li>python manage.py migrate <br>
     The last command will create database table automatically. You need to create a schema name 'e-comerse'.</li>
