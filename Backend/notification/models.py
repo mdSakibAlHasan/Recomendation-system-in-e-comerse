@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from user.models import User
 
 class Notification(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user ID')
