@@ -40,6 +40,7 @@ class NotificationView(APIView):
                 notification.save()
                 return Response({'status': 'Notification marked as read'}, status=200)
         except Notification.DoesNotExist:
+            print("Here are call")
             return Response({'error': 'Notification not found'}, status=404)
 
 
