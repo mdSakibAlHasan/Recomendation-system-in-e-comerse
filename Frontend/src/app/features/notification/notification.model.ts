@@ -1,11 +1,8 @@
 export interface NotificationModel{
     id: number,
-    name: string,
-    description: string,
-    model: string,
-    price: number,
-    stock_items: number,
-    base_view: string,
-    BID: number,
-    CategoryID: number
+    message: string,
+    link: string,
+    is_read: boolean,
+    created_at: string,
+    user_id: number
 }
