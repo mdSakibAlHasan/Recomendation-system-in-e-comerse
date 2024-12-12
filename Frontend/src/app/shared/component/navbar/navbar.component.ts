@@ -73,6 +73,10 @@ export class NavbarComponent implements OnInit{
     })
   }
 
+  toggleNotificationPanel(){
+    
+  }
+
   onCategoryChange(event:any){
     this.homeService.updateProduct(this.searchText,event.value.id);
     this.category = event.value.id;

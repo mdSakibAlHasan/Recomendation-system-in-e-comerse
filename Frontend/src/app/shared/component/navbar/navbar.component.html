@@ -59,6 +59,12 @@
         icon="pi pi-sign-out"
         (click)="logout()"
       ></p-button>
+      <p-button
+        label="Notifications"
+        icon="pi pi-bell"
+        [text]="true"
+        (click)="toggleNotificationPanel()"
+      ></p-button>
     </div>
     }@else{
     <div>
