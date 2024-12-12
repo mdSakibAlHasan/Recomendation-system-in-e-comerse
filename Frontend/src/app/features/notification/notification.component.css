@@ -1,0 +1,28 @@
+/* notification.component.css */
+.notification-container {
+    max-width: 400px;
+    margin: 20px auto;
+  }
+  
+  .notification-container ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .notification-container li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .notification-container li.read {
+    background-color: #f0f0f0;
+  }
+  
+  .notification-container button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  

@@ -1,1 +1,12 @@
 <p>notification works!</p>
+<!-- notification.component.html -->
+<div class="notification-container">
+    <h2>Notifications</h2>
+    <ul>
+      <li *ngFor="let notification of notifications" [class.read]="notification.is_read">
+        <p>{{ notification.message }}</p>
+        <button *ngIf="!notification.is_read" (click)="markAsRead(notification)">Mark as Read</button>
+      </li>
+    </ul>
+  </div>
+  

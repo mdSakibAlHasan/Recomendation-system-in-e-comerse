@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NotificationModel } from './notification.model';
+import { NotificationService } from './notification.service';
+import { AlertService } from '../../shared/alert/alert.service';
 
 @Component({
   selector: 'app-notification',
@@ -7,6 +10,32 @@ import { Component } from '@angular/core';
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css'
 })
-export class NotificationComponent {
+export class NotificationComponent implements OnInit{
+  notifications: NotificationModel[] = [];
 
+  constructor(
+    private notificationService: NotificationService,
+    private alertService: AlertService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadNotifications();
+  }
+
+  loadNotifications() {
+    this.notificationService.getNotifications().subscribe({
+      next: res=>{
+        this.notifications = res;
+      },
+      error: err=>{
+        this.alertService.tosterDanger('Something went wrong to load notification');
+      }
+    });
+  }
+
+  markAsRead(notification: any) {
+    this.notificationService.markAsRead(notification.id).subscribe(() => {
+      notification.is_read = true;
+    });
+  }
 }
