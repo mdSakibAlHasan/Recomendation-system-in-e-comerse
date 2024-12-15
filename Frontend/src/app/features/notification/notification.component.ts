@@ -36,13 +36,13 @@ export class NotificationComponent implements OnInit{
     });
   }
 
-  markAsRead(notification: any) {
-    this.notificationService.markAsRead(notification.id).subscribe(() => {
-      notification.is_read = true;
+  markAsRead(notificationId: any) {
+    this.notificationService.markAsRead(notificationId).subscribe(() => {
     });
   }
 
-  navigateTo(link: string): void {
+  navigateTo(link: string, id: number): void {
+    this.markAsRead(id);
     this.route.navigate([link]);
   }
 }
