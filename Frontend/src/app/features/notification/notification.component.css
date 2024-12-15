@@ -1,28 +1,54 @@
-/* notification.component.css */
+
 .notification-container {
-    max-width: 400px;
-    margin: 20px auto;
-  }
-  
-  .notification-container ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .notification-container li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .notification-container li.read {
-    background-color: #f0f0f0;
-  }
-  
-  .notification-container button {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
+  width: 50%;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+.notification-container h2 {
+  text-align: center;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+.notification-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.notification-container li {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.notification-container li.unread {
+  background-color: #ffe7e7;
+  color: #d32f2f;
+}
+
+.notification-container li.read {
+  background-color: #ffffff;
+  color: #999;
+}
+
+.notification-container li:hover {
+  background-color: #f5f5f5;
+  transform: scale(1.02);
+}
+
+.notification-container .notification-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.notification-container .notification-link:hover {
+  text-decoration: underline;
+}

@@ -3,11 +3,12 @@ import { NotificationModel } from './notification.model';
 import { NotificationService } from './notification.service';
 import { AlertService } from '../../shared/alert/alert.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-notification',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css'
 })
