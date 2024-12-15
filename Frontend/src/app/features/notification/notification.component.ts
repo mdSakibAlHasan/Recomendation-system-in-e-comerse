@@ -3,7 +3,7 @@ import { NotificationModel } from './notification.model';
 import { NotificationService } from './notification.service';
 import { AlertService } from '../../shared/alert/alert.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-notification',
@@ -17,7 +17,8 @@ export class NotificationComponent implements OnInit{
 
   constructor(
     private notificationService: NotificationService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -39,5 +40,9 @@ export class NotificationComponent implements OnInit{
     this.notificationService.markAsRead(notification.id).subscribe(() => {
       notification.is_read = true;
     });
+  }
+
+  navigateTo(link: string): void {
+    this.route.navigate([link]);
   }
 }

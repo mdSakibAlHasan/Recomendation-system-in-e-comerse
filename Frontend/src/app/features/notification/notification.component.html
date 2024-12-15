@@ -5,10 +5,11 @@
       *ngFor="let notification of notifications"
       [class.read]="notification.is_read"
       [class.unread]="!notification.is_read"
+      (click)="navigateTo(notification.link)"
     >
-      <a [routerLink]="notification.link" class="notification-link">
+      <div class="notification-link">
         <p>{{ notification.message }}</p>
-      </a>
+      </div>
     </li>
   </ul>
 </div>
