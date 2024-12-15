@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: RouteConstant.Summary, component: SummaryComponent},
   {path: RouteConstant.Profile, component: ProfileComponent},
   {path: RouteConstant.AddProduct, component: AddProductComponent},
-  {path: RouteConstant.AddProduct, component: NotificationComponent},
+  {path: RouteConstant.Notification, component: NotificationComponent},
   {path: RouteConstant.UpdateProduct+'/:id', component: AddProductComponent},
   {
     path: RouteConstant.Product, 

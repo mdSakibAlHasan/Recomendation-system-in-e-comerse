@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationModel } from './notification.model';
 import { NotificationService } from './notification.service';
 import { AlertService } from '../../shared/alert/alert.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-notification',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css'
 })
