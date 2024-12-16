@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'cart',
     'product',
     'recomendation',
-    'notification'
+    'notification',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -78,6 +79,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Backend.wsgi.application'
+ASGI_APPLICATION = 'Backend.asgi.application'
 
 
 # Database
