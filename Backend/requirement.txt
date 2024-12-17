@@ -7,3 +7,5 @@ mysqlclient
 pandas
 pyjwt
 Pillow
+channels
+channels-redis
