@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit{
   assetsPath: string = "assets/img";
   categories: any[] = [];
   cartItemsCount: number = 0;
+  unreadNotificationCount: number = 0;
   userDetails: any;
   isLogin: boolean = false;
   category: number = 0;
@@ -44,10 +45,14 @@ export class NavbarComponent implements OnInit{
         console.log('User is not login')
       }
     })
+
     this.navbarService.loginData$.subscribe((loginStatus) => {
       this.isLogin = loginStatus;
     });
     this.navbarService.cartData$.subscribe(()=>{
+      this.updateCartNumber();
+    })
+    this.navbarService.unreadNotificationData$.subscribe(()=>{
       this.updateCartNumber();
     })
 
@@ -70,6 +75,15 @@ export class NavbarComponent implements OnInit{
       error: err=>{
         // this.alertService.tosterDanger('Something went wrong in cart');
       }
+    })
+  }
+
+  updateUnreadNotificationNumber(){
+    this.navbarService.getUnreadNotificationCount().subscribe({
+      next: res=>{
+        this.unreadNotificationCount = res?.total_notification;
+      },
+      error: err=>{}
     })
   }
 

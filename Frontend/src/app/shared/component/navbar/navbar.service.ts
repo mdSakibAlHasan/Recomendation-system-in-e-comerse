@@ -13,6 +13,9 @@ export class NavbarService extends BaseApiService{
   loginData$ = this.isLoginSubject.asObservable();
   private cartUpdateSubject = new BehaviorSubject<any>(null);
   cartData$ = this.cartUpdateSubject.asObservable();
+  private unreadNotificationNumberSubject = new BehaviorSubject<number>(0);
+  unreadNotificationData$ = this.unreadNotificationNumberSubject.asObservable();
+
   constructor(
     private http: HttpClient,
     private authService: AuthService
@@ -28,8 +31,16 @@ export class NavbarService extends BaseApiService{
     this.isLoginSubject.next(isLogin);
   }
 
+  updateUnreadNotificationNumber(){
+    this.unreadNotificationNumberSubject.next(0);
+  }
+
   getCartNumber():Observable<{'cart_count': number}>{
     return this.http.get<{'cart_count': number}>(`${this.baseurl}/cart/count`);
+  }
+
+  getUnreadNotificationCount():Observable<{"total_notification":number}> {
+    return this.http.get<{"total_notification":number}>(`${this.baseurl}/notification/count`);
   }
 
   getUserDetails():Observable<any>{
