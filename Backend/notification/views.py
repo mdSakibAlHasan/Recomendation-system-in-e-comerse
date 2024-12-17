@@ -1,6 +1,7 @@
 # views.py
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.generics import ListAPIView
 from rest_framework import status
 from Backend.utils import getUserId
 from .models import Notification
@@ -46,3 +47,13 @@ class NotificationView(APIView):
 
 def send_notification(user, message,link):      #create new notification from internal
     Notification.objects.create(user=user, message=message, link=link)
+    
+    
+class NotificationCountView(ListAPIView):
+    def get(self, request, *args, **kwargs):
+        user_id = getUserId(request)
+        if user_id == None:
+            return Response({}, status=status.HTTP_403_FORBIDDEN)
+        else:
+            cart_count = Notification.objects.filter(user_id=user_id, is_read = False).count()
+            return Response({'total_notification': cart_count})
