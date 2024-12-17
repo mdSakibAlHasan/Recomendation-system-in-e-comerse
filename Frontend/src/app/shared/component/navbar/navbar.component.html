@@ -53,11 +53,14 @@
         icon="pi pi-user"
         routerLink="profile"
       ></p-button>
+
       <p-button
         label="Notifications"
         icon="pi pi-bell"
         [text]="true"
         routerLink="notification"
+        [badge]="unreadNotificationCount.toString()"
+        badgeClass="p-badge-info"
       ></p-button>
       <p-button
         label="Logout"

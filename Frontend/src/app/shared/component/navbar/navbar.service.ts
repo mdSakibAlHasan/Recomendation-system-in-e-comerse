@@ -13,7 +13,7 @@ export class NavbarService extends BaseApiService{
   loginData$ = this.isLoginSubject.asObservable();
   private cartUpdateSubject = new BehaviorSubject<any>(null);
   cartData$ = this.cartUpdateSubject.asObservable();
-  private unreadNotificationNumberSubject = new BehaviorSubject<number>(0);
+  private unreadNotificationNumberSubject = new BehaviorSubject<any>(null);
   unreadNotificationData$ = this.unreadNotificationNumberSubject.asObservable();
 
   constructor(
@@ -32,7 +32,7 @@ export class NavbarService extends BaseApiService{
   }
 
   updateUnreadNotificationNumber(){
-    this.unreadNotificationNumberSubject.next(0);
+    this.unreadNotificationNumberSubject.next(null);
   }
 
   getCartNumber():Observable<{'cart_count': number}>{
