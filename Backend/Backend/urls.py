@@ -27,7 +27,6 @@ urlpatterns = [
     path('cart/',include('cart.url')),
     path('like/',include('recomendation.url')),
     path('notification/',include('notification.url')),
-    path('ws/notifications/', NotificationConsumer.as_asgi()),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
