@@ -7,6 +7,35 @@ from Backend.utils import getUserId
 from .models import Notification
 from .serializers import NotificationSerializer
 
+
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
+def send_notification(message):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        'notifications',
+        {
+            'type': 'send_notification',
+            'message': message,
+        }
+    )
+
+
+import time
+from django.core.management.base import BaseCommand
+# from consumers import send_notification
+
+class Command(BaseCommand):
+    help = "Send notifications every minute"
+
+    def handle(self, *args, **kwargs):
+        while True:
+            message = "This is a periodic notification sent every minute."
+            send_notification(message)
+            self.stdout.write("Notification sent!")
+            time.sleep(60)  # Wait for 1 minute
+
 class NotificationView(APIView):
 
     def get(self, request):
