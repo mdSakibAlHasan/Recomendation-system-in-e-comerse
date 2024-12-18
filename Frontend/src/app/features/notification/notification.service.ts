@@ -21,4 +21,8 @@ export class NotificationService extends BaseApiService {
     return this.http.patch(`${this.baseurl}/notification/${notificationId}`,'');
   }
 
+  getUnreadNotificationCount():Observable<{"total_notification":number}> {
+    return this.http.get<{"total_notification":number}>(`${this.baseurl}/notification/count`);
+  }
+
 }

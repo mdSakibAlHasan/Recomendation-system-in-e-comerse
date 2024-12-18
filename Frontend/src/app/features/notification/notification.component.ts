@@ -4,6 +4,7 @@ import { NotificationService } from './notification.service';
 import { AlertService } from '../../shared/alert/alert.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { NavbarService } from '../../shared/component/navbar/navbar.service';
 
 @Component({
   selector: 'app-notification',
@@ -18,6 +19,7 @@ export class NotificationComponent implements OnInit{
   constructor(
     private notificationService: NotificationService,
     private alertService: AlertService,
+    private navbarService: NavbarService,
     private route: Router
   ) {}
 
@@ -37,7 +39,13 @@ export class NotificationComponent implements OnInit{
   }
 
   markAsRead(notificationId: any) {
-    this.notificationService.markAsRead(notificationId).subscribe(() => {
+    this.notificationService.markAsRead(notificationId).subscribe({
+      next: res=>{
+        this.navbarService.updateUnreadNotificationNumber();
+      },
+      error: err=>{
+        
+      }
     });
   }
 
