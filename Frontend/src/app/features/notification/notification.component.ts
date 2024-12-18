@@ -5,6 +5,7 @@ import { AlertService } from '../../shared/alert/alert.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarService } from '../../shared/component/navbar/navbar.service';
+import { WebsocketService } from './websocket.service';
 
 @Component({
   selector: 'app-notification',
@@ -15,16 +16,26 @@ import { NavbarService } from '../../shared/component/navbar/navbar.service';
 })
 export class NotificationComponent implements OnInit{
   notifications: NotificationModel[] = [];
-
+  realNotification: any[] = []
   constructor(
     private notificationService: NotificationService,
     private alertService: AlertService,
     private navbarService: NavbarService,
-    private route: Router
+    private route: Router,
+    private wsService: WebsocketService
   ) {}
 
   ngOnInit(): void {
     this.loadNotifications();
+    
+      this.wsService.connect('ws://localhost:8000/ws/notifications/')
+          .subscribe({
+              next: (data) =>{ this.realNotification.push(data),
+                this.alertService.tosterSuccess("A notification come");
+              },
+              error: (error) => console.log('WebSocket error:', error),
+      });
+
   }
 
   loadNotifications() {
