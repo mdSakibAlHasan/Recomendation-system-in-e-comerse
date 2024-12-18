@@ -53,7 +53,7 @@ export class NavbarComponent implements OnInit{
       this.updateCartNumber();
     })
     this.navbarService.unreadNotificationData$.subscribe(()=>{
-      this.updateCartNumber();
+      this.updateUnreadNotificationNumber();
     })
 
     // this.updateCartNumber();
