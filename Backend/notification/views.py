@@ -20,6 +20,7 @@ def send_notification(message):
             'message': message,
         }
     )
+    
 
 
 import time
@@ -68,13 +69,14 @@ class NotificationView(APIView):
                 notification = Notification.objects.get(id=notification_id, user_id=user_id)
                 notification.is_read = True
                 notification.save()
+                send_notification("THis is send from mark as read")
                 return Response({'status': 'Notification marked as read'}, status=200)
         except Notification.DoesNotExist:
             print("Here are call")
             return Response({'error': 'Notification not found'}, status=404)
 
 
-def send_notification(user, message,link):      #create new notification from internal
+def send_notifications(user, message,link):      #create new notification from internal
     Notification.objects.create(user=user, message=message, link=link)
     
     
