@@ -22,20 +22,10 @@ export class NotificationComponent implements OnInit{
     private alertService: AlertService,
     private navbarService: NavbarService,
     private route: Router,
-    private wsService: WebsocketService
   ) {}
 
   ngOnInit(): void {
     this.loadNotifications();
-    
-      this.wsService.connect('ws://localhost:8000/ws/notifications/')
-          .subscribe({
-              next: (data) =>{ this.realNotification.push(data),
-                this.alertService.tosterSuccess("A notification come");
-              },
-              error: (error) => console.log('WebSocket error:', error),
-      });
-
   }
 
   loadNotifications() {
