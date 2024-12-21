@@ -8,4 +8,3 @@ pandas
 pyjwt
 Pillow
 channels==3.0.5
-channels-redis
