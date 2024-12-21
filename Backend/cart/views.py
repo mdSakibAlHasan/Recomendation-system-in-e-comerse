@@ -28,7 +28,7 @@ class CartProduct(ListCreateAPIView):
             serializer = CartSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
-                compute_user_similarity()
+                compute_user_similarity(user_id)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
                 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

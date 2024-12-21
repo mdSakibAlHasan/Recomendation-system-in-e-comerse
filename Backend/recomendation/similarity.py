@@ -7,7 +7,7 @@ from cart.models import Cart
 from notification.views import send_notification, send_notifications
 from user.models import User
 
-def compute_user_similarity():
+def compute_user_similarity(user_ID):
     # Step 1: Create a user-product interaction matrix
     data = Cart.objects.filter(status=Cart.ORDERED).values("UID", "PID").annotate(count=Count("PID"))
 
@@ -40,10 +40,14 @@ def compute_user_similarity():
             })
 
     # Step 4: Save recommendations to the database
-    for rec in recommendations:
-        print(User.objects.get(pk=rec['UID'])," send notification ",rec['PID'])
-        send_notifications(User.objects.get(pk=rec['UID']),"You have a new product suggession",f"/product/{rec['PID']}")
+    # for rec in recommendations:
+    if recommendations:  # Check if recommendations list is not empty
+        first_rec = recommendations[0]  # Access the first element
+        user = User.objects.get(pk=user_ID)
+        # print(User.objects.get(pk=rec['UID'])," send notification ",rec['PID'])
         send_notification("You have a new product suggession")
+        send_notifications(user,"You have a new product suggession",f"/product/{first_rec['PID']}")
+        
         # Recommendation.objects.create(
         #     UID_id=rec["UID"],
         #     PID_id=rec["PID"]
