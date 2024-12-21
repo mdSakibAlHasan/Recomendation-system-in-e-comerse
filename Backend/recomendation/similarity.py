@@ -5,6 +5,7 @@ import pandas as pd
 
 from cart.models import Cart
 from notification.views import send_notification, send_notifications
+from user.models import User
 
 def compute_user_similarity():
     # Step 1: Create a user-product interaction matrix
@@ -40,7 +41,8 @@ def compute_user_similarity():
 
     # Step 4: Save recommendations to the database
     for rec in recommendations:
-        send_notifications(rec['UID'],"You have a new product suggession",f"/product/${rec['PID']}")
+        print(User.objects.get(pk=rec['UID'])," send notification ",rec['PID'])
+        send_notifications(User.objects.get(pk=rec['UID']),"You have a new product suggession",f"/product/{rec['PID']}")
         send_notification("You have a new product suggession")
         # Recommendation.objects.create(
         #     UID_id=rec["UID"],

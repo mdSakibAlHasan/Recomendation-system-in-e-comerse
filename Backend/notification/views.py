@@ -77,7 +77,7 @@ class NotificationView(APIView):
 
 
 def send_notifications(user, message,link):      #create new notification from internal
-    Notification.objects.create(user=user, message=message, link=link)
+    Notification.objects.create(user_id=user, message=message, link=link)
     
     
 class NotificationCountView(ListAPIView):
