@@ -7,6 +7,7 @@ import { SummaryComponent } from './cart/summary/summary.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { NotificationComponent } from './notification/notification.component';
+import { ProductStatusComponent } from './product-status/product-status.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: RouteConstant.AddProduct, component: AddProductComponent},
   {path: RouteConstant.Notification, component: NotificationComponent},
   {path: RouteConstant.UpdateProduct+'/:id', component: AddProductComponent},
+  {path: RouteConstant.ProductStatus,component:ProductStatusComponent},
   {
     path: RouteConstant.Product, 
     loadChildren: ()=> import('./product/product.module').then(m => m.ProductModule),

@@ -10,5 +10,6 @@ export const RouteConstant = {
     Profile: 'profile',
     AddProduct: 'addProduct',
     UpdateProduct: 'updateProduct',
-    Notification: 'notification'
+    Notification: 'notification',
+    ProductStatus: 'status',
 }
