@@ -6,7 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django.db.models import Avg
 from .models import Category, Brand, Product, ProductComment, User
-from .serializer import CategorySerilizer, BrandSerilizer, CommentSerializer, ProductSerializer
+from .serializer import AddProductSerializer, CategorySerilizer, BrandSerilizer, CommentSerializer, ProductSerializer
 from Backend.utils import getUserId, getUserType
 from .filters import ProductFilter
 from .utils import write_user_visit_product
@@ -107,7 +107,7 @@ class ProductManagement(CreateAPIView):
         user_type = getUserType(request)
         if user_type == User.SuperUser:
             if request.method == 'POST':
-                serializer = ProductSerializer(data=request.data)
+                serializer = AddProductSerializer(data=request.data)
                 if serializer.is_valid():
                     serializer.save()
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
