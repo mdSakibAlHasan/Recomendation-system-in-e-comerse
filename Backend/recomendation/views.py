@@ -9,8 +9,6 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListAPIView
 from Backend.utils import getUserId
-from cart import models
-from cart.models import Cart
 from product.filters import ProductFilter
 from product.models import Product
 from .models import LikedProduct, SearchActivity
@@ -18,13 +16,7 @@ from .serializer import LikedSerilizer
 from product.pagination import DefaultPagination
 from product.serializer import ProductSerializer
 from .utils import recommendation_for_user, recommendation_for_visitors, save_clusters_to_db, get_similar_products,get_similar_products_for_multiple_ids
-# Django Backend Code
-
-from django.db.models import Sum, Count
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-
-# from .models import Product, Cart, ViewActivity, LikedProduct
+   
 
 class LikeStatus(APIView):
     def get(self, request, *args, **kwargs):
@@ -132,29 +124,79 @@ class clusterRecommendation(ListAPIView):
 
 
 
-@csrf_exempt
-def trending_products(request):
-    if request.method == 'GET':
-        trending = Product.objects.annotate(
-            total_likes=Sum('like'),
-            total_views=Sum('item_view'),
-            total_purchases=Sum('item_puchases'),
-            cart_additions=Cart.objects.filter(PID=models.OuterRef('id')).values('quantity')
-        ).order_by('-total_likes', '-total_views', '-total_purchases')[:10]
+from rest_framework.generics import ListAPIView
+# from rest_framework.pagination import DefaultPagination
+from rest_framework.response import Response
+# from .serializer import ProductSerializer
+from django.db.models import F, ExpressionWrapper, FloatField
 
-        stock_out = Product.objects.filter(stock_items__lte=0).values('id', 'name', 'stock_items')
 
-        most_sold = Product.objects.order_by('-item_puchases').values('id', 'name', 'item_puchases')[:10]
+class TrendingProducts(ListAPIView):
+    serializer_class = ProductSerializer
+    # pagination_class = DefaultPagination
 
-        most_carted = Cart.objects.values('PID__id', 'PID__name').annotate(
-            total_added=Sum('quantity')
-        ).order_by('-total_added')[:10]
+    def get_queryset(self):
+        # Define weights for each metric
+        weight_likes = 0.1
+        weight_views = 0.2
+        weight_orders = 0.3
+        weight_cart = 0.4
 
-        recommendations = {
-            'trending_products': list(trending.values('id', 'name', 'total_likes', 'total_views', 'total_purchases')),
-            'stock_out_products': list(stock_out),
-            'most_sold_products': list(most_sold),
-            'most_carted_products': list(most_carted),
-        }
+        # Use database annotations to compute the trending score dynamically
+        queryset = Product.objects.annotate(
+            total_score=ExpressionWrapper(
+                (F('like') * weight_likes) +
+                (F('item_view') * weight_views) +
+                (F('item_puchases') * weight_orders) +
+                (F('cart_count') * weight_cart),
+                output_field=FloatField()
+            )
+        ).order_by('-total_score')[:10]
 
-        return JsonResponse(recommendations, safe=False)
+        return queryset
+
+
+class StockOutProducts(ListAPIView):
+    serializer_class = ProductSerializer
+    # pagination_class = DefaultPagination
+
+    def get_queryset(self):
+        # Fetch products where stock_items is 0
+        queryset = Product.objects.filter(stock_items=0)
+        return queryset
+
+class MostSoldProducts(ListAPIView):
+    serializer_class = ProductSerializer
+    # pagination_class = DefaultPagination
+
+    def get_queryset(self):
+        # Fetch products sorted by item_purchases in descending order
+        queryset = Product.objects.order_by('-item_puchases')[:10]
+        return queryset
+
+class MostViewedProducts(ListAPIView):
+    serializer_class = ProductSerializer
+    # pagination_class = DefaultPagination
+
+    def get_queryset(self):
+        # Fetch products sorted by item_view in descending order
+        queryset = Product.objects.order_by('-item_view')[:10]
+        return queryset
+
+class MostLikedProducts(ListAPIView):
+    serializer_class = ProductSerializer
+    # pagination_class = DefaultPagination
+
+    def get_queryset(self):
+        # Fetch products sorted by likes in descending order
+        queryset = Product.objects.order_by('-like')[:10]
+        return queryset
+
+class DiscountRecommendation(ListAPIView):
+    serializer_class = ProductSerializer
+    # pagination_class = DefaultPagination
+
+    def get_queryset(self):
+        # Fetch products with low sales and high views (example logic for needing discounts)
+        queryset = Product.objects.filter(item_puchases__lt=5, item_view__gt=50).order_by('-item_view')[:10]
+        return queryset
