@@ -9,6 +9,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListAPIView
 from Backend.utils import getUserId
+from cart import models
+from cart.models import Cart
 from product.filters import ProductFilter
 from product.models import Product
 from .models import LikedProduct, SearchActivity
@@ -16,7 +18,13 @@ from .serializer import LikedSerilizer
 from product.pagination import DefaultPagination
 from product.serializer import ProductSerializer
 from .utils import recommendation_for_user, recommendation_for_visitors, save_clusters_to_db, get_similar_products,get_similar_products_for_multiple_ids
-   
+# Django Backend Code
+
+from django.db.models import Sum, Count
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+# from .models import Product, Cart, ViewActivity, LikedProduct
 
 class LikeStatus(APIView):
     def get(self, request, *args, **kwargs):
@@ -121,3 +129,32 @@ class clusterRecommendation(ListAPIView):
     def post(self, request, product_id):
         save_clusters_to_db()
         return Response('Successfull KNN algorith apply', status=status.HTTP_200_OK)
+
+
+
+@csrf_exempt
+def trending_products(request):
+    if request.method == 'GET':
+        trending = Product.objects.annotate(
+            total_likes=Sum('like'),
+            total_views=Sum('item_view'),
+            total_purchases=Sum('item_puchases'),
+            cart_additions=Cart.objects.filter(PID=models.OuterRef('id')).values('quantity')
+        ).order_by('-total_likes', '-total_views', '-total_purchases')[:10]
+
+        stock_out = Product.objects.filter(stock_items__lte=0).values('id', 'name', 'stock_items')
+
+        most_sold = Product.objects.order_by('-item_puchases').values('id', 'name', 'item_puchases')[:10]
+
+        most_carted = Cart.objects.values('PID__id', 'PID__name').annotate(
+            total_added=Sum('quantity')
+        ).order_by('-total_added')[:10]
+
+        recommendations = {
+            'trending_products': list(trending.values('id', 'name', 'total_likes', 'total_views', 'total_purchases')),
+            'stock_out_products': list(stock_out),
+            'most_sold_products': list(most_sold),
+            'most_carted_products': list(most_carted),
+        }
+
+        return JsonResponse(recommendations, safe=False)
