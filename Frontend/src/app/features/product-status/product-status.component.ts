@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 export class ProductStatusComponent {
   trendingProducts: any[] = [];
   stockOutProducts: any[] = [];
+  activeTab: string = 'trending';
 
   constructor(private statusService: ProductStatusService) {}
 
@@ -32,5 +33,9 @@ export class ProductStatusComponent {
       (response: any) => (this.stockOutProducts = response.results),
       (error) => console.error('Error fetching stock-out products', error)
     );
+  }
+
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
   }
 }

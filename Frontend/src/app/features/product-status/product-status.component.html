@@ -1,25 +1,45 @@
+<div class="navbar">
+  <button
+    class="nav-button"
+    [class.active]="activeTab === 'trending'"
+    (click)="setActiveTab('trending')"
+  >
+    Trending Products
+  </button>
+  <button
+    class="nav-button"
+    [class.active]="activeTab === 'stockout'"
+    (click)="setActiveTab('stockout')"
+  >
+    Stock-Out Products
+  </button>
+</div>
+
 <div class="products-container">
-  <div class="section trending">
+  <!-- Trending Products Section -->
+  <div *ngIf="activeTab === 'trending'" class="section trending">
     <h2>Trending Products</h2>
     <div class="products-grid">
       <div class="product-card" *ngFor="let product of trendingProducts">
-        <img [src]="product.image" alt="{{ product.name }}" />
+        <img [src]="product.base_view" alt="{{ product.name }}" />
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
         <div class="price">Price: ${{ product.price }}</div>
+        <div class="stock" *ngIf="product.stock_items > 0">
+          In Stock: {{ product.stock_items }}
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="section stock-out">
+  <!-- Stock-Out Products Section -->
+  <div *ngIf="activeTab === 'stockout'" class="section stock-out">
     <h2>Stock-Out Products</h2>
     <div class="products-grid">
-      <div
-        class="product-card stock-out-card"
-        *ngFor="let product of stockOutProducts"
-      >
-        <img [src]="product.image" alt="{{ product.name }}" />
+      <div class="product-card" *ngFor="let product of stockOutProducts">
+        <img [src]="product.base_view" alt="{{ product.name }}" />
         <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
         <p class="out-of-stock">Out of Stock</p>
       </div>
     </div>
