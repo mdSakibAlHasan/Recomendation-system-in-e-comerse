@@ -159,11 +159,13 @@ class TrendingProducts(ListAPIView):
 
 class StockOutProducts(ListAPIView):
     serializer_class = ProductSerializer
-    # pagination_class = DefaultPagination
+    pagination_class = DefaultPagination
 
     def get_queryset(self):
-        # Fetch products where stock_items is 0
-        queryset = Product.objects.filter(stock_items=0)
+        # Fetch the 'stock_items' parameter from the URL
+        stock_items = self.kwargs.get('stock_items', 0)
+        # Filter products based on the stock_items value
+        queryset = Product.objects.filter(stock_items__lte=stock_items)
         return queryset
 
 class MostSoldProducts(ListAPIView):

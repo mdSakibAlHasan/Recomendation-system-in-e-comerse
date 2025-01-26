@@ -6,5 +6,5 @@ urlpatterns = [
     path('recommendations',getRecommendation.as_view()),
     path('getSimilarRecomendation/<int:product_id>',clusterRecommendation.as_view()),
     path('trending', TrendingProducts.as_view()),
-    path('stockout',StockOutProducts.as_view()),
+    path('stockout/<int:stock_items>',StockOutProducts.as_view()),
 ]
