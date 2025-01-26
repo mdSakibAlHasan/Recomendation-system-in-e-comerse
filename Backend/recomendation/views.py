@@ -128,12 +128,12 @@ from rest_framework.generics import ListAPIView
 # from rest_framework.pagination import DefaultPagination
 from rest_framework.response import Response
 # from .serializer import ProductSerializer
-from django.db.models import F, ExpressionWrapper, FloatField
+from django.db.models import F, ExpressionWrapper, FloatField, Count
 
 
 class TrendingProducts(ListAPIView):
     serializer_class = ProductSerializer
-    # pagination_class = DefaultPagination
+    pagination_class = DefaultPagination
 
     def get_queryset(self):
         # Define weights for each metric
@@ -144,6 +144,7 @@ class TrendingProducts(ListAPIView):
 
         # Use database annotations to compute the trending score dynamically
         queryset = Product.objects.annotate(
+            cart_count=Count('cart', filter=F('cart__status') == 'P'),  # Count carts with 'P' status
             total_score=ExpressionWrapper(
                 (F('like') * weight_likes) +
                 (F('item_view') * weight_views) +
