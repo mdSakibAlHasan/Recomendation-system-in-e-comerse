@@ -43,7 +43,7 @@ export class AddProductComponent implements OnInit{
       stock_items: ['', [Validators.required, Validators.min(0)]],
       BID: ['',[Validators.required]],
       CategoryID: ['',[Validators.required]],
-      base_view: [null,[Validators.required]]
+      base_view: [null]
     });
     this.id = this.route.snapshot.paramMap.get('id')?? '0';
   }
