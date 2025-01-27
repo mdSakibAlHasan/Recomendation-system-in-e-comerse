@@ -34,6 +34,23 @@
 
   <!-- Stock-Out Products Section -->
   <div *ngIf="activeTab === 'stockout'" class="section stock-out">
+    <form #f="ngForm" (ngSubmit)="status(f)" class="my-login-validation">
+      <div class="form-group d-flex align-items-center">
+        <label for="stock" class="mr-2">Stock Size</label>
+        <input
+          ngModel
+          name="stock"
+          #name="ngModel"
+          type="number"
+          class="form-control mr-2"
+          id="stock"
+          autofocus
+          style="max-width: 200px"
+        />
+        <button type="submit" class="btn btn-primary">Filter</button>
+      </div>
+    </form>
+
     <h2>Stock-Out Products</h2>
     <div class="products-grid">
       <div class="product-card" *ngFor="let product of stockOutProducts">

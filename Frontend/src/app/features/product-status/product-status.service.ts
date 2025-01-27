@@ -16,7 +16,7 @@ export class ProductStatusService extends BaseApiService{
       return this.http.get<any[]>(`${this.baseurl}/like/trending`);
   }
 
-  getStockOutProduct():Observable<any[]>{
-    return this.http.get<any[]>(`${this.baseurl}/like/stockout`)
+  getStockOutProduct(size: number):Observable<any[]>{
+    return this.http.get<any[]>(`${this.baseurl}/like/stockout/${size}`)
   }
 }
