@@ -54,10 +54,13 @@
     <h2>Stock-Out Products</h2>
     <div class="products-grid">
       <div class="product-card" *ngFor="let product of stockOutProducts">
-        <img [src]="product.base_view" alt="{{ product.name }}" />
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
-        <p class="out-of-stock">Out of Stock</p>
+        <div (click)="goToEdit(product.id)">
+          <img [src]="product.base_view" alt="{{ product.name }}" />
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.description }}</p>
+          <p class="out-of-stock">Out of Stock</p>
+          <div></div>
+        </div>
       </div>
     </div>
   </div>

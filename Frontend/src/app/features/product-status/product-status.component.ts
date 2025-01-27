@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProductStatusService } from './product-status.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-status',
@@ -16,7 +17,10 @@ export class ProductStatusComponent {
   activeTab: string = 'trending';
   stock: number = 0;
 
-  constructor(private statusService: ProductStatusService) {}
+  constructor(
+    private statusService: ProductStatusService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getTrendingProducts();
@@ -40,6 +44,14 @@ export class ProductStatusComponent {
   status(form: { value: any; }) {
     let data = form.value
     this.getStockOutProducts(data.stock);
+  }
+
+  goToEdit(id: number) {
+    this.router.navigate(['/updateProduct', id]);
+  }
+
+  goToProduct(id: number) {
+    this.router.navigate(['/product', id]);
   }
 
   setActiveTab(tab: string): void {
