@@ -21,12 +21,14 @@
     <h2>Trending Products</h2>
     <div class="products-grid">
       <div class="product-card" *ngFor="let product of trendingProducts">
-        <img [src]="product.base_view" alt="{{ product.name }}" />
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
-        <div class="price">Price: ${{ product.price }}</div>
-        <div class="stock" *ngIf="product.stock_items > 0">
-          In Stock: {{ product.stock_items }}
+        <div (click)="goToProduct(product.id)">
+          <img [src]="product.base_view" alt="{{ product.name }}" />
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.description }}</p>
+          <div class="price">Price: ${{ product.price }}</div>
+          <div class="stock" *ngIf="product.stock_items > 0">
+            In Stock: {{ product.stock_items }}
+          </div>
         </div>
       </div>
     </div>
@@ -58,7 +60,11 @@
           <img [src]="product.base_view" alt="{{ product.name }}" />
           <h3>{{ product.name }}</h3>
           <p>{{ product.description }}</p>
+          @if(product.stock_items == 0){
           <p class="out-of-stock">Out of Stock</p>
+          }@else{
+          <p>In Stock: {{ product.stock_items }}</p>
+          }
           <div></div>
         </div>
       </div>
