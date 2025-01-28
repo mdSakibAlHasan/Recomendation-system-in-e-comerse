@@ -173,4 +173,8 @@ export class AddProductComponent implements OnInit{
       });
     }
   }
+
+  viewProduct(){
+    this.router.navigate(['product/'+this.id]);
+  }
 }

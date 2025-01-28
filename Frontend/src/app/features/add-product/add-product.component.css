@@ -83,4 +83,24 @@
     background-color: #9E9E9E;
     cursor: not-allowed;
   }
+
+  .details-btn {
+    background-color: #17a2b8;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .details-btn i {
+    margin-right: 5px;
+  }
+  
+  .details-btn:hover {
+    background-color: #138496;
+  }
+  
   
