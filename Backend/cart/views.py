@@ -1,7 +1,10 @@
 from rest_framework.generics import ListAPIView, ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
+
+from product.models import Product
 from .models import Cart
+from rest_framework.views import APIView
 # from ..product.models import Product
 # from ..product.serializer import ProductSerializer
 from .serializer import CartSerializer, GetCartSerializer
@@ -110,3 +113,109 @@ class IsInCart(ListAPIView):
                 return Response(False)
             else:
                 return Response(True)
+            
+            
+
+from django.db.models import F
+import pandas as pd
+
+def fetch_transaction_data():
+    """
+    Fetch transaction data from Cart model.
+    Each row corresponds to a product in a transaction.
+    """
+    transactions = (
+        Cart.objects.filter(status='O')  # Consider only ordered carts
+        .values('UID', 'PID')
+    )
+
+    # Convert to a DataFrame for processing
+    transaction_df = pd.DataFrame(transactions)
+    return transaction_df
+
+
+def prepare_transaction_list(transaction_df):
+    """
+    Group products by users to prepare for Apriori.
+    """
+    transaction_list = (
+        transaction_df.groupby('UID')['PID']
+        .apply(list)
+        .tolist()
+    )
+    return transaction_list
+
+
+from mlxtend.frequent_patterns import apriori, association_rules
+from mlxtend.preprocessing import TransactionEncoder
+
+import numpy as np
+
+def apply_apriori(transaction_list):
+    import numpy as np
+    from mlxtend.frequent_patterns import apriori, association_rules
+    from mlxtend.preprocessing import TransactionEncoder
+
+    # Encode transactions into a DataFrame
+    te = TransactionEncoder()
+    te_ary = te.fit(transaction_list).transform(transaction_list)
+    df = pd.DataFrame(te_ary, columns=te.columns_)
+
+    # Generate frequent itemsets and association rules
+    frequent_itemsets = apriori(df, min_support=0.1, use_colnames=True)
+    rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1.0)
+
+    # Fetch product details
+    product_queryset = Product.objects.all()
+    product_map = {product.name: {"id": product.id, "description": product.description} for product in product_queryset}
+
+    # Prepare results
+    results = []
+    for _, rule in rules.iterrows():
+        # Convert frozenset to list and map product details
+        antecedents = list(rule["antecedents"])
+        consequents = list(rule["consequents"])
+
+        antecedent_details = [
+            {"id": product_map[item]["id"], "name": item, "description": product_map[item]["description"]}
+            for item in antecedents if item in product_map
+        ]
+        consequent_details = [
+            {"id": product_map[item]["id"], "name": item, "description": product_map[item]["description"]}
+            for item in consequents if item in product_map
+        ]
+
+        results.append({
+            "antecedents": antecedent_details,
+            "consequents": consequent_details
+        })
+
+    return results
+
+
+
+
+# from rest_framework.views import APIView
+# from rest_framework.response import Response
+
+import json
+
+from rest_framework.response import Response
+
+class MerchantInsightsView(APIView):
+    def get(self, request, *args, **kwargs):
+        try:
+            # Process transaction data
+            transaction_df = fetch_transaction_data()
+            transaction_list = prepare_transaction_list(transaction_df)
+            rules = apply_apriori(transaction_list)
+
+            # Convert to JSON-serializable format
+            insights = rules.to_dict(orient='records')
+            return Response(insights)
+
+        except Exception as e:
+            print(f"Error: {e}")  # Debug the exact error
+            return Response({"error": str(e)}, status=500)
+
+

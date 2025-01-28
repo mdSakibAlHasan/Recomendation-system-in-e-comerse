@@ -121,7 +121,7 @@ def vectorize_text_data(product_df):
     return text_matrix, product_df
 
 
-def cluster_products(text_matrix, num_clusters=20):
+def cluster_products(text_matrix, num_clusters=30):
     kmeans = KMeans(n_clusters=num_clusters, random_state=0)
     product_clusters = kmeans.fit_predict(text_matrix)
     
