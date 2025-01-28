@@ -94,6 +94,7 @@ class GetOrderHistory(ListAPIView):
         else:
             cart_item = Cart.objects.filter(UID=user_id, status = Cart.ORDERED)
             serializer = GetCartSerializer(cart_item, many=True)
+            compute_user_similarity(user_id)
             return Response(serializer.data)
         
         

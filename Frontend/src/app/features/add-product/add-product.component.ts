@@ -141,10 +141,10 @@ export class AddProductComponent implements OnInit{
   }
 
   onSubmit() {
-    if (this.productForm.invalid) {
-      this.alertService.tosterInfo('Please filup required field');
-      return;
-    }
+    // if (this.productForm.invalid) {
+    //   this.alertService.tosterInfo('Please filup required field');
+    //   return;
+    // }
     const formData = new FormData();
     Object.keys(this.productForm.controls).forEach(key => {
       formData.append(key, this.productForm.get(key)?.value.id ? this.productForm.get(key)?.value.id: this.productForm.get(key)?.value);
