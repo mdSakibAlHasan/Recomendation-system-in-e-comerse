@@ -45,6 +45,7 @@ def compute_user_similarity(user_ID):
         first_rec = recommendations[0]  # Access the first element
         user = User.objects.get(pk=user_ID)
         # print(User.objects.get(pk=rec['UID'])," send notification ",rec['PID'])
+        send_notification("You have a new product suggession")
         send_notifications(user,"You have a new product suggession",f"/product/{first_rec['PID']}")
         
         # Recommendation.objects.create(

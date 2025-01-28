@@ -7,6 +7,7 @@ from .models import Cart
 from .serializer import CartSerializer, GetCartSerializer
 from Backend.utils import getUserId
 from product.views import updateProductStock
+from recomendation.similarity import compute_user_similarity
 
 class CartProduct(ListCreateAPIView):
     def get(self, request, *args, **kwargs):
@@ -27,6 +28,7 @@ class CartProduct(ListCreateAPIView):
             serializer = CartSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
+                compute_user_similarity(user_id)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
                 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
