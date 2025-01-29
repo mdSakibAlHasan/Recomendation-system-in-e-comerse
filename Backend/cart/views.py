@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from product.models import Product
+from user.models import User
 from .models import Cart
 from rest_framework.views import APIView
 # from ..product.models import Product
@@ -11,6 +12,7 @@ from .serializer import CartSerializer, GetCartSerializer
 from Backend.utils import getUserId
 from product.views import updateProductStock
 from recomendation.similarity import compute_user_similarity
+from notification.views import send_notifications
 
 class CartProduct(ListCreateAPIView):
     def get(self, request, *args, **kwargs):
@@ -71,6 +73,7 @@ class CartProduct(ListCreateAPIView):
                 errors.append({"id": id, "error": serializer.errors})
                
             updateProductStock(cart_item.PID.id,quantity); 
+            sendNotification(cart_item.PID.id,user_id)
             
         # Return the updated items and any errors encountered
         return Response({
@@ -201,3 +204,33 @@ class MerchantInsightsView(APIView):
             return Response({"error": str(e)}, status=500)
 
 
+
+def sendNotification(id, user):
+    try:
+        # Process transaction data
+        transaction_df = fetch_transaction_data()
+        transaction_list = prepare_transaction_list(transaction_df)
+        rules = apply_apriori(transaction_list)
+
+        # Match the given ID with antecedents
+        print(len(rules)," ",id," ",user)
+        for rule in rules:
+            antecedents = rule["antecedents"]
+            consequents = rule["consequents"]
+
+            # Check if the given ID matches any antecedent
+            if any(item["id"] == id for item in antecedents):
+                # Get the first consequent
+                first_consequent = consequents[0] if consequents else None
+                print(first_consequent," here ")
+                if first_consequent:
+                    # Send notification
+                    message = "Check this exciting item"
+                    link = f"/product/{first_consequent['id']}"
+                    userIns = User.objects.get(pk=user)
+                    send_notifications(userIns, message, link)
+                    break
+
+    except Exception as e:
+        print(f"Error: {e}")  # Debug the exact error
+        return None
