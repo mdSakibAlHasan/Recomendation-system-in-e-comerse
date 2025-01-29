@@ -97,7 +97,7 @@ class GetOrderHistory(ListAPIView):
         else:
             cart_item = Cart.objects.filter(UID=user_id, status = Cart.ORDERED)
             serializer = GetCartSerializer(cart_item, many=True)
-            compute_user_similarity(user_id)
+            # compute_user_similarity(user_id)
             return Response(serializer.data)
         
         
@@ -118,6 +118,10 @@ class IsInCart(ListAPIView):
 
 from django.db.models import F
 import pandas as pd
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from mlxtend.frequent_patterns import apriori, association_rules
+from mlxtend.preprocessing import TransactionEncoder
 
 def fetch_transaction_data():
     """
@@ -133,7 +137,6 @@ def fetch_transaction_data():
     transaction_df = pd.DataFrame(transactions)
     return transaction_df
 
-
 def prepare_transaction_list(transaction_df):
     """
     Group products by users to prepare for Apriori.
@@ -145,17 +148,7 @@ def prepare_transaction_list(transaction_df):
     )
     return transaction_list
 
-
-from mlxtend.frequent_patterns import apriori, association_rules
-from mlxtend.preprocessing import TransactionEncoder
-
-import numpy as np
-
 def apply_apriori(transaction_list):
-    import numpy as np
-    from mlxtend.frequent_patterns import apriori, association_rules
-    from mlxtend.preprocessing import TransactionEncoder
-
     # Encode transactions into a DataFrame
     te = TransactionEncoder()
     te_ary = te.fit(transaction_list).transform(transaction_list)
@@ -167,7 +160,7 @@ def apply_apriori(transaction_list):
 
     # Fetch product details
     product_queryset = Product.objects.all()
-    product_map = {product.name: {"id": product.id, "description": product.description} for product in product_queryset}
+    product_map = {product.id: {"name": product.name, "description": product.description} for product in product_queryset}
 
     # Prepare results
     results = []
@@ -177,12 +170,12 @@ def apply_apriori(transaction_list):
         consequents = list(rule["consequents"])
 
         antecedent_details = [
-            {"id": product_map[item]["id"], "name": item, "description": product_map[item]["description"]}
-            for item in antecedents if item in product_map
+            {"id": pid, "name": product_map[pid]["name"], "description": product_map[pid]["description"]}
+            for pid in antecedents if pid in product_map
         ]
         consequent_details = [
-            {"id": product_map[item]["id"], "name": item, "description": product_map[item]["description"]}
-            for item in consequents if item in product_map
+            {"id": pid, "name": product_map[pid]["name"], "description": product_map[pid]["description"]}
+            for pid in consequents if pid in product_map
         ]
 
         results.append({
@@ -192,16 +185,6 @@ def apply_apriori(transaction_list):
 
     return results
 
-
-
-
-# from rest_framework.views import APIView
-# from rest_framework.response import Response
-
-import json
-
-from rest_framework.response import Response
-
 class MerchantInsightsView(APIView):
     def get(self, request, *args, **kwargs):
         try:
@@ -210,9 +193,8 @@ class MerchantInsightsView(APIView):
             transaction_list = prepare_transaction_list(transaction_df)
             rules = apply_apriori(transaction_list)
 
-            # Convert to JSON-serializable format
-            insights = rules.to_dict(orient='records')
-            return Response(insights)
+            # Return the results directly
+            return Response(rules)
 
         except Exception as e:
             print(f"Error: {e}")  # Debug the exact error

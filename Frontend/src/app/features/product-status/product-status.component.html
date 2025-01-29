@@ -4,7 +4,7 @@
     [class.active]="activeTab === 'trending'"
     (click)="setActiveTab('trending')"
   >
-    Recommendaed Products
+    Trending Products
   </button>
   <button
     class="nav-button"
@@ -18,7 +18,7 @@
 <div class="products-container">
   <!-- Trending Products Section -->
   <div *ngIf="activeTab === 'trending'" class="section trending">
-    <h2>Recommendaed Products</h2>
+    <h2>Trending Products</h2>
     <div class="products-grid">
       <div class="product-card" *ngFor="let product of trendingProducts">
         <div (click)="goToProduct(product.id)">
