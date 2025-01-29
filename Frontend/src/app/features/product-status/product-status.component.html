@@ -13,6 +13,13 @@
   >
     Stock-Out Products
   </button>
+  <button
+    class="nav-button"
+    [class.active]="activeTab === 'touple'"
+    (click)="setActiveTab('touple')"
+  >
+    Most sells
+  </button>
 </div>
 
 <div class="products-container">
@@ -28,6 +35,48 @@
           <div class="price">Price: ${{ product.price }}</div>
           <div class="stock" *ngIf="product.stock_items > 0">
             In Stock: {{ product.stock_items }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="products-container">
+    <!-- Trending Products Section -->
+    <div *ngIf="activeTab === 'touple'" class="section trending">
+      <h2>Most Sells</h2>
+      <div class="products-grid">
+        <div class="container mt-4">
+          <h2 class="text-center text-primary mb-4">Merchant Insights</h2>
+
+          <div class="row">
+            <div class="col-md-6" *ngFor="let rule of rules">
+              <p-card>
+                <ng-template pTemplate="header">
+                  <h2>Product Insights</h2>
+                </ng-template>
+                <ng-template pTemplate="content">
+                  <p>
+                    View recommended product associations based on customer
+                    purchases.
+                  </p>
+
+                  <h5 class="text-muted">If bought:</h5>
+                  <ul>
+                    <li *ngFor="let item of rule.antecedents">
+                      <strong>{{ item.name }}</strong> - {{ item.description }}
+                    </li>
+                  </ul>
+
+                  <h5 class="text-muted mt-3">Then Recommend:</h5>
+                  <ul>
+                    <li *ngFor="let item of rule.consequents">
+                      <strong>{{ item.name }}</strong> - {{ item.description }}
+                    </li>
+                  </ul>
+                </ng-template>
+              </p-card>
+            </div>
           </div>
         </div>
       </div>

@@ -3,11 +3,13 @@ import { ProductStatusService } from './product-status.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CardModule } from 'primeng/card';
+import { error } from 'node:console';
 
 @Component({
   selector: 'app-product-status',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CardModule],
   templateUrl: './product-status.component.html',
   styleUrl: './product-status.component.css'
 })
@@ -16,6 +18,7 @@ export class ProductStatusComponent {
   stockOutProducts: any[] = [];
   activeTab: string = 'trending';
   stock: number = 0;
+  rules:any[] = []
 
   constructor(
     private statusService: ProductStatusService,
@@ -25,6 +28,7 @@ export class ProductStatusComponent {
   ngOnInit(): void {
     this.getTrendingProducts();
     this.getStockOutProducts(0);
+    this.getAprioriData();
   }
 
   getTrendingProducts(): void {
@@ -52,6 +56,17 @@ export class ProductStatusComponent {
 
   goToProduct(id: number) {
     this.router.navigate(['/product', id]);
+  }
+
+  getAprioriData(){
+    this.statusService.getAprioriData().subscribe(
+      res=>{
+        this.rules = res;
+      },
+      error=>{
+
+      }
+    )
   }
 
   setActiveTab(tab: string): void {
