@@ -1,4 +1,10 @@
-<h2>This is a e-comerse website for my software project lab-3 in 8th semister.</h2>
+<h2>This is a e-comerse website for my software project lab-3(SPL-3) in 8th semister.</h2>
+There are three part in my project.
+    (i) Cold start strategy-
+          For new user and new product this work. It gets from <a href="https://www.mdpi.com/2071-1050/13/19/10786">this research paper</a>.
+    (ii) For login user, it create preference matrix that calculate which product user prefer more. Then cluster same product and give suggession to user.
+    (iii) Notification -
+          Use cosine similarity, we can get which product user like/necessary after a product buy.
 <h2>This site is build for implement recomendation system.</h2>
 
 <h2>Frontent: </h2>
